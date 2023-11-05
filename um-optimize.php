@@ -1,14 +1,19 @@
 <?php
 /**
-  Plugin Name: Ultimate Member - Optimize
-	Plugin URI: https://github.com/umdevelopera/um-optimize
-  Description: Optimize loading of the Ultimate Member pages and resources
-  Version: 1.0.0
-	Author: umdevelopera
-	Author URI:  https://github.com/umdevelopera
-  Text Domain: um-optimize
-  Domain Path: /languages
-	UM version:  2.6.11
+ * Plugin Name: Ultimate Member - Optimize
+ * Plugin URI:  https://github.com/umdevelopera/um-optimize
+ * Description: Optimize loading for sites with the Ultimate Member plugin.
+ * Author:      umdevelopera
+ * Author URI:  https://github.com/umdevelopera
+ * Text Domain: um-optimize
+ * Domain Path: /languages
+ *
+ * Version: 1.0.0
+ * UM version: 2.7.0
+ * Requires at least: 5.5
+ * Requires PHP: 5.6
+ *
+ * @package UM Extended
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -25,21 +30,8 @@ define( 'um_optimize_plugin', plugin_basename( __FILE__ ) );
 define( 'um_optimize_extension', $plugin_data['Name'] );
 define( 'um_optimize_version', $plugin_data['Version'] );
 define( 'um_optimize_textdomain', 'um-optimize' );
-define( 'um_optimize_requires', '2.6.11' );
+define( 'um_optimize_requires', '2.7.0' );
 
-// Activation script.
-if ( ! function_exists( 'um_optimize_activation_hook' ) ) {
-	function um_optimize_activation_hook() {
-		$version = get_option( 'um_optimize_version' );
-		if ( ! $version ) {
-			update_option( 'um_optimize_last_version_upgrade', um_optimize_version );
-		}
-		if ( $version != um_optimize_version ) {
-			update_option( 'um_optimize_version', um_optimize_version );
-		}
-	}
-}
-register_activation_hook( um_optimize_plugin, 'um_optimize_activation_hook' );
 
 // Check dependencies.
 if ( ! function_exists( 'um_optimize_check_dependencies' ) ) {
@@ -55,13 +47,7 @@ if ( ! function_exists( 'um_optimize_check_dependencies' ) ) {
 			);
 		} else {
 			require_once 'includes/core/class-um-optimize.php';
-
-			function um_optimize_init() {
-				if ( function_exists( 'UM' ) ) {
-					UM()->set_class( 'Optimize', true );
-				}
-			}
-			add_action( 'plugins_loaded', 'um_optimize_init', 4, 1 );
+			UM()->set_class( 'Optimize', true );
 		}
 	}
 }
