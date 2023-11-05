@@ -1,33 +1,39 @@
 === Ultimate Member - Optimize ===
+
 Author: umdevelopera
 Author URI: https://github.com/umdevelopera
 Plugin URI: https://github.com/umdevelopera/um-optimize
 Tags: ultimate member, optimize, assets
-Requires at least: 6.0
-Tested up to: 6.3.1
+Requires at least: 5.5
+Tested up to: 6.4
+Requires UM core at least: 2.6.8
+Tested UM core up to: 2.7.0
 Stable tag: 1.0.0
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
-Requires UM core at least: 2.6.11
 
 == Description ==
 
-Optimize loading of the Ultimate Member pages and resources.
+Optimize loading for sites with the Ultimate Member plugin.
 
 = Key Features =
 
-- Removes CSS and JS files that belongs to Ultimate Member and its extensions if these files are not used on the page.
-
-== Installation ==
-
-You can install this plugin from the ZIP file as any other plugin. Follow this instruction: https://wordpress.org/support/article/managing-plugins/#upload-via-wordpress-admin
+* Removes CSS and JS files that belongs to Ultimate Member and its extensions from pages where there are no Ultimate Member elements.
+* Combines CSS and JS files that belongs to Ultimate Member and its extensions on pages with Ultimate Member elements.
+* Minifies combined files.
 
 = Documentation & Support =
 
 This is a free extension created for the community. The Ultimate Member team does not provide any support for this extension. Open new issue in the GitHub repository if you face a problem: https://github.com/umdevelopera/um-optimize/issues
 
+== Installation ==
+
+Download ZIP file from GitHub or Google Drive. You can find download links here: https://github.com/umdevelopera/um-optimize
+
+You can install this plugin from the ZIP file as any other plugin. Follow this instruction: https://wordpress.org/support/article/managing-plugins/#upload-via-wordpress-admin
+
 == Changelog ==
 
-= 1.0.0: October 3, 2023
+= 1.0.0: November 19, 2023 =
 
-- Added feature that removes CSS and JS files if these files are not used on the page.
+* Initial release.

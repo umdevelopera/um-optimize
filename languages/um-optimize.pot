@@ -1,0 +1,112 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Ultimate Member - Optimize\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-19 21:04+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.6; wp-6.4-RC3\n"
+"X-Domain: um-optimize"
+
+#: includes/admin/class-admin.php:62
+msgid "Combine CSS files"
+msgstr ""
+
+#: includes/admin/class-admin.php:63
+msgid ""
+"Combine CSS files queued by the Ultimate Member plugin and its extensions."
+msgstr ""
+
+#: includes/admin/class-admin.php:68
+msgid "Combine JS files"
+msgstr ""
+
+#: includes/admin/class-admin.php:69
+msgid ""
+"Combine JS files queued by the Ultimate Member plugin and its extensions."
+msgstr ""
+
+#: includes/admin/class-admin.php:44
+msgid "CSS and JS"
+msgstr ""
+
+#: includes/admin/class-admin.php:51
+msgid ""
+"Dequeue CSS files queued by the Ultimate Member plugin from pages where "
+"there are no Ultimate Member elements."
+msgstr ""
+
+#: includes/admin/class-admin.php:57
+msgid ""
+"Dequeue JS files queued by the Ultimate Member plugin from pages where there "
+"are no Ultimate Member elements."
+msgstr ""
+
+#: includes/admin/class-admin.php:50
+msgid "Dequeue unused CSS files"
+msgstr ""
+
+#: includes/admin/class-admin.php:56
+msgid "Dequeue unused JS files"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://github.com/umdevelopera"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://github.com/umdevelopera/um-optimize"
+msgstr ""
+
+#: includes/admin/class-admin.php:78
+msgid "Minify combined CSS files."
+msgstr ""
+
+#: includes/admin/class-admin.php:85
+msgid "Minify combined JS files."
+msgstr ""
+
+#: includes/admin/class-admin.php:77
+msgid "Minify CSS files"
+msgstr ""
+
+#: includes/admin/class-admin.php:84
+msgid "Minify JS files"
+msgstr ""
+
+#: includes/admin/class-admin.php:91
+msgid "Optimize"
+msgstr ""
+
+#: includes/admin/class-admin.php:45
+msgid "Optimize CSS and JS files loading"
+msgstr ""
+
+#. Description of the plugin
+msgid "Optimize loading for sites with the Ultimate Member plugin."
+msgstr ""
+
+#. %s - plugin name.
+#: um-optimize.php:45
+#, php-format
+msgid ""
+"The <strong>%s</strong> extension requires the Ultimate Member plugin to be "
+"activated to work properly. You can download it <a href=\"https://wordpress."
+"org/plugins/ultimate-member\">here</a>"
+msgstr ""
+
+#. Name of the plugin
+msgid "Ultimate Member - Optimize"
+msgstr ""
+
+#. Author of the plugin
+msgid "umdevelopera"
+msgstr ""
