@@ -288,6 +288,35 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Assets' ) ) {
 
 
 		/**
+		 * Get an array of post types added by Ultimate Member and its extensions
+		 *
+		 * @since 1.1.0
+		 *
+		 * @return array A collection of Ultimate Member post types.
+		 */
+		public function get_um_post_types() {
+			$um_post_types = array(
+				'um_directory',
+				'um_form',
+				'um_role',
+				'um_account_tabs',
+				'um_activity',
+				'um_groups',
+				'um_groups_discussion',
+				'um_mailchimp',
+				'um_notice',
+				'um_private_content',
+				'um_profile_tabs',
+				'um_review',
+				'um_social_login',
+				'um_notes',
+				'um_user_photos',
+			);
+			return apply_filters( 'um_optimize_post_types', $um_post_types );
+		}
+
+
+		/**
 		 * Get an array of shortcodes added by Ultimate Member and its extensions
 		 *
 		 * @return array A collection of Ultimate Member shortcodes.
@@ -375,24 +404,20 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Assets' ) ) {
 				return true;
 			}
 
-			$um_pages = UM()->config()->permalinks;
-			$post     = get_post();
+			$um_pages      = UM()->config()->permalinks;
+			$um_post_types = $this->get_um_post_types();
 
-			if ( $post && is_a( $post, 'WP_Post' ) ) {
+			if ( is_singular() ) {
+				$post = get_post();
 				if ( in_array( $post->ID, $um_pages, true ) ) {
+					return true;
+				}
+				if ( in_array( $post->post_type, $um_post_types, true ) ) {
 					return true;
 				}
 				foreach ( $this->get_um_shortcodes() as $shortcode ) {
 					if ( strpos( $post->post_content, '[' . $shortcode ) !== FALSE ) {
 						$this->has_um_shortcode = true;
-						return true;
-					}
-				}
-			} elseif ( ! empty( $_SERVER['REQUEST_URI'] ) ) {
-				$request_uri = wp_unslash( $_SERVER['REQUEST_URI'] );
-				foreach ( $um_pages as $page_id ) {
-					$permalink = get_permalink( $page_id );
-					if ( false !== strpos( $permalink, $request_uri ) ) {
 						return true;
 					}
 				}
@@ -469,22 +494,12 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Assets' ) ) {
 					'url("../'    => 'url("' . $parent_dir . '/',
 					'url("font'   => 'url("' . $dir . '/font',
 					'url("images' => 'url("' . $dir . '/images',
+					'url(./'      => 'url(' . $dir . '/',
+					'url(../'     => 'url(' . $parent_dir . '/',
+					'url(font'    => 'url(' . $dir . '/font',
+					'url(images'  => 'url(' . $dir . '/images',
 				);
 				$filecontent = strtr( $filecontent, $replace_pairs );
-
-				/* For testing */
-//				if ( false !== stripos( $filecontent, 'url("./' ) ) {
-//					str_replace( 'url("./', 'url("' . $dir . '/', $filecontent );
-//				}
-//				if ( false !== stripos( $filecontent, 'url("../' ) ) {
-//					str_replace( 'url("../', 'url("' . $parent_dir . '/', $filecontent );
-//				}
-//				if ( false !== stripos( $filecontent, 'url("font' ) ) {
-//					str_replace( 'url("font', 'url("' . $dir . '/font', $filecontent );
-//				}
-//				if ( false !== stripos( $filecontent, 'url("images' ) ) {
-//					str_replace( 'url("images', 'url("' . $dir . '/images', $filecontent );
-//				}
 
 				if ( UM()->options()->get( 'um_optimize_css_combine' ) ) {
 					if ( ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) || ( defined( 'UM_SCRIPT_DEBUG' ) && UM_SCRIPT_DEBUG ) ) {
