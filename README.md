@@ -34,6 +34,9 @@ __Note:__ Settings "Minify CSS files" and "Minify JS files" are hidden if origin
 
 ### Screenshots
 
+Image - Optimize settings.
+![UM Settings, General, Optimize](https://github.com/umdevelopera/um-optimize/assets/113178913/f6554941-5fc5-4e2a-aa83-8df7992a80df)
+
 ## Support
 
 This is a free extension created for the community. The Ultimate Member team does not provide any support for this extension. Open new [issue](https://github.com/umdevelopera/um-optimize/issues) if you face a problem.
