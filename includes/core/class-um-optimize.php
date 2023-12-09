@@ -46,12 +46,29 @@ class UM_Optimize {
 	 * Class constructor
 	 */
 	public function __construct() {
-		if ( UM()->is_request( 'admin' ) ) {
-			$this->admin();
-		} elseif( UM()->is_ajax() ) {
 
+		if( UM()->is_ajax() ) {
+			$this->member_directory();
+			$this->query();
+		} elseif ( UM()->is_request( 'admin' ) ) {
+			$this->admin();
 		} elseif ( UM()->is_request( 'frontend' ) ) {
 			$this->assets();
+			$this->query();
+		}
+
+		// Extensions.
+		if ( defined( 'um_activity_version' ) ) {
+			require_once um_optimize_path . 'includes/extensions/activity.php';
+		}
+		if ( defined( 'um_groups_version' ) ) {
+			require_once um_optimize_path . 'includes/extensions/groups.php';
+		}
+		if ( defined( 'um_user_notes_version' ) ) {
+			require_once um_optimize_path . 'includes/extensions/user_notes.php';
+		}
+		if ( defined( 'um_user_photos_version' ) ) {
+			require_once um_optimize_path . 'includes/extensions/user_photos.php';
 		}
 
 		// Loads a plugin's translated strings.
@@ -83,9 +100,38 @@ class UM_Optimize {
 	 */
 	public function assets() {
 		if ( empty( UM()->classes['um_optimize_assets'] ) ) {
+			require_once um_optimize_path . 'includes/core/class-assets.php';
 			UM()->classes['um_optimize_assets'] = new um_ext\um_optimize\core\Assets();
 		}
 		return UM()->classes['um_optimize_assets'];
+	}
+
+
+	/**
+	 * Optimize member directories.
+	 *
+	 * @return um_ext\um_optimize\core\Member_Directory()
+	 */
+	public function member_directory() {
+		if ( empty( UM()->classes['um_optimize_member_directory'] ) ) {
+			require_once um_optimize_path . 'includes/core/class-member-directory.php';
+			UM()->classes['um_optimize_member_directory'] = new um_ext\um_optimize\core\Member_Directory();
+		}
+		return UM()->classes['um_optimize_member_directory'];
+	}
+
+
+	/**
+	 * Optimize queries.
+	 *
+	 * @return um_ext\um_optimize\core\Query()
+	 */
+	public function query() {
+		if ( empty( UM()->classes['um_optimize_query'] ) ) {
+			require_once um_optimize_path . 'includes/core/class-query.php';
+			UM()->classes['um_optimize_query'] = new um_ext\um_optimize\core\Query();
+		}
+		return UM()->classes['um_optimize_query'];
 	}
 
 

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ultimate Member - Optimize\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-19 21:04+0000\n"
+"POT-Creation-Date: 2023-12-10 22:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -16,45 +16,45 @@ msgstr ""
 "X-Loco-Version: 2.6.6; wp-6.4-RC3\n"
 "X-Domain: um-optimize"
 
-#: includes/admin/class-admin.php:62
+#: includes/admin/class-admin.php:64
 msgid "Combine CSS files"
 msgstr ""
 
-#: includes/admin/class-admin.php:63
+#: includes/admin/class-admin.php:65
 msgid ""
 "Combine CSS files queued by the Ultimate Member plugin and its extensions."
 msgstr ""
 
-#: includes/admin/class-admin.php:68
+#: includes/admin/class-admin.php:70
 msgid "Combine JS files"
 msgstr ""
 
-#: includes/admin/class-admin.php:69
+#: includes/admin/class-admin.php:71
 msgid ""
 "Combine JS files queued by the Ultimate Member plugin and its extensions."
 msgstr ""
 
-#: includes/admin/class-admin.php:44
+#: includes/admin/class-admin.php:46
 msgid "CSS and JS"
 msgstr ""
 
-#: includes/admin/class-admin.php:51
+#: includes/admin/class-admin.php:53
 msgid ""
 "Dequeue CSS files queued by the Ultimate Member plugin from pages where "
 "there are no Ultimate Member elements."
 msgstr ""
 
-#: includes/admin/class-admin.php:57
+#: includes/admin/class-admin.php:59
 msgid ""
 "Dequeue JS files queued by the Ultimate Member plugin from pages where there "
 "are no Ultimate Member elements."
 msgstr ""
 
-#: includes/admin/class-admin.php:50
+#: includes/admin/class-admin.php:52
 msgid "Dequeue unused CSS files"
 msgstr ""
 
-#: includes/admin/class-admin.php:56
+#: includes/admin/class-admin.php:58
 msgid "Dequeue unused JS files"
 msgstr ""
 
@@ -66,32 +66,84 @@ msgstr ""
 msgid "https://github.com/umdevelopera/um-optimize"
 msgstr ""
 
-#: includes/admin/class-admin.php:78
+#: includes/admin/class-admin.php:79
 msgid "Minify combined CSS files."
 msgstr ""
 
-#: includes/admin/class-admin.php:85
+#: includes/admin/class-admin.php:86
 msgid "Minify combined JS files."
 msgstr ""
 
-#: includes/admin/class-admin.php:77
+#: includes/admin/class-admin.php:78
 msgid "Minify CSS files"
 msgstr ""
 
-#: includes/admin/class-admin.php:84
+#: includes/admin/class-admin.php:85
 msgid "Minify JS files"
 msgstr ""
 
-#: includes/admin/class-admin.php:91
+#: includes/admin/class-admin.php:141
 msgid "Optimize"
 msgstr ""
 
-#: includes/admin/class-admin.php:45
+#: includes/admin/class-admin.php:47
 msgid "Optimize CSS and JS files loading"
 msgstr ""
 
 #. Description of the plugin
 msgid "Optimize loading for sites with the Ultimate Member plugin."
+msgstr ""
+
+#: includes/admin/class-admin.php:96
+msgid "Optimize SQL queries to get posts and users faster"
+msgstr ""
+
+#: includes/admin/class-admin.php:135
+msgid "Optimize the SQL query that gets users for the member directory."
+msgstr ""
+
+#: includes/admin/class-admin.php:127
+msgid ""
+"Optimize the SQL query that retrieves albums for the User Photos extension."
+msgstr ""
+
+#: includes/admin/class-admin.php:119
+msgid ""
+"Optimize the SQL query that retrieves notes for the User Notes extension."
+msgstr ""
+
+#: includes/admin/class-admin.php:111
+msgid "Optimize the SQL query that retrieves posts for the Groups extension."
+msgstr ""
+
+#: includes/admin/class-admin.php:103
+msgid ""
+"Optimize the SQL query that retrieves posts for the Social Activity "
+"extension."
+msgstr ""
+
+#: includes/admin/class-admin.php:102
+msgid "Speed up Activity"
+msgstr ""
+
+#: includes/admin/class-admin.php:110
+msgid "Speed up Groups"
+msgstr ""
+
+#: includes/admin/class-admin.php:134
+msgid "Speed up member directories"
+msgstr ""
+
+#: includes/admin/class-admin.php:118
+msgid "Speed up Notes"
+msgstr ""
+
+#: includes/admin/class-admin.php:126
+msgid "Speed up Photos"
+msgstr ""
+
+#: includes/admin/class-admin.php:95
+msgid "SQL queries"
 msgstr ""
 
 #. %s - plugin name.
@@ -101,6 +153,10 @@ msgid ""
 "The <strong>%s</strong> extension requires the Ultimate Member plugin to be "
 "activated to work properly. You can download it <a href=\"https://wordpress."
 "org/plugins/ultimate-member\">here</a>"
+msgstr ""
+
+#: includes/admin/class-admin.php:136
+msgid "This experimental tool is only available in debug mode for now."
 msgstr ""
 
 #. Name of the plugin
