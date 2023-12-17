@@ -44,10 +44,10 @@ function um_optimize_activity__get_meta_sql( $sql, $queries, $type, $primary_tab
 		$sql_um = UM()->Optimize()->query()->get_meta_sql( $sql, $queries, $type, $primary_table, $primary_id_column, $context );
 
 		// TESTING.
-//		error_log( 'Test member directory. JOIN:     ' . $sql['join'] );
-//		error_log( 'Test member directory. JOIN_UM:  ' . $sql_um['join'] );
-//		error_log( 'Test member directory. WHERE:    ' . $sql['where'] );
-//		error_log( 'Test member directory. WHERE_UM: ' . $sql_um['where'] );
+//		error_log( 'Test activity. JOIN:     ' . $sql['join'] );
+//		error_log( 'Test activity. JOIN_UM:  ' . $sql_um['join'] );
+//		error_log( 'Test activity. WHERE:    ' . $sql['where'] );
+//		error_log( 'Test activity. WHERE_UM: ' . $sql_um['where'] );
 
 		return $sql_um;
 	}

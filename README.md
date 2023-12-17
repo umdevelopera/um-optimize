@@ -3,9 +3,9 @@
 Optimize loading for sites with the Ultimate Member plugin.
 
 ## Key Features
+
 - Removes CSS and JS files that belongs to Ultimate Member and its extensions from pages where there are no Ultimate Member elements.
 - Combines CSS and JS files that belongs to Ultimate Member and its extensions on pages with Ultimate Member elements.
-- Minifies combined files.
 - Optimizes SQL queries to get posts and users faster.
 
 ## Installation
@@ -22,7 +22,7 @@ Once the plugin is cloned, enter your site admin dashboard and go to _wp-admin >
 
 ### How to install from ZIP archive
 
-You can install this plugin from the [ZIP file](https://drive.google.com/file/d/1vtzVKyZJ5pgFAWKBs734ehL8Z1JZfuF3/view) as any other plugin. Follow [this instruction](https://wordpress.org/support/article/managing-plugins/#upload-via-wordpress-admin).
+You can install this plugin from the [ZIP file](https://drive.google.com/file/d/12d8KIT6_nkiRytgbVNhpfkjuQLesqmBu/view) as any other plugin. Follow [this instruction](https://wordpress.org/support/article/managing-plugins/#upload-via-wordpress-admin).
 
 ## How to use
 
@@ -32,18 +32,12 @@ Go to *wp-admin > Ultimate Member > Settings > General > Optimize* to manage set
 - **Dequeue unused JS files** - Dequeue JS files queued by the Ultimate Member plugin from pages where there are no Ultimate Member elements.
 - **Combine CSS files** - Combine CSS files queued by the Ultimate Member plugin and its extensions.
 - **Combine JS files** - Combine JS files queued by the Ultimate Member plugin and its extensions.
-- **Minify CSS files** - *(optional)* Minify combined CSS files.
-- **Minify JS files** - *(optional)* Minify combined JS files.
-
-__Note:__ Settings "Minify CSS files" and "Minify JS files" are hidden if original files are minified.
 
 - **Speed up Activity** - *(optional)* Optimize the SQL query that retrieves posts for the [Social Activity](https://ultimatemember.com/extensions/social-activity/) extension.
 - **Speed up Groups** - *(optional)* Optimize the SQL query that retrieves posts for the [Groups](https://ultimatemember.com/extensions/groups/) extension.
 - **Speed up Notes** - *(optional)* Optimize the SQL query that retrieves notes for the [User Notes](https://ultimatemember.com/extensions/user-notes/) extension.
 - **Speed up Photos** - *(optional)* Optimize the SQL query that retrieves albums for the [User Photos](https://ultimatemember.com/extensions/user-photos/) extension.
 - **Speed up member directories** - *(optional)* Optimize the SQL query that retrieves users for the member directory.
-
-__Note:__ The experimental tool "Speed up member directories" is only available in debug mode for now.
 
 Image - Optimize settings.
 ![UM Settings, General, Optimize](https://github.com/umdevelopera/um-optimize/assets/113178913/22783720-c9af-4562-8ca7-7fff43123d99)
@@ -52,7 +46,7 @@ Image - Optimize settings.
 
 This is a free extension created for the community. The Ultimate Member team does not provide support for this extension. Open new [issue](https://github.com/umdevelopera/um-optimize/issues) if you are facing a problem or have a suggestion.
 
-## Related links
+### Related links
 
 Ultimate Member home page: https://ultimatemember.com
 

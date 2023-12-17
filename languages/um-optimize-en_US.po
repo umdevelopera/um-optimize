@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Ultimate Member - Optimize\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-05 20:07+0000\n"
-"PO-Revision-Date: 2023-12-10 22:31+0000\n"
+"PO-Revision-Date: 2023-12-17 21:54+0000\n"
 "Last-Translator: Denis Baran\n"
 "Language-Team: English (United States)\n"
 "Language: en_US\n"
@@ -65,23 +65,7 @@ msgstr ""
 msgid "https://github.com/umdevelopera/um-optimize"
 msgstr ""
 
-#: includes/admin/class-admin.php:79
-msgid "Minify combined CSS files."
-msgstr ""
-
-#: includes/admin/class-admin.php:86
-msgid "Minify combined JS files."
-msgstr ""
-
-#: includes/admin/class-admin.php:78
-msgid "Minify CSS files"
-msgstr ""
-
-#: includes/admin/class-admin.php:85
-msgid "Minify JS files"
-msgstr ""
-
-#: includes/admin/class-admin.php:141
+#: includes/admin/class-admin.php:123
 msgid "Optimize"
 msgstr ""
 
@@ -93,55 +77,55 @@ msgstr ""
 msgid "Optimize loading for sites with the Ultimate Member plugin."
 msgstr ""
 
-#: includes/admin/class-admin.php:96
+#: includes/admin/class-admin.php:79
 msgid "Optimize SQL queries to get posts and users faster"
 msgstr ""
 
-#: includes/admin/class-admin.php:135
-msgid "Optimize the SQL query that gets users for the member directory."
-msgstr ""
-
-#: includes/admin/class-admin.php:127
+#: includes/admin/class-admin.php:110
 msgid ""
 "Optimize the SQL query that retrieves albums for the User Photos extension."
 msgstr ""
 
-#: includes/admin/class-admin.php:119
+#: includes/admin/class-admin.php:102
 msgid ""
 "Optimize the SQL query that retrieves notes for the User Notes extension."
 msgstr ""
 
-#: includes/admin/class-admin.php:111
+#: includes/admin/class-admin.php:94
 msgid "Optimize the SQL query that retrieves posts for the Groups extension."
 msgstr ""
 
-#: includes/admin/class-admin.php:103
+#: includes/admin/class-admin.php:86
 msgid ""
 "Optimize the SQL query that retrieves posts for the Social Activity "
 "extension."
 msgstr ""
 
-#: includes/admin/class-admin.php:102
+#: includes/admin/class-admin.php:118
+msgid "Optimize the SQL query that retrieves users for the member directory."
+msgstr ""
+
+#: includes/admin/class-admin.php:85
 msgid "Speed up Activity"
 msgstr ""
 
-#: includes/admin/class-admin.php:110
+#: includes/admin/class-admin.php:93
 msgid "Speed up Groups"
 msgstr ""
 
-#: includes/admin/class-admin.php:134
+#: includes/admin/class-admin.php:117
 msgid "Speed up member directories"
 msgstr ""
 
-#: includes/admin/class-admin.php:118
+#: includes/admin/class-admin.php:101
 msgid "Speed up Notes"
 msgstr ""
 
-#: includes/admin/class-admin.php:126
+#: includes/admin/class-admin.php:109
 msgid "Speed up Photos"
 msgstr ""
 
-#: includes/admin/class-admin.php:95
+#: includes/admin/class-admin.php:78
 msgid "SQL queries"
 msgstr ""
 
@@ -152,10 +136,6 @@ msgid ""
 "The <strong>%s</strong> extension requires the Ultimate Member plugin to be "
 "activated to work properly. You can download it <a href=\"https://wordpress."
 "org/plugins/ultimate-member\">here</a>"
-msgstr ""
-
-#: includes/admin/class-admin.php:136
-msgid "This experimental tool is only available in debug mode for now."
 msgstr ""
 
 #. Name of the plugin
