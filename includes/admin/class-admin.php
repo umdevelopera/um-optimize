@@ -71,23 +71,6 @@ if ( ! class_exists( 'um_ext\um_optimize\admin\Admin' ) ) {
 				'tooltip' => __( 'Combine JS files queued by the Ultimate Member plugin and its extensions.', 'um-optimize' ),
 			);
 
-			if ( ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) || ( defined( 'UM_SCRIPT_DEBUG' ) && UM_SCRIPT_DEBUG ) ) {
-				$fields[] = array(
-					'id'          => 'um_optimize_css_minify',
-					'type'        => 'checkbox',
-					'label'       => __( 'Minify CSS files', 'um-optimize' ),
-					'tooltip'     => __( 'Minify combined CSS files.', 'um-optimize' ),
-					'conditional' => array( 'um_optimize_css_combine', '=', '1' ),
-				);
-				$fields[] = array(
-					'id'          => 'um_optimize_js_minify',
-					'type'        => 'checkbox',
-					'label'       => __( 'Minify JS files', 'um-optimize' ),
-					'tooltip'     => __( 'Minify combined JS files.', 'um-optimize' ),
-					'conditional' => array( 'um_optimize_js_combine', '=', '1' ),
-				);
-			}
-
 			// SQL queries.
 			$fields[] = array(
 				'id'      => 'um_optimize_assets_info',
@@ -127,13 +110,12 @@ if ( ! class_exists( 'um_ext\um_optimize\admin\Admin' ) ) {
 					'tooltip' => __( 'Optimize the SQL query that retrieves albums for the User Photos extension.', 'um-optimize' ),
 				);
 			}
-			if ( defined( 'WP_DEBUG' ) && UM()->options()->get( 'members_page' ) ) {
+			if ( UM()->options()->get( 'members_page' ) ) {
 				$fields[] = array(
-					'id'          => 'um_optimize_members',
-					'type'        => 'checkbox',
-					'label'       => __( 'Speed up member directories', 'um-optimize' ),
-					'tooltip'     => __( 'Optimize the SQL query that retrieves users for the member directory.', 'um-optimize' ),
-					'description' => __( 'This experimental tool is only available in debug mode for now.', 'um-optimize' ),
+					'id'      => 'um_optimize_members',
+					'type'    => 'checkbox',
+					'label'   => __( 'Speed up member directories', 'um-optimize' ),
+					'tooltip' => __( 'Optimize the SQL query that retrieves users for the member directory.', 'um-optimize' ),
 				);
 			}
 

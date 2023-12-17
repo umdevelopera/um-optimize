@@ -23,18 +23,11 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Assets' ) ) {
 	class Assets {
 
 		/**
-		 * Combined styles.
+		 * Files extension. Accepts 'css', 'js'.
 		 *
-		 * @var array
+		 * @var string
 		 */
-		protected $css = array();
-
-		/**
-		 * Combined scripts.
-		 *
-		 * @var type
-		 */
-		protected $js = array();
+		protected $ext;
 
 		/**
 		 * Set true if footer scripts are printing.
@@ -42,6 +35,20 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Assets' ) ) {
 		 * @var bool
 		 */
 		protected $footer = false;
+
+		/**
+		 * An array of handles of dependencies already queued.
+		 *
+		 * @var string[]
+		 */
+		public $done = array();
+
+		/**
+		 * An array of handles of queued dependencies.
+		 *
+		 * @var string[]
+		 */
+		public $queue = array();
 
 		/**
 		 * Set true if the page has Ultimate Member form.
@@ -64,6 +71,20 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Assets' ) ) {
 		 */
 		private $has_um_widget = false;
 
+		/**
+		 * An array of handles of queued UM dependencies.
+		 *
+		 * @var array
+		 */
+		private $um_dependencies = array();
+
+		/**
+		 * Dependencies API. Accepts WP_Scripts, WP_Styles.
+		 *
+		 * @var \WP_Dependencies
+		 */
+		private $wp_dependencies;
+
 
 		/**
 		 * Class constructor
@@ -80,8 +101,6 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Assets' ) ) {
 
 			add_action( 'wp_print_scripts', array( $this, 'optimize_assets' ), 10 );
 			add_action( 'wp_print_styles', array( $this, 'optimize_assets' ), 10 );
-
-			add_filter( 'um_optimize_filecontent', array( $this, 'optimize_filecontent' ), 10, 3 );
 		}
 
 
@@ -130,25 +149,39 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Assets' ) ) {
 		 * @param string $ext Files extension. Accepts 'css', 'js'.
 		 */
 		public function combine_assets( $ext ) {
+			if ( $ext && in_array( $ext, array( 'css', 'js' ), true ) ) {
+				$this->ext = $ext;
+			}
 
-			if ( 'css' === $ext ) {
-				$assets = wp_styles();
-			} elseif ( 'js' === $ext ) {
-				$assets = wp_scripts();
+			if ( 'css' === $this->ext ) {
+				$this->wp_dependencies = wp_styles();
+			} elseif ( 'js' === $this->ext ) {
+				$this->wp_dependencies = wp_scripts();
 			} else {
 				return false;
 			}
 
-			$um_assets = $this->get_um_assets( $assets );
-			if ( $um_assets ) {
-				$combined = $this->get_combined_file( $um_assets, $ext );
-				if ( $combined && is_array( $combined ) ) {
-					$assets->add( $combined['handle'], $combined['src'], $combined['deps'] );
-					$assets->add_data( $combined['handle'], 'data', $combined['data'] );
-					$assets->enqueue( $combined['handle'] );
-					$assets->dequeue( array_keys( $um_assets ) );
-					$this->$ext = array_merge( $this->$ext, $um_assets );
-				}
+			$um_dependencies = $this->get_um_dependencies( $this->wp_dependencies->queue, $ext, (int) $this->footer );
+
+			if ( empty( $this->done[ $this->ext ] ) ) {
+				$this->done[ $this->ext ] = array();
+			}
+			if ( empty( $this->queue[ $this->ext ] ) ) {
+				$this->queue[ $this->ext ] = array();
+			}
+			$this->queue[ $this->ext ] = array_merge( $this->queue[ $this->ext ], array_keys( $um_dependencies ) );
+
+			// Exclude files that have already been combined.
+			$um_dependencies_new = array_diff_key( $um_dependencies, array_flip( $this->done[ $this->ext ] ) );
+
+			$combined = $this->get_combined_file( $um_dependencies_new, $ext );
+			if ( $combined && is_array( $combined ) ) {
+				$this->wp_dependencies->add( $combined['handle'], $combined['src'], $combined['deps'] );
+				$this->wp_dependencies->add_data( $combined['handle'], 'data', $combined['data'] );
+				$this->wp_dependencies->add_data( $combined['handle'], 'group', $this->footer );
+				$this->wp_dependencies->enqueue( $combined['handle'] );
+				$this->wp_dependencies->dequeue( array_keys( $um_dependencies_new ) );
+				$this->done[ $this->ext ] = array_merge( $this->done[ $this->ext ], array_keys( $um_dependencies_new ) );
 			}
 		}
 
@@ -159,19 +192,22 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Assets' ) ) {
 		 * @param string $ext Files extension. Accepts 'css', 'js'.
 		 */
 		public function dequeue_assets( $ext ) {
+			if ( $ext && in_array( $ext, array( 'css', 'js' ), true ) ) {
+				$this->ext = $ext;
+			}
 
-			if ( 'css' === $ext ) {
-				$assets = wp_styles();
-			} elseif ( 'js' === $ext ) {
-				$assets = wp_scripts();
+			if ( 'css' === $this->ext ) {
+				$this->wp_dependencies = wp_styles();
+			} elseif ( 'js' === $this->ext ) {
+				$this->wp_dependencies = wp_scripts();
 			} else {
 				return false;
 			}
 
-			if ( isset( $assets->queue ) && is_array( $assets->queue ) ) {
-				foreach ( $assets->queue as $handle ) {
-					if ( $this->is_ultimatemember_file( $assets->registered[ $handle ] ) ) {
-						$assets->dequeue( $handle );
+			if ( isset( $this->wp_dependencies->queue ) && is_array( $this->wp_dependencies->queue ) ) {
+				foreach ( $this->wp_dependencies->queue as $handle ) {
+					if ( $this->is_ultimatemember_file( $this->wp_dependencies->registered[ $handle ] ) ) {
+						$this->wp_dependencies->dequeue( $handle );
 					}
 				}
 			}
@@ -181,19 +217,27 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Assets' ) ) {
 		/**
 		 * Get or create combined file.
 		 *
-		 * @param array  $um_assets A collection of _WP_Dependency.
+		 * @param array  $um_dependencies A collection of _WP_Dependency.
 		 * @param string $ext       Files extension. Accepts 'css', 'js'.
 		 *
 		 * @return array|boolean Information about combined field.
 		 */
-		public function get_combined_file( $um_assets, $ext ){
-			if ( empty( $um_assets ) ) {
+		public function get_combined_file( $um_dependencies, $ext = '' ){
+			if ( $ext && in_array( $ext, array( 'css', 'js' ), true ) ) {
+				$this->ext = $ext;
+			}
+
+			// Exclude files that have already been combined.
+			if ( ! empty( $this->done[ $this->ext ] ) ) {
+				$um_dependencies = array_diff_key( (array) $um_dependencies, (array) $this->done[ $this->ext ] );
+			}
+			if ( empty( $um_dependencies ) ) {
 				return false;
 			}
 
-			if ( 'css' === $ext ) {
+			if ( 'css' === $this->ext ) {
 				$handle = 'um-combined-styles';
-			} elseif ( 'js' === $ext ) {
+			} elseif ( 'js' === $this->ext ) {
 				$handle = 'um-combined-scripts';
 			} else {
 				return false;
@@ -202,41 +246,38 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Assets' ) ) {
 				$handle .= '-footer';
 			}
 
-			// Exclude files that have already been combined.
-			if ( ! empty( $this->$ext ) ) {
-				$um_assets = array_diff_key( (array) $um_assets, (array) $this->$ext );
-			}
-
-			$deps = array();
 			$data = array();
+			$deps = array();
 			$ver_ = array();
 
-			foreach ( $um_assets as $dependency ) {
-				$ver_[] = $dependency->handle . $dependency->ver;
-				$deps  += $dependency->deps;
+			foreach ( $um_dependencies as $dependency ) {
 				if ( ! empty( $dependency->extra['data'] ) ) {
 					$data[] = $dependency->extra['data'];
 				}
+				if ( ! empty( $dependency->deps ) ) {
+					$deps = array_merge( $deps, (array) $dependency->deps );
+				}
+				$ver_[] = $dependency->handle . $dependency->ver;
 			}
 
 			sort( $ver_ );
 			$version = md5( implode( ',', $ver_ ) );
-			$name    = $handle . '-' . $version . '.' . $ext;
+			$name    = $handle . '-' . $version . '.' . $this->ext;
 
 			$path = UM()->uploader()->get_upload_base_dir() . 'um_optimize/' . $name;
 			$src  = UM()->uploader()->get_upload_base_url() . 'um_optimize/' . $name;
 
 			if ( ! file_exists( $path ) ) {
-				$baseurl  = trailingslashit( home_url() );
+				$baseurl  = trailingslashit( site_url() );
 				$basepath = wp_normalize_path( ABSPATH );
 
 				$content = array();
-				foreach ( $um_assets as $dependency ) {
+				foreach ( $um_dependencies as $dependency ) {
 					$filename    = str_replace( $baseurl, $basepath, $dependency->src );
 					$filecontent = file_get_contents( $filename );
 					if ( FALSE !== $filecontent ) {
 						$content[] = '/* File: ' . basename( $filename ) . ' */';
-						$content[] = apply_filters( 'um_optimize_filecontent', $filecontent, $dependency, $ext );
+						$content[] = $this->optimize_file_content( $filecontent, $dependency );
 					}
 				}
 
@@ -250,8 +291,7 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Assets' ) ) {
 			}
 
 			if ( $deps ) {
-				// Exclude files that have already been combined.
-				$deps = array_unique( array_diff( $deps, array_keys( $um_assets ), array_keys( $this->$ext ) ) );
+				$deps = array_unique( array_diff( $deps, array_keys( $um_dependencies ), array_keys( $this->um_dependencies ) ) );
 			}
 			if ( $data ) {
 				$data = implode( PHP_EOL, array_filter( $data ) );
@@ -262,28 +302,61 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Assets' ) ) {
 
 
 		/**
-		 * Get an array of Ultimate Member assets.
+		 * Get UM dependencies by queued dependencies.
 		 *
-		 * @param  WP_Dependencies $assets  WP_Styles or WP_Scripts.
-		 * @param  array           $handles An array of handles of queued dependencies.
+		 * @since 1.1.1
 		 *
-		 * @return array A collection of _WP_Dependency.
+		 * @param array  $deps_list An array of handles of queued dependencies.
+		 * @param string $ext       Files extension. Accepts 'css', 'js'.
+		 * @param int|false $group  Optional. Group level: level (int), no groups (false). Default false.
+		 *
+		 * @return array            An array of handles of queued UM dependencies.
 		 */
-		public function get_um_assets( $assets, $handles = array() ) {
-			$um_assets = array();
-			if ( empty( $handles ) && isset( $assets->queue ) && is_array( $assets->queue ) ) {
-				$handles = $assets->queue;
+		public function get_um_dependencies( $deps_list, $ext = '', $group = false ) {
+			if ( $ext && in_array( $ext, array( 'css', 'js' ), true ) ) {
+				$this->ext = $ext;
 			}
-			foreach ( $handles as $handle ) {
-				$dependency = $assets->registered[ $handle ];
-				if ( $this->is_ultimatemember_file( $dependency->src ) ) {
-					if ( ! empty( $dependency->deps ) && is_array( $dependency->deps ) ) {
-						$um_assets += $this->get_um_assets( $assets, $dependency->deps );
+
+			if ( empty( $this->um_dependencies[ $this->ext ] ) ) {
+				$this->um_dependencies[ $this->ext ] = array();
+			}
+
+			if ( is_array( $deps_list ) ) {
+				foreach ( $deps_list as $handle ) {
+					$dependency = $this->wp_dependencies->registered[ $handle ];
+					if ( empty( $dependency->src ) ) {
+						continue;
 					}
-					$um_assets[ $handle ] = $dependency;
+					if ( $this->is_ultimatemember_file( $dependency->src ) ) {
+						if ( ! empty( $dependency->deps ) && is_array( $dependency->deps ) ) {
+							$this->get_um_dependencies( $dependency->deps, $ext );
+						}
+						if ( ! array_key_exists( $handle, $this->um_dependencies[ $this->ext ] ) ) {
+							$this->um_dependencies[ $this->ext ][ $handle ] = $dependency;
+						}
+					}
 				}
 			}
-			return $um_assets;
+
+			if ( false === $group ) {
+				return $this->um_dependencies[ $this->ext ];
+			} elseif ( empty( $group ) ) {
+				$um_dependencies = array();
+				foreach ( $this->um_dependencies[ $this->ext ] as $handle => $dependency ) {
+					if ( empty( $this->wp_dependencies->get_data( $handle, 'group' ) ) ) {
+						$um_dependencies[ $handle ] = $dependency;
+					}
+				}
+				return $um_dependencies;
+			} else {
+				$um_dependencies = array();
+				foreach ( $this->um_dependencies[ $this->ext ] as $handle => $dependency ) {
+					if ( $group === $this->wp_dependencies->get_data( $handle, 'group' ) ) {
+						$um_dependencies[ $handle ] = $dependency;
+					}
+				}
+				return $um_dependencies;
+			}
 		}
 
 
@@ -466,9 +539,9 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Assets' ) ) {
 				$this->combine_assets( 'css' );
 			}
 
-			if ( ! $this->is_ultimatemember() && UM()->options()->get( 'um_optimize_css_dequeue' ) ) {
+			if ( ! $this->is_ultimatemember() && UM()->options()->get( 'um_optimize_js_dequeue' ) ) {
 				$this->dequeue_assets( 'js' );
-			} elseif ( UM()->options()->get( 'um_optimize_css_combine' ) ) {
+			} elseif ( UM()->options()->get( 'um_optimize_js_combine' ) ) {
 				$this->combine_assets( 'js' );
 			}
 		}
@@ -479,13 +552,12 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Assets' ) ) {
 		 *
 		 * @param string         $filecontent File content.
 		 * @param _WP_Dependency $dependency
-		 * @param string         $ext         File extension. Accepts 'css', 'js'.
 		 *
 		 * @return string File content.
 		 */
-		public function optimize_filecontent( $filecontent, $dependency, $ext ) {
+		public function optimize_file_content( $filecontent, $dependency ) {
 
-			if ( 'css' === $ext ) {
+			if ( 'css' === $this->ext ) {
 				$dir        = dirname( $dependency->src );
 				$parent_dir = dirname( $dir );
 
@@ -501,7 +573,7 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Assets' ) ) {
 				);
 				$filecontent = strtr( $filecontent, $replace_pairs );
 
-				if ( UM()->options()->get( 'um_optimize_css_combine' ) ) {
+				if ( apply_filters( 'um_optimize_minify_css', true ) ) {
 					if ( ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) || ( defined( 'UM_SCRIPT_DEBUG' ) && UM_SCRIPT_DEBUG ) ) {
 						$pattern = array(
 							'/^\s+|\s+$/m',
@@ -513,13 +585,12 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Assets' ) ) {
 				}
 			}
 
-			if ( 'js' === $ext ) {
-				if ( UM()->options()->get( 'um_optimize_js_minify' ) ) {
+			if ( 'js' === $this->ext ) {
+				if ( apply_filters( 'um_optimize_minify_js', true ) ) {
 					if ( ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) || ( defined( 'UM_SCRIPT_DEBUG' ) && UM_SCRIPT_DEBUG ) ) {
 						$pattern = array(
 							'/^\s+|\s+$/m',
 							'/^\/\/.*$/m',
-							'/\/\*.*?\*\//',
 							'/\/\*\*.*?\*\//s',
 						);
 						$filecontent = preg_replace( $pattern, '', $filecontent );
@@ -527,7 +598,7 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Assets' ) ) {
 				}
 			}
 
-			return $filecontent;
+			return apply_filters( 'um_optimize_file_content', $filecontent, $dependency );
 		}
 
 

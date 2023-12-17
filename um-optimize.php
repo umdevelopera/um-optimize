@@ -8,7 +8,7 @@
  * Text Domain: um-optimize
  * Domain Path: /languages
  *
- * Version: 1.1.0-alpha1
+ * Version: 1.1.1
  * UM version: 2.7.0
  * Requires at least: 5.5
  * Requires PHP: 5.6
