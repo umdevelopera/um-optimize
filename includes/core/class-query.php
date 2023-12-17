@@ -235,7 +235,7 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Query' ) ) {
 			$meta_compare_key	 = isset( $clause['compare_key'] ) ? strtoupper( $clause['compare_key'] ) : ( is_array( $meta_key ) ? 'IN' : '=' );
 			$meta_compare			 = isset( $clause['compare'] ) ? strtoupper( $clause['compare'] ) : ( is_array( $meta_value ) ? 'IN' : '=' );
 			$meta_type				 = isset( $clause['type'] ) ? trim( $clause['type'] ) : 'CHAR';
-			$alias						 = 'meta_' . $meta_key;
+			$alias						 = $wpdb->prepare( '%i', 'meta_' . $meta_key );
 
 			// JOIN ON.
 			if ( 'NOT EXISTS' === $meta_compare ) {
