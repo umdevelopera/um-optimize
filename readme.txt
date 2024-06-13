@@ -5,10 +5,10 @@ Author URI: https://github.com/umdevelopera
 Plugin URI: https://github.com/umdevelopera/um-optimize
 Tags: ultimate member, optimize, assets
 Requires at least: 5.5
-Tested up to: 6.4.2
+Tested up to: 6.5.4
 Requires UM core at least: 2.6.8
-Tested UM core up to: 2.8.0
-Stable tag: 1.1.1
+Tested UM core up to: 2.8.6
+Stable tag: 1.1.2
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -35,6 +35,11 @@ Download ZIP file from GitHub or Google Drive. You can find download links here:
 You can install this plugin from the ZIP file as any other plugin. Follow this instruction: https://wordpress.org/support/article/managing-plugins/#upload-via-wordpress-admin
 
 == Changelog ==
+
+= 1.1.2: June 13, 2024 =
+
+* Fixed: Issue #2 - Error when "Combine CSS" is active.
+* Fixed: Issue #3 - Folder um_optimize missing.
 
 = 1.1.1: December 17, 2023 =
 

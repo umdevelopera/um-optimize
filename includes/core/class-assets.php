@@ -203,12 +203,34 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Assets' ) ) {
 			} else {
 				return false;
 			}
+			if ( empty( $this->wp_dependencies->queue ) ) {
+				return false;
+			}
 
-			if ( isset( $this->wp_dependencies->queue ) && is_array( $this->wp_dependencies->queue ) ) {
-				foreach ( $this->wp_dependencies->queue as $handle ) {
-					if ( $this->is_ultimatemember_file( $this->wp_dependencies->registered[ $handle ] ) ) {
-						$this->wp_dependencies->dequeue( $handle );
-					}
+			$not_dequeue_def = array(
+				'um_notifications',
+			);
+
+			/**
+			 * Hook: um_optimize_not_dequeue
+			 *
+			 * Type: filter
+			 *
+			 * Description: Extends an array of assets that should not be dequeued.
+			 *
+			 * @since 1.1.3
+			 *
+			 * @param {array}  $not_dequeue_def An array of assets that should not be dequeued.
+			 * @param {string} $ext             A type of assets: css or js.
+			 */
+			$not_dequeue = apply_filters( 'um_optimize_not_dequeue', $not_dequeue_def, $ext );
+
+			foreach ( $this->wp_dependencies->queue as $handle ) {
+				if ( in_array( $handle, $not_dequeue, true ) ) {
+					continue;
+				}
+				if ( $this->is_ultimatemember_file( $this->wp_dependencies->registered[ $handle ] ) ) {
+					$this->wp_dependencies->dequeue( $handle );
 				}
 			}
 		}
