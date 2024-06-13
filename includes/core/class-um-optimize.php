@@ -141,13 +141,16 @@ class UM_Optimize {
 	 * @return int Number of removed files.
 	 */
 	public function clear_files() {
-		$i     = 0;
-		$dir   = wp_normalize_path( UM()->uploader()->get_upload_base_dir() . 'um_optimize/' );
-		$files = scandir( $dir );
-		foreach( $files as $file ) {
-			if ( is_file( "$dir/$file" ) && FALSE !== filemtime( "$dir/$file" ) && ( time() - filemtime( "$dir/$file" ) > DAY_IN_SECONDS ) ) {
-				unlink( "$dir/$file" );
-				$i++;
+		$i   = 0;
+		$dir = wp_normalize_path( UM()->uploader()->get_upload_base_dir() . 'um_optimize/' );
+		
+		if ( is_dir( $dir ) ) {
+			$files = scandir( $dir );
+			foreach( $files as $file ) {
+				if ( is_file( "$dir/$file" ) && FALSE !== filemtime( "$dir/$file" ) && ( time() - filemtime( "$dir/$file" ) > DAY_IN_SECONDS ) ) {
+					unlink( "$dir/$file" );
+					$i++;
+				}
 			}
 		}
 		return $i;
