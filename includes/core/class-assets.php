@@ -268,7 +268,7 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Assets' ) ) {
 			$src  = UM()->uploader()->get_upload_base_url() . 'um_optimize/' . $name;
 
 			if ( ! file_exists( $path ) ) {
-				$baseurl  = trailingslashit( home_url() );
+				$baseurl  = trailingslashit( site_url() );
 				$basepath = wp_normalize_path( ABSPATH );
 
 				$content = array();
@@ -539,9 +539,9 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Assets' ) ) {
 				$this->combine_assets( 'css' );
 			}
 
-			if ( ! $this->is_ultimatemember() && UM()->options()->get( 'um_optimize_css_dequeue' ) ) {
+			if ( ! $this->is_ultimatemember() && UM()->options()->get( 'um_optimize_js_dequeue' ) ) {
 				$this->dequeue_assets( 'js' );
-			} elseif ( UM()->options()->get( 'um_optimize_css_combine' ) ) {
+			} elseif ( UM()->options()->get( 'um_optimize_js_combine' ) ) {
 				$this->combine_assets( 'js' );
 			}
 		}
@@ -591,7 +591,6 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Assets' ) ) {
 						$pattern = array(
 							'/^\s+|\s+$/m',
 							'/^\/\/.*$/m',
-							'/\/\*.*?\*\//',
 							'/\/\*\*.*?\*\//s',
 						);
 						$filecontent = preg_replace( $pattern, '', $filecontent );
