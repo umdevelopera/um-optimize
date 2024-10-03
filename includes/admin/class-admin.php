@@ -71,9 +71,42 @@ if ( ! class_exists( 'um_ext\um_optimize\admin\Admin' ) ) {
 				'tooltip' => __( 'Combine JS files queued by the Ultimate Member plugin and its extensions.', 'um-optimize' ),
 			);
 
+			// Images.
+			$fields[] = array(
+				'id'      => 'um_optimize_images_info',
+				'type'    => 'info_text',
+				'label'   => __( 'Images', 'um-optimize' ),
+				'value'   => __( 'Optimize images loading', 'um-optimize' ),
+			);
+			$fields[] = array(
+				'id'          => 'um_optimize_profile_photo',
+				'type'        => 'checkbox',
+				'label'       => __( 'Profile Photo caching', 'um-optimize' ),
+				'description' => __( 'Ultimate Member does not allow caching Profile Photo in the browser. This is secure but slows your website. It is recommended to enable the Profile Photo caching if your website is public.', 'um-optimize' ),
+			);
+			$fields[] = array(
+				'id'          => 'um_optimize_cover_photo',
+				'type'        => 'checkbox',
+				'label'       => __( 'Cover Photo caching', 'um-optimize' ),
+				'description' => __( 'Ultimate Member does not allow caching Cover Photo in the browser. This is secure but slows your website. It is recommended to enable the Cover Photo caching if your website is public.', 'um-optimize' ),
+			);
+
+			$sizes     = UM()->files()->get_profile_photo_size( 'cover_thumb_sizes' );
+			$sizes[''] = __( 'Default', 'um-optimize' );
+			$fields[]  = array(
+				'id'          => 'um_optimize_cover_photo_size',
+				'type'        => 'select',
+				'size'        => 'small',
+				'label'       => __( 'Cover Photo size in directory', 'um-optimize' ),
+				'default'     => UM()->options()->get( 'profile_coversize' ),
+				'options'     => $sizes,
+				'description' => __( 'Ultimate Member uses the greatest cover photo thumbnail in the member directory on the desktop. So big images are unnecessary. It is enough to use the 500px width image. Here you can select the cover photo thumbnail for the member directory.', 'um-optimize' ),
+			);
+
+
 			// SQL queries.
 			$fields[] = array(
-				'id'      => 'um_optimize_assets_info',
+				'id'      => 'um_optimize_queries_info',
 				'type'    => 'info_text',
 				'label'   => __( 'SQL queries', 'um-optimize' ),
 				'value'   => __( 'Optimize SQL queries to get posts and users faster', 'um-optimize' ),
