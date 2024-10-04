@@ -40,7 +40,7 @@ Go to *wp-admin > Ultimate Member > Settings > General > Optimize* to manage set
 - **Speed up member directories** - *(optional)* Optimize the SQL query that retrieves users for the member directory.
 
 Image - Optimize settings.
-![UM Settings, General, Optimize](https://github.com/umdevelopera/um-optimize/assets/113178913/22783720-c9af-4562-8ca7-7fff43123d99)
+![UM Settings, General, Optimize ()](https://github.com/user-attachments/assets/cd9873a0-332d-48ab-ba4d-8f28fcba803e)
 
 ## Support
 
