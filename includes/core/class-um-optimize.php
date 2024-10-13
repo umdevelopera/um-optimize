@@ -48,12 +48,14 @@ class UM_Optimize {
 	public function __construct() {
 
 		if( UM()->is_ajax() ) {
+			$this->images();
 			$this->member_directory();
 			$this->query();
 		} elseif ( UM()->is_request( 'admin' ) ) {
 			$this->admin();
 		} elseif ( UM()->is_request( 'frontend' ) ) {
 			$this->assets();
+			$this->images();
 			$this->query();
 		}
 
@@ -108,6 +110,20 @@ class UM_Optimize {
 
 
 	/**
+	 * Optimize images.
+	 *
+	 * @return um_ext\um_optimize\core\Images()
+	 */
+	public function images() {
+		if ( empty( UM()->classes['um_optimize_images'] ) ) {
+			require_once um_optimize_path . 'includes/core/class-images.php';
+			UM()->classes['um_optimize_images'] = new um_ext\um_optimize\core\Images();
+		}
+		return UM()->classes['um_optimize_images'];
+	}
+
+
+	/**
 	 * Optimize member directories.
 	 *
 	 * @return um_ext\um_optimize\core\Member_Directory()
@@ -143,7 +159,7 @@ class UM_Optimize {
 	public function clear_files() {
 		$i   = 0;
 		$dir = wp_normalize_path( UM()->uploader()->get_upload_base_dir() . 'um_optimize/' );
-		
+
 		if ( is_dir( $dir ) ) {
 			$files = scandir( $dir );
 			foreach( $files as $file ) {

@@ -71,9 +71,29 @@ if ( ! class_exists( 'um_ext\um_optimize\admin\Admin' ) ) {
 				'tooltip' => __( 'Combine JS files queued by the Ultimate Member plugin and its extensions.', 'um-optimize' ),
 			);
 
+			// Images.
+			$fields[] = array(
+				'id'      => 'um_optimize_images_info',
+				'type'    => 'info_text',
+				'label'   => __( 'Images', 'um-optimize' ),
+				'value'   => __( 'Optimize images loading', 'um-optimize' ),
+			);
+			$fields[] = array(
+				'id'      => 'um_optimize_profile_photo',
+				'type'    => 'select',
+				'label'   => __( 'Profile Photo caching', 'um-optimize' ),
+				'tooltip' => __( 'Deny - The profile photo will never be cached. This is the default setting. Allow - The profile photo will be cached in the browser. This is the fastest setting, but you may see an old image if the profile photo has recently been changed. Smart - The profile photo will be cached with the file modification time. This is the recommended setting.', 'um-optimize' ),
+				'options' => array(
+					'deny'  => __( 'Deny', 'um-optimize' ),
+					'allow' => __( 'Allow', 'um-optimize' ),
+					'smart' => __( 'Smart', 'um-optimize' ),
+				),
+			);
+
+
 			// SQL queries.
 			$fields[] = array(
-				'id'      => 'um_optimize_assets_info',
+				'id'      => 'um_optimize_queries_info',
 				'type'    => 'info_text',
 				'label'   => __( 'SQL queries', 'um-optimize' ),
 				'value'   => __( 'Optimize SQL queries to get posts and users faster', 'um-optimize' ),
