@@ -38,8 +38,13 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Images' ) ) {
 			if ( $cover_photo_caching ) {
 				add_filter( 'um_user_cover_photo_uri__filter', array( $this, 'cover_photo_uri' ), 10, 3 );
 			}
+
+			$cover_photo_size = UM()->options()->get( 'um_optimize_cover_photo_size' );
+			if ( $cover_photo_size && ! UM()->mobile()->isTablet() ) {
+				add_action( 'um_members_after_user_name', array( $this, 'cover_photo_size' ), 10, 2 );
+			}
 		}
-		
+
 
 		/**
 		 * Change Profile Photo cache time.
@@ -105,6 +110,23 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Images' ) ) {
 				}
 			}
 			return $cover_uri;
+		}
+
+
+		/**
+		 * Change Cover Photo size for the member directory.
+		 *
+		 * Added to the action hook `um_members_after_user_name`.
+		 *
+		 * @see \um\core\Member_Directory::build_user_card_data()
+		 *
+		 * @since 1.2.0
+		 *
+		 * @param int   $user_id        User ID.
+		 * @param array $directory_data Directory settings.
+		 */
+		public function cover_photo_size( $user_id, $directory_data ) {
+			UM()->member_directory()->cover_size = UM()->options()->get( 'um_optimize_cover_photo_size' );
 		}
 
 	}
