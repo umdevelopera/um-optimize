@@ -30,16 +30,21 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Images' ) ) {
 		public function __construct() {
 
 			$profile_photo_caching = UM()->options()->get( 'um_optimize_profile_photo' );
-
-			if ( 'allow' === $profile_photo_caching ) {
-				add_filter( 'um_filter_avatar_cache_time', '__return_false' );
-			} elseif ( 'smart' === $profile_photo_caching ) {
+			if ( $profile_photo_caching ) {
 				add_filter( 'um_filter_avatar_cache_time', array( $this, 'avatar_cache_time' ), 10, 2 );
 			}
+
+			$cover_photo_caching = UM()->options()->get( 'um_optimize_cover_photo' );
+			if ( $cover_photo_caching ) {
+				add_filter( 'um_user_cover_photo_uri__filter', array( $this, 'cover_photo_uri' ), 10, 3 );
+			}
 		}
+		
 
 		/**
 		 * Change Profile Photo cache time.
+		 *
+		 * Added to the filter hook `um_filter_avatar_cache_time`.
 		 *
 		 * @see um_get_avatar_uri()
 		 *
@@ -52,7 +57,7 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Images' ) ) {
 		public function avatar_cache_time( $cache_time, $user_id ) {
 			$image = um_profile( 'profile_photo' );
 			if ( $image ) {
-				$dir = UM()->uploader()->get_upload_base_dir();
+				$dir = wp_normalize_path( UM()->uploader()->get_upload_base_dir() );
 				if ( is_multisite() ) {
 					$blog_id = get_current_blog_id();
 					$dir     = str_replace( wp_normalize_path( "/sites/$blog_id/" ), '/', $dir );
@@ -64,6 +69,42 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Images' ) ) {
 				}
 			}
 			return $cache_time;
+		}
+
+
+		/**
+		 * Change Cover Photo cache time.
+		 *
+		 * Added to the filter hook `um_user_cover_photo_uri__filter`.
+		 *
+		 * @see um_user()
+		 *
+		 * @since 1.2.0
+		 *
+		 * @param string $cover_uri  Cover photo URL.
+		 * @param bool   $is_default Default or not.
+		 * @param array  $attrs      Attributes.
+		 * @return string
+		 */
+		public function cover_photo_uri( $cover_uri, $is_default, $attrs ) {
+			if ( ! $is_default ) {
+				$image   = um_profile( 'cover_photo' );
+				$user_id = um_profile( 'ID' );
+				if ( $image && $user_id ) {
+					$dir = wp_normalize_path( UM()->uploader()->get_upload_base_dir() );
+					if ( is_multisite() ) {
+						$blog_id = get_current_blog_id();
+						$dir     = str_replace( wp_normalize_path( "/sites/$blog_id/" ), '/', $dir );
+					}
+					$filename = wp_normalize_path( "$dir/$user_id/$image" );
+					$filetime = filemtime( $filename );
+					if ( $filetime ) {
+						$cover_url = current( explode( '?', $cover_uri ) );
+						$cover_uri = "$cover_url?$filetime";
+					}
+				}
+			}
+			return $cover_uri;
 		}
 
 	}

@@ -79,15 +79,16 @@ if ( ! class_exists( 'um_ext\um_optimize\admin\Admin' ) ) {
 				'value'   => __( 'Optimize images loading', 'um-optimize' ),
 			);
 			$fields[] = array(
+				'id'      => 'um_optimize_cover_photo',
+				'type'    => 'checkbox',
+				'label'   => __( 'Cover Photo caching', 'um-optimize' ),
+				'tooltip' => __( 'Ultimate Member does not allow caching Cover Photo in the browser. This is secure but slows your website. It is recommended to enable the Cover Photo caching if your website is public.', 'um-optimize' ),
+			);
+			$fields[] = array(
 				'id'      => 'um_optimize_profile_photo',
-				'type'    => 'select',
+				'type'    => 'checkbox',
 				'label'   => __( 'Profile Photo caching', 'um-optimize' ),
-				'tooltip' => __( 'Deny - The profile photo will never be cached. This is the default setting. Allow - The profile photo will be cached in the browser. This is the fastest setting, but you may see an old image if the profile photo has recently been changed. Smart - The profile photo will be cached with the file modification time. This is the recommended setting.', 'um-optimize' ),
-				'options' => array(
-					'deny'  => __( 'Deny', 'um-optimize' ),
-					'allow' => __( 'Allow', 'um-optimize' ),
-					'smart' => __( 'Smart', 'um-optimize' ),
-				),
+				'tooltip' => __( 'Ultimate Member does not allow caching Profile Photo in the browser. This is secure but slows your website. It is recommended to enable the Profile Photo caching if your website is public.', 'um-optimize' ),
 			);
 
 
