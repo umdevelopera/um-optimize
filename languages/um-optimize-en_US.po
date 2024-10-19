@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: Ultimate Member - Optimize\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-05 20:07+0000\n"
-"PO-Revision-Date: 2023-12-17 21:54+0000\n"
-"Last-Translator: Denis Baran\n"
+"PO-Revision-Date: 2024-10-19 19:49+0000\n"
+"Last-Translator: umdevelopera\n"
 "Language-Team: English (United States)\n"
 "Language: en_US\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
@@ -15,46 +15,62 @@ msgstr ""
 "X-Loco-Version: 2.6.6; wp-6.4-RC3\n"
 "X-Domain: um-optimize"
 
-#: includes/admin/class-admin.php:64
-msgid "Combine CSS files"
+#: includes/admin/class-admin.php:115
+msgid "Allow using Cover Photo images from the browser cache."
 msgstr ""
 
-#: includes/admin/class-admin.php:65
+#: includes/admin/class-admin.php:109
+msgid "Allow using Profile Photo images from the browser cache."
+msgstr ""
+
+#: includes/admin/class-admin.php:77
 msgid ""
 "Combine CSS files queued by the Ultimate Member plugin and its extensions."
 msgstr ""
 
-#: includes/admin/class-admin.php:70
-msgid "Combine JS files"
-msgstr ""
-
-#: includes/admin/class-admin.php:71
+#: includes/admin/class-admin.php:83
 msgid ""
 "Combine JS files queued by the Ultimate Member plugin and its extensions."
 msgstr ""
 
-#: includes/admin/class-admin.php:46
+#: includes/admin/class-admin.php:82
+msgid "Combine scripts"
+msgstr ""
+
+#: includes/admin/class-admin.php:76
+msgid "Combine styles"
+msgstr ""
+
+#: includes/admin/class-admin.php:114
+msgid "Cover Photo caching"
+msgstr ""
+
+#: includes/admin/class-admin.php:121
+msgid "Cover Photo size in directory"
+msgstr ""
+
+#: includes/admin/class-admin.php:88
 msgid "CSS and JS"
 msgstr ""
 
-#: includes/admin/class-admin.php:53
-msgid ""
-"Dequeue CSS files queued by the Ultimate Member plugin from pages where "
-"there are no Ultimate Member elements."
+#: includes/admin/class-admin.php:102
+msgid "Default"
 msgstr ""
 
-#: includes/admin/class-admin.php:59
-msgid ""
-"Dequeue JS files queued by the Ultimate Member plugin from pages where there "
-"are no Ultimate Member elements."
+#: includes/admin/class-admin.php:65
+msgid "Dequeue CSS files on pages that do not have Ultimate Member components."
 msgstr ""
 
-#: includes/admin/class-admin.php:52
-msgid "Dequeue unused CSS files"
+#: includes/admin/class-admin.php:71
+msgid "Dequeue JS files on pages that do not have Ultimate Member components."
 msgstr ""
 
-#: includes/admin/class-admin.php:58
-msgid "Dequeue unused JS files"
+#: includes/admin/class-admin.php:70
+msgid "Dequeue unused scripts"
+msgstr ""
+
+#: includes/admin/class-admin.php:64
+msgid "Dequeue unused styles"
 msgstr ""
 
 #. Author URI of the plugin
@@ -65,67 +81,71 @@ msgstr ""
 msgid "https://github.com/umdevelopera/um-optimize"
 msgstr ""
 
-#: includes/admin/class-admin.php:123
-msgid "Optimize"
+#: includes/admin/class-admin.php:129
+msgid "Images"
 msgstr ""
 
-#: includes/admin/class-admin.php:47
-msgid "Optimize CSS and JS files loading"
+#: includes/admin/class-admin.php:45
+msgid "Optimize"
 msgstr ""
 
 #. Description of the plugin
 msgid "Optimize loading for sites with the Ultimate Member plugin."
 msgstr ""
 
-#: includes/admin/class-admin.php:79
-msgid "Optimize SQL queries to get posts and users faster"
-msgstr ""
-
-#: includes/admin/class-admin.php:110
+#: includes/admin/class-admin.php:182
 msgid ""
 "Optimize the SQL query that retrieves albums for the User Photos extension."
 msgstr ""
 
-#: includes/admin/class-admin.php:102
+#: includes/admin/class-admin.php:174
 msgid ""
 "Optimize the SQL query that retrieves notes for the User Notes extension."
 msgstr ""
 
-#: includes/admin/class-admin.php:94
+#: includes/admin/class-admin.php:166
 msgid "Optimize the SQL query that retrieves posts for the Groups extension."
 msgstr ""
 
-#: includes/admin/class-admin.php:86
+#: includes/admin/class-admin.php:158
 msgid ""
 "Optimize the SQL query that retrieves posts for the Social Activity "
 "extension."
 msgstr ""
 
-#: includes/admin/class-admin.php:118
+#: includes/admin/class-admin.php:150
 msgid "Optimize the SQL query that retrieves users for the member directory."
 msgstr ""
 
-#: includes/admin/class-admin.php:85
+#: includes/admin/class-admin.php:108
+msgid "Profile Photo caching"
+msgstr ""
+
+#: includes/admin/class-admin.php:124
+msgid "Select the size of the Cover Photo thumbnail for the member directory."
+msgstr ""
+
+#: includes/admin/class-admin.php:157
 msgid "Speed up Activity"
 msgstr ""
 
-#: includes/admin/class-admin.php:93
+#: includes/admin/class-admin.php:165
 msgid "Speed up Groups"
 msgstr ""
 
-#: includes/admin/class-admin.php:117
+#: includes/admin/class-admin.php:149
 msgid "Speed up member directories"
 msgstr ""
 
-#: includes/admin/class-admin.php:101
+#: includes/admin/class-admin.php:173
 msgid "Speed up Notes"
 msgstr ""
 
-#: includes/admin/class-admin.php:109
+#: includes/admin/class-admin.php:181
 msgid "Speed up Photos"
 msgstr ""
 
-#: includes/admin/class-admin.php:78
+#: includes/admin/class-admin.php:187
 msgid "SQL queries"
 msgstr ""
 
@@ -140,6 +160,40 @@ msgstr ""
 
 #. Name of the plugin
 msgid "Ultimate Member - Optimize"
+msgstr ""
+
+#: includes/admin/class-admin.php:130
+msgid ""
+"Ultimate Member does not allow using Cover Photo and Profile Photo images "
+"from the browser cache. This approach is safe and secure, but it slows down "
+"rendering pages with Ultimate Member components and loading the member "
+"directory. It is recommended to allow using images from the browser cache if "
+"your site is public. Ultimate Member uses the largest Cover Photo thumbnail "
+"in the member directory on the desktop. Such large images are usually not "
+"necessary. It is recommended to use an image that is 500px wide or slightly "
+"larger."
+msgstr ""
+
+#: includes/admin/class-admin.php:89
+msgid ""
+"Ultimate Member loads various styles and scripts that are necessary for its "
+"components to work. Extensions can also load their own styles and scripts. "
+"Loading many styles and scripts can slow down page rendering. It is "
+"recommended to disable loading of Ultimate Member styles and scripts on "
+"pages that do not have its components. Loading one large style or script "
+"file has less impact on page rendering delay than loading multiple files. It "
+"is recommended to combine multiple Ultimate Member styles and scripts into "
+"one style file and one script file."
+msgstr ""
+
+#: includes/admin/class-admin.php:188
+msgid ""
+"Ultimate Member uses the standard WP_Query and WP_User_Query classes to "
+"build database queries. Queries built this way are reliable and stable, but "
+"not optimized. This slows down retrieving users in the user directory and "
+"posts in extensions that use custom post type, which slows down page "
+"rendering. It is recommended to enable SQL queries optimization to get posts "
+"and users faster."
 msgstr ""
 
 #. Author of the plugin

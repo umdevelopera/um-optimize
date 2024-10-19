@@ -1,8 +1,6 @@
 <?php
 /**
  * Optimize images.
- *
- * @package um_ext\um_optimize\core
  */
 
 namespace um_ext\um_optimize\core;
@@ -13,13 +11,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( 'um_ext\um_optimize\core\Images' ) ) {
 
-
 	/**
 	 * Class Images
 	 *
 	 * How to get an instance:
 	 *  UM()->classes['um_optimize_images']
 	 *  UM()->Optimize()->images()
+	 *
+	 * @package um_ext\um_optimize\core
 	 */
 	class Images {
 
@@ -40,7 +39,7 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Images' ) ) {
 			}
 
 			$cover_photo_size = UM()->options()->get( 'um_optimize_cover_photo_size' );
-			if ( $cover_photo_size && ! UM()->mobile()->isTablet() ) {
+			if ( $cover_photo_size ) {
 				add_action( 'um_members_after_user_name', array( $this, 'cover_photo_size' ), 10, 2 );
 			}
 		}
@@ -126,7 +125,9 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Images' ) ) {
 		 * @param array $directory_data Directory settings.
 		 */
 		public function cover_photo_size( $user_id, $directory_data ) {
-			UM()->member_directory()->cover_size = UM()->options()->get( 'um_optimize_cover_photo_size' );
+			if ( ! UM()->mobile()->isTablet() ) {
+				UM()->member_directory()->cover_size = UM()->options()->get( 'um_optimize_cover_photo_size' );
+			}
 		}
 
 	}

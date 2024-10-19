@@ -1,8 +1,6 @@
 <?php
 /**
  * Init the extension.
- *
- * @package um_ext\um_optimize\core
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -72,9 +70,6 @@ class UM_Optimize {
 		if ( defined( 'um_user_photos_version' ) ) {
 			require_once um_optimize_path . 'includes/extensions/user_photos.php';
 		}
-
-		// Loads a plugin's translated strings.
-		add_action( 'plugins_loaded', array( $this, 'textdomain' ), 9 );
 
 		// Scheduled_events.
 		add_action( 'um_twicedaily_scheduled_events', array( $this, 'clear_files' ), 20 );
@@ -170,16 +165,6 @@ class UM_Optimize {
 			}
 		}
 		return $i;
-	}
-
-
-	/**
-	 * Loads a plugin's translated strings.
-	 */
-	public function textdomain() {
-		$locale = get_locale() ? get_locale() : 'en_US';
-		load_textdomain( um_optimize_textdomain, WP_LANG_DIR . '/plugins/' . um_optimize_textdomain . '-' . $locale . '.mo' );
-		load_plugin_textdomain( um_optimize_textdomain, false, dirname( um_optimize_plugin ) . '/languages/' );
 	}
 
 }

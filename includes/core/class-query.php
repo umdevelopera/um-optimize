@@ -1,8 +1,6 @@
 <?php
 /**
  * Optimize queries.
- *
- * @package um_ext\um_optimize\core
  */
 
 namespace um_ext\um_optimize\core;
@@ -13,13 +11,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( 'um_ext\um_optimize\core\Query' ) ) {
 
-
 	/**
 	 * Class Query
 	 *
 	 * How to get an instance:
 	 *  UM()->classes['um_optimize_query']
 	 *  UM()->Optimize()->query()
+	 *
+	 * @package um_ext\um_optimize\core
 	 */
 	class Query {
 

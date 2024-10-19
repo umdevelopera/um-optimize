@@ -1,8 +1,6 @@
 <?php
 /**
  * Optimize assets.
- *
- * @package um_ext\um_optimize\core
  */
 
 namespace um_ext\um_optimize\core;
@@ -19,6 +17,8 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Assets' ) ) {
 	 * How to get an instance:
 	 *  UM()->classes['um_optimize_assets']
 	 *  UM()->Optimize()->assets()
+	 *
+	 * @package um_ext\um_optimize\core
 	 */
 	class Assets {
 
