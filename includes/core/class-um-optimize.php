@@ -1,8 +1,6 @@
 <?php
 /**
  * Init the extension.
- *
- * @package um_ext\um_optimize\core
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

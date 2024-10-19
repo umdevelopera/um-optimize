@@ -1,8 +1,6 @@
 <?php
 /**
  * Optimize member directories.
- *
- * @package um_ext\um_optimize\core
  */
 
 namespace um_ext\um_optimize\core;
@@ -19,6 +17,8 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Member_Directory' ) ) {
 	 * How to get an instance:
 	 *  UM()->classes['um_optimize_member_directory']
 	 *  UM()->Optimize()->member_directory()
+	 *
+	 * @package um_ext\um_optimize\core
 	 */
 	class Member_Directory {
 

@@ -8,12 +8,12 @@
  * Text Domain: um-optimize
  * Domain Path: /languages
  *
- * Version: 1.1.3
- * UM version: 2.8.7
+ * Version: 1.2.0
+ * UM version: 2.8.9
  * Requires at least: 5.5
  * Requires PHP: 5.6
  *
- * @package UM Tools
+ * @package um_ext\um_optimize
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
