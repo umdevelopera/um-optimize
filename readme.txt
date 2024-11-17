@@ -37,6 +37,10 @@ You can install this plugin from the ZIP file as any other plugin. Follow this i
 
 == Changelog ==
 
+= 1.2.1: November 17, 2024 =
+
+ - Fixed: "Load textdomain just in time" issue
+
 = 1.2.0: October 19, 2024 =
 
 * Enhancements:
