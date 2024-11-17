@@ -8,10 +8,10 @@
  * Text Domain: um-optimize
  * Domain Path: /languages
  *
- * Version: 1.2.0
- * UM version: 2.8.9
  * Requires at least: 5.5
  * Requires PHP: 5.6
+ * UM version: 2.9.0
+ * Version: 1.2.1
  *
  * @package um_ext\um_optimize
  */
