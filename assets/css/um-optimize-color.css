@@ -1,0 +1,17 @@
+/*
+ Plugin Name: Ultimate Member - Optimize and Color
+ Description: This styles are used to customize Ultimate Member colors.
+ Version: 1.3.0
+ Author: umdevelopera
+ Author URI: https://github.com/umdevelopera
+*/
+
+div .um .um-button,
+div .um a.um-button,
+div .um a.um-button.um-disabled:hover,
+div .um a.um-button.um-disabled:focus,
+div .um a.um-button.um-disabled:active,
+div .um input[type=submit].um-button,
+div .um input[type=submit].um-button:focus {
+	background-color: var( --um_optimize_color_button_primary, #3ba1da );
+}

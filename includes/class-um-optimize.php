@@ -1,20 +1,14 @@
 <?php
-/**
- * Init the extension.
- */
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
- * Class UM_Optimize
+ * Class UM_Optimize inits the extension.
  *
- * How to get an instance:
- *  UM()->classes['Optimize']
- *  UM()->Optimize()
+ * Get an instance this way: UM()->Optimize()
  *
- * @package um_ext\um_optimize\core
+ * @package um_ext\um_optimize
  */
 class UM_Optimize {
 
@@ -53,6 +47,7 @@ class UM_Optimize {
 			$this->admin();
 		} elseif ( UM()->is_request( 'frontend' ) ) {
 			$this->assets();
+			$this->frontend();
 			$this->images();
 			$this->query();
 		}
@@ -79,12 +74,12 @@ class UM_Optimize {
 	/**
 	 * Admin features.
 	 *
-	 * @return um_ext\um_optimize\admin\Admin()
+	 * @return um_ext\um_optimize\admin\Init
 	 */
 	public function admin() {
 		if ( empty( UM()->classes['um_optimize_admin'] ) ) {
-			require_once um_optimize_path . 'includes/admin/class-admin.php';
-			UM()->classes['um_optimize_admin'] = new um_ext\um_optimize\admin\Admin();
+			require_once um_optimize_path . 'includes/admin/class-init.php';
+			UM()->classes['um_optimize_admin'] = new um_ext\um_optimize\admin\Init();
 		}
 		return UM()->classes['um_optimize_admin'];
 	}
@@ -93,7 +88,7 @@ class UM_Optimize {
 	/**
 	 * Optimize assets.
 	 *
-	 * @return um_ext\um_optimize\core\Assets()
+	 * @return um_ext\um_optimize\core\Assets
 	 */
 	public function assets() {
 		if ( empty( UM()->classes['um_optimize_assets'] ) ) {
@@ -105,9 +100,23 @@ class UM_Optimize {
 
 
 	/**
+	 * Front-end features.
+	 *
+	 * @return um_ext\um_optimize\frontend\Init
+	 */
+	public function frontend() {
+		if ( empty( UM()->classes['um_optimize_frontend'] ) ) {
+			require_once um_optimize_path . 'includes/frontend/class-init.php';
+			UM()->classes['um_optimize_frontend'] = new um_ext\um_optimize\frontend\Init();
+		}
+		return UM()->classes['um_optimize_frontend'];
+	}
+
+
+	/**
 	 * Optimize images.
 	 *
-	 * @return um_ext\um_optimize\core\Images()
+	 * @return um_ext\um_optimize\core\Images
 	 */
 	public function images() {
 		if ( empty( UM()->classes['um_optimize_images'] ) ) {
@@ -121,7 +130,7 @@ class UM_Optimize {
 	/**
 	 * Optimize member directories.
 	 *
-	 * @return um_ext\um_optimize\core\Member_Directory()
+	 * @return um_ext\um_optimize\core\Member_Directory
 	 */
 	public function member_directory() {
 		if ( empty( UM()->classes['um_optimize_member_directory'] ) ) {
@@ -135,7 +144,7 @@ class UM_Optimize {
 	/**
 	 * Optimize queries.
 	 *
-	 * @return um_ext\um_optimize\core\Query()
+	 * @return um_ext\um_optimize\core\Query
 	 */
 	public function query() {
 		if ( empty( UM()->classes['um_optimize_query'] ) ) {
