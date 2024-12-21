@@ -1,17 +1,18 @@
 <?php
 /**
- * Plugin Name: Ultimate Member - Optimize
+ * Plugin Name: Ultimate Member - Optimize and Color
  * Plugin URI:  https://github.com/umdevelopera/um-optimize
- * Description: Optimize loading for sites with the Ultimate Member plugin.
+ * Description: Improves the performance of sites with Ultimate Member. Customize Ultimate Member colors.
  * Author:      umdevelopera
  * Author URI:  https://github.com/umdevelopera
  * Text Domain: um-optimize
  * Domain Path: /languages
  *
- * Requires at least: 5.5
- * Requires PHP: 5.6
- * UM version: 2.9.0
- * Version: 1.2.1
+ * Requires Plugins: ultimate-member
+ * Requires at least: 6.5
+ * Requires PHP: 7.4
+ * UM version: 2.9.1
+ * Version: 1.3.0
  *
  * @package um_ext\um_optimize
  */
@@ -32,6 +33,19 @@ define( 'um_optimize_version', $plugin_data['Version'] );
 define( 'um_optimize_textdomain', 'um-optimize' );
 
 
+// Activation script.
+if ( ! function_exists( 'um_optimize_activation_hook' ) ) {
+	function um_optimize_activation_hook() {
+		require_once 'includes/core/class-setup.php';
+		if ( class_exists( 'um_ext\um_optimize\core\Setup' ) && function_exists( 'UM' ) ) {
+			$setup = new um_ext\um_optimize\core\Setup();
+			$setup->run();
+		}
+	}
+}
+register_activation_hook( um_optimize_plugin, 'um_optimize_activation_hook' );
+
+
 // Check dependencies.
 if ( ! function_exists( 'um_optimize_check_dependencies' ) ) {
 	function um_optimize_check_dependencies() {
@@ -45,9 +59,9 @@ if ( ! function_exists( 'um_optimize_check_dependencies' ) ) {
 				}
 			);
 		} else {
-			require_once 'includes/core/class-um-optimize.php';
+			require_once 'includes/class-um-optimize.php';
 			UM()->set_class( 'Optimize', true );
 		}
 	}
 }
-add_action( 'plugins_loaded', 'um_optimize_check_dependencies', 2 );
+add_action( 'init', 'um_optimize_check_dependencies', 10 );

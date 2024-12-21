@@ -1,6 +1,6 @@
 <?php
 /*
- * Optimize the User Notes extension.
+ * Optimize the User Reviews extension.
  *
  * @package um_ext\um_optimize\extensions
  */
@@ -8,7 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-if ( ! defined( 'um_user_notes_version' ) ) {
+if ( ! defined( 'um_reviews_version' ) ) {
 	return;
 }
 
@@ -36,10 +36,10 @@ if ( ! defined( 'um_user_notes_version' ) ) {
  *     @type string $where SQL fragment to append to the main WHERE clause.
  * }
  */
-function um_optimize_notes__get_meta_sql( $sql, $queries, $type, $primary_table, $primary_id_column, $context ) {
-	if ( UM()->options()->get( 'um_optimize_notes' )
+function um_optimize_reviews__get_meta_sql( $sql, $queries, $type, $primary_table, $primary_id_column, $context ) {
+	if ( UM()->options()->get( 'um_optimize_reviews' )
 		&& 'post' === $type
-		&& 'um_notes' === $context->get( 'post_type' ) ) {
+		&& 'um_review' === $context->get( 'post_type' ) ) {
 
 		$sql_um = UM()->Optimize()->query()->get_meta_sql( $sql, $queries, $type, $primary_table, $primary_id_column, $context );
 
@@ -47,4 +47,4 @@ function um_optimize_notes__get_meta_sql( $sql, $queries, $type, $primary_table,
 	}
 	return $sql;
 }
-add_filter( 'get_meta_sql', 'um_optimize_notes__get_meta_sql', 10, 6 );
+add_filter( 'get_meta_sql', 'um_optimize_reviews__get_meta_sql', 10, 6 );

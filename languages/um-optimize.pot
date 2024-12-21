@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ultimate Member - Optimize\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-19 19:48+0000\n"
+"POT-Creation-Date: 2025-01-05 12:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -16,62 +16,139 @@ msgstr ""
 "X-Loco-Version: 2.6.6; wp-6.4-RC3\n"
 "X-Domain: um-optimize"
 
-#: includes/admin/class-admin.php:115
+#: includes/admin/class-settings-color.php:369
+#: includes/admin/class-settings-color.php:421
+msgid "Active element"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:374
+msgid "Active element text"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:473
+msgid "Active tab"
+msgstr ""
+
+#: includes/admin/class-settings-optimize.php:115
 msgid "Allow using Cover Photo images from the browser cache."
 msgstr ""
 
-#: includes/admin/class-admin.php:109
+#: includes/admin/class-settings-optimize.php:109
 msgid "Allow using Profile Photo images from the browser cache."
 msgstr ""
 
-#: includes/admin/class-admin.php:77
+#: includes/admin/class-settings-color.php:379
+#: includes/admin/class-settings-color.php:426
+#: includes/admin/class-settings-color.php:478
+msgid "Background"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:431
+msgid "Background for item"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:436
+msgid "Border"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:191
+#: includes/admin/class-settings-color.php:294
+msgid "Colors"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:165
+msgid "Colors have been imported."
+msgstr ""
+
+#: includes/admin/class-settings-color.php:161
+msgid "Colors have been reset to default values."
+msgstr ""
+
+#: includes/admin/class-settings-color.php:168
+msgid "Colors have not been imported."
+msgstr ""
+
+#: includes/admin/class-settings-optimize.php:77
 msgid ""
 "Combine CSS files queued by the Ultimate Member plugin and its extensions."
 msgstr ""
 
-#: includes/admin/class-admin.php:83
+#: includes/admin/class-settings-optimize.php:83
 msgid ""
 "Combine JS files queued by the Ultimate Member plugin and its extensions."
 msgstr ""
 
-#: includes/admin/class-admin.php:82
+#: includes/admin/class-settings-optimize.php:82
 msgid "Combine scripts"
 msgstr ""
 
-#: includes/admin/class-admin.php:76
+#: includes/admin/class-settings-optimize.php:76
 msgid "Combine styles"
 msgstr ""
 
-#: includes/admin/class-admin.php:114
+#: includes/admin/class-settings-color.php:404
+msgid "Common"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:257
+msgid "Confirm colors import."
+msgstr ""
+
+#: includes/admin/class-settings-color.php:251
+msgid "Confirm colors reset."
+msgstr ""
+
+#: includes/admin/class-settings-optimize.php:114
 msgid "Cover Photo caching"
 msgstr ""
 
-#: includes/admin/class-admin.php:121
+#: includes/admin/class-settings-optimize.php:121
 msgid "Cover Photo size in directory"
 msgstr ""
 
-#: includes/admin/class-admin.php:88
+#: includes/admin/class-settings-optimize.php:88
 msgid "CSS and JS"
 msgstr ""
 
-#: includes/admin/class-admin.php:102
+#: includes/admin/class-settings-color.php:252
+#: includes/admin/class-settings-color.php:258
+msgid "Current colors will be overridden."
+msgstr ""
+
+#: includes/admin/class-settings-optimize.php:102
 msgid "Default"
 msgstr ""
 
-#: includes/admin/class-admin.php:65
+#: includes/admin/class-settings-optimize.php:65
 msgid "Dequeue CSS files on pages that do not have Ultimate Member components."
 msgstr ""
 
-#: includes/admin/class-admin.php:71
+#: includes/admin/class-settings-optimize.php:71
 msgid "Dequeue JS files on pages that do not have Ultimate Member components."
 msgstr ""
 
-#: includes/admin/class-admin.php:70
+#: includes/admin/class-settings-optimize.php:70
 msgid "Dequeue unused scripts"
 msgstr ""
 
-#: includes/admin/class-admin.php:64
+#: includes/admin/class-settings-optimize.php:64
 msgid "Dequeue unused styles"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:288
+msgid "Enable custom colors"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:240
+msgid "Export colors"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:456
+msgid "Fields and filters"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:483
+msgid "Hover"
 msgstr ""
 
 #. Author URI of the plugin
@@ -82,76 +159,177 @@ msgstr ""
 msgid "https://github.com/umdevelopera/um-optimize"
 msgstr ""
 
-#: includes/admin/class-admin.php:129
+#: includes/admin/class-settings-color.php:289
+msgid "I wish to customize Ultimate Member colors."
+msgstr ""
+
+#: includes/admin/class-settings-optimize.php:129
 msgid "Images"
 msgstr ""
 
-#: includes/admin/class-admin.php:45
-msgid "Optimize"
+#: includes/admin/class-settings-color.php:244
+msgid "Import colors"
 msgstr ""
 
 #. Description of the plugin
-msgid "Optimize loading for sites with the Ultimate Member plugin."
+msgid ""
+"Improves the performance of sites with Ultimate Member. Customize Ultimate "
+"Member colors."
 msgstr ""
 
-#: includes/admin/class-admin.php:182
+#: includes/admin/class-settings-color.php:451
+msgid "Label"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:384
+msgid "Light line"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:394
+msgid "Light text"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:389
+msgid "Line"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:312
+msgid "Link"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:317
+msgid "Link hover"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:352
+msgid "Links and buttons"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:243
+msgid "Load colors from the file"
+msgstr ""
+
+#: includes/admin/class-settings-optimize.php:45
+msgid "Optimize"
+msgstr ""
+
+#: includes/admin/class-settings-optimize.php:182
 msgid ""
 "Optimize the SQL query that retrieves albums for the User Photos extension."
 msgstr ""
 
-#: includes/admin/class-admin.php:174
+#: includes/admin/class-settings-optimize.php:174
 msgid ""
 "Optimize the SQL query that retrieves notes for the User Notes extension."
 msgstr ""
 
-#: includes/admin/class-admin.php:166
+#: includes/admin/class-settings-optimize.php:166
 msgid "Optimize the SQL query that retrieves posts for the Groups extension."
 msgstr ""
 
-#: includes/admin/class-admin.php:158
+#: includes/admin/class-settings-optimize.php:158
 msgid ""
 "Optimize the SQL query that retrieves posts for the Social Activity "
 "extension."
 msgstr ""
 
-#: includes/admin/class-admin.php:150
+#: includes/admin/class-settings-optimize.php:190
+msgid ""
+"Optimize the SQL query that retrieves reviews for the User Reviews extension."
+msgstr ""
+
+#: includes/admin/class-settings-optimize.php:150
 msgid "Optimize the SQL query that retrieves users for the member directory."
 msgstr ""
 
-#: includes/admin/class-admin.php:108
+#: includes/admin/class-settings-color.php:441
+msgid "Placeholder"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:322
+msgid "Primary button"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:327
+msgid "Primary button hover"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:332
+msgid "Primary button text"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:493
+msgid "Profile menu"
+msgstr ""
+
+#: includes/admin/class-settings-optimize.php:108
 msgid "Profile Photo caching"
 msgstr ""
 
-#: includes/admin/class-admin.php:124
+#: includes/admin/class-settings-color.php:236
+msgid "Reset colors"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:235
+msgid "Restore default colors"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:239
+msgid "Save colors to the file"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:337
+msgid "Secondary button"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:342
+msgid "Secondary button hover"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:347
+msgid "Secondary button text"
+msgstr ""
+
+#: includes/admin/class-settings-optimize.php:124
 msgid "Select the size of the Cover Photo thumbnail for the member directory."
 msgstr ""
 
-#: includes/admin/class-admin.php:157
+#: includes/admin/class-settings-optimize.php:157
 msgid "Speed up Activity"
 msgstr ""
 
-#: includes/admin/class-admin.php:165
+#: includes/admin/class-settings-optimize.php:165
 msgid "Speed up Groups"
 msgstr ""
 
-#: includes/admin/class-admin.php:149
+#: includes/admin/class-settings-optimize.php:149
 msgid "Speed up member directories"
 msgstr ""
 
-#: includes/admin/class-admin.php:173
+#: includes/admin/class-settings-optimize.php:173
 msgid "Speed up Notes"
 msgstr ""
 
-#: includes/admin/class-admin.php:181
+#: includes/admin/class-settings-optimize.php:181
 msgid "Speed up Photos"
 msgstr ""
 
-#: includes/admin/class-admin.php:187
+#: includes/admin/class-settings-optimize.php:189
+msgid "Speed up Reviews"
+msgstr ""
+
+#: includes/admin/class-settings-optimize.php:195
 msgid "SQL queries"
 msgstr ""
 
+#: includes/admin/class-settings-color.php:399
+#: includes/admin/class-settings-color.php:446
+#: includes/admin/class-settings-color.php:488
+msgid "Text"
+msgstr ""
+
 #. %s - plugin name.
-#: um-optimize.php:45
+#: um-optimize.php:58
 #, php-format
 msgid ""
 "The <strong>%s</strong> extension requires the Ultimate Member plugin to be "
@@ -159,11 +337,15 @@ msgid ""
 "org/plugins/ultimate-member\">here</a>"
 msgstr ""
 
-#. Name of the plugin
-msgid "Ultimate Member - Optimize"
+#: includes/admin/class-settings-color.php:283
+msgid "Tools"
 msgstr ""
 
-#: includes/admin/class-admin.php:130
+#. Name of the plugin
+msgid "Ultimate Member - Optimize and Color"
+msgstr ""
+
+#: includes/admin/class-settings-optimize.php:130
 msgid ""
 "Ultimate Member does not allow using Cover Photo and Profile Photo images "
 "from the browser cache. This approach is safe and secure, but it slows down "
@@ -175,7 +357,7 @@ msgid ""
 "larger."
 msgstr ""
 
-#: includes/admin/class-admin.php:89
+#: includes/admin/class-settings-optimize.php:89
 msgid ""
 "Ultimate Member loads various styles and scripts that are necessary for its "
 "components to work. Extensions can also load their own styles and scripts. "
@@ -187,7 +369,7 @@ msgid ""
 "one style file and one script file."
 msgstr ""
 
-#: includes/admin/class-admin.php:188
+#: includes/admin/class-settings-optimize.php:196
 msgid ""
 "Ultimate Member uses the standard WP_Query and WP_User_Query classes to "
 "build database queries. Queries built this way are reliable and stable, but "
@@ -199,4 +381,11 @@ msgstr ""
 
 #. Author of the plugin
 msgid "umdevelopera"
+msgstr ""
+
+#: includes/admin/class-settings-color.php:295
+msgid ""
+"You can use tools to export/import the color set or restore the default "
+"color set. Turn on \"Enable custom colors\" and use settings below to "
+"customize Ultimate Member colors."
 msgstr ""

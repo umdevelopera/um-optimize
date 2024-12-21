@@ -141,60 +141,59 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Query' ) ) {
 		 * }
 		 */
 		public function get_meta_sql_clauses( $queries ) {
+			if ( ! is_array( $queries ) ) {
+				return array(
+					'join'	 => '',
+					'where'	 => '',
+				);
+			}
 
-			$sql = array(
-				'join'	 => '',
-				'where'	 => '',
-			);
-
-			if ( is_array( $queries ) ) {
+			if ( array_key_exists( 'key', $queries ) ) {
 				// simple query.
-				if ( array_key_exists( 'key', $queries ) ) {
-					$sql_chunks = $this->get_meta_sql_clause( $queries );
+				$sql_chunks = $this->get_meta_sql_clause( $queries );
 
-					// complex query.
-				} else {
+			} else {
+				// complex query.
 
-					$sql_chunks = array(
-						'join_i' => array(),
-						'join_l' => array(),
-						'where'	 => array(),
-					);
+				$sql_chunks = array(
+					'join_i' => array(),
+					'join_l' => array(),
+					'where'	 => array(),
+				);
 
-					foreach ( $queries as $clause ) {
-						if ( is_array( $clause ) ) {
-							$clause_sql = $this->get_meta_sql_clauses( $clause );
+				foreach ( $queries as $clause ) {
+					if ( is_array( $clause ) ) {
+						$clause_sql = $this->get_meta_sql_clauses( $clause );
 
-							$sql_chunks['join_i']	 = array_merge( $sql_chunks['join_i'], $clause_sql['join_i'] );
-							$sql_chunks['join_l']	 = array_merge( $sql_chunks['join_l'], $clause_sql['join_l'] );
-							if ( is_array( $clause_sql['where'] ) ) {
-								$sql_chunks['where'] = array_merge( $sql_chunks['where'], $clause_sql['where'] );
-							} else {
-								$sql_chunks['where'][] = $clause_sql['where'];
-							}
+						$sql_chunks['join_i']	 = array_merge( $sql_chunks['join_i'], $clause_sql['join_i'] );
+						$sql_chunks['join_l']	 = array_merge( $sql_chunks['join_l'], $clause_sql['join_l'] );
+						if ( is_array( $clause_sql['where'] ) ) {
+							$sql_chunks['where'] = array_merge( $sql_chunks['where'], $clause_sql['where'] );
+						} else {
+							$sql_chunks['where'][] = $clause_sql['where'];
 						}
 					}
 				}
-				$sql = $sql_chunks;
+			}
+			$sql = $sql_chunks;
 
-				$where = array_filter( $sql_chunks['where'] );
-				if ( 1 < count( $where ) ) {
-					$relation			 = empty( $queries['relation'] ) ? 'AND' : ('OR' === $queries['relation'] ? 'OR' : 'AND');
-					$sql['where']	 = '( ' . implode( " ) $relation ( ", $where ) . ' )';
-				} elseif ( 1 === count( $where ) ) {
-					$sql['where'] = current( $where );
-				} else {
-					$sql['where'] = '';
-				}
+			$where = array_filter( $sql_chunks['where'] );
+			if ( 1 < count( $where ) ) {
+				$relation			 = empty( $queries['relation'] ) ? 'AND' : ('OR' === $queries['relation'] ? 'OR' : 'AND');
+				$sql['where']	 = '( ' . implode( " ) $relation ( ", $where ) . ' )';
+			} elseif ( 1 === count( $where ) ) {
+				$sql['where'] = current( $where );
+			} else {
+				$sql['where'] = '';
+			}
 
-				$join = array_filter( array_merge( $sql_chunks['join_i'], $sql_chunks['join_l'] ) );
-				if ( 1 < count( $join ) ) {
-					$sql['join'] = implode( ' ', $join );
-				} elseif ( 1 === count( $join ) ) {
-					$sql['join'] = current( $join );
-				} else {
-					$sql['join'] = '';
-				}
+			$join = array_filter( array_merge( $sql_chunks['join_i'], $sql_chunks['join_l'] ) );
+			if ( 1 < count( $join ) ) {
+				$sql['join'] = implode( ' ', $join );
+			} elseif ( 1 === count( $join ) ) {
+				$sql['join'] = current( $join );
+			} else {
+				$sql['join'] = '';
 			}
 
 			return $sql;
@@ -233,7 +232,7 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Query' ) ) {
 			$meta_value				 = isset( $clause['value'] ) ? $clause['value'] : '';
 			$meta_compare_key	 = isset( $clause['compare_key'] ) ? strtoupper( $clause['compare_key'] ) : ( is_array( $meta_key ) ? 'IN' : '=' );
 			$meta_compare			 = isset( $clause['compare'] ) ? strtoupper( $clause['compare'] ) : ( is_array( $meta_value ) ? 'IN' : '=' );
-			$meta_type				 = isset( $clause['type'] ) ? trim( $clause['type'] ) : 'CHAR';
+			$meta_type				 = isset( $clause['type'] ) ? strtoupper( $clause['type'] ) : 'CHAR';
 			$alias						 = $wpdb->prepare( '%i', 'meta_' . $meta_key );
 
 			// JOIN ON.
@@ -261,7 +260,7 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Query' ) ) {
 			// meta_key.
 			if ( 'NOT EXISTS' === $meta_compare_key ) {
 				$sql['where'][] = "$alias.$this->meta_id_column IS NULL";
-			} elseif ( '' !== $meta_key && array_key_exists( 'compare_key', $clause ) ) {
+			} elseif ( '' !== $meta_key && '=' !== $meta_compare_key ) {
 
 				if ( in_array( $meta_compare_key, array( '!=', 'NOT IN', 'NOT LIKE', 'NOT EXISTS', 'NOT REGEXP' ), true ) ) {
 					$subquery_alias             = $alias . '_sub';
@@ -334,7 +333,7 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Query' ) ) {
 			// meta_value.
 			if ( 'NOT EXISTS' === $meta_compare ) {
 				$sql['where'][] = "$alias.$this->meta_id_column IS NULL";
-			} elseif ( '' !== $meta_value && array_key_exists( 'compare', $clause ) ) {
+			} elseif ( '' !== $meta_value && $meta_compare ) {
 
 				if ( in_array( $meta_compare, array( 'IN', 'NOT IN', 'BETWEEN', 'NOT BETWEEN' ), true ) ) {
 					if ( ! is_array( $meta_value ) ) {
@@ -380,7 +379,9 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Query' ) ) {
 
 				if ( 'CHAR' === $meta_type ) {
 					$sql['where'][] = "$alias.meta_value {$meta_compare} {$where}";
-				} else {
+				} elseif ( 'NUMERIC' === $meta_type ) {
+					$sql['where'][] = "CAST($alias.meta_value AS UNSIGNED) {$meta_compare} {$where}";
+				} else  {
 					$sql['where'][] = "CAST($alias.meta_value AS {$meta_type}) {$meta_compare} {$where}";
 				}
 			}

@@ -1,17 +1,18 @@
-# Ultimate Member - Optimize
+# Ultimate Member - Optimize and Color
 
-Optimize loading for sites with the Ultimate Member plugin.
+Improves the performance of sites with Ultimate Member. Customize Ultimate Member colors.
 
 ## Key Features
 
 - Removes CSS and JS files that belongs to Ultimate Member and its extensions on pages that do not have Ultimate Member components.
-- Combines CSS and JS files that belongs to Ultimate Member and its extensions on pages with Ultimate Member components.
+- Combines CSS and JS files that belongs to Ultimate Member and its extensions.
 - Allows using Profile Photo and Cover Photo images from the browser cache.
 - Optimizes SQL queries to get posts and users faster.
+- Adds settings to customize Ultimate Member colors.
 
 ## Installation
 
-__Note:__ This plugin requires the [Ultimate Member](https://wordpress.org/plugins/ultimate-member/) plugin to be installed first.
+**Note:** This plugin requires the [Ultimate Member](https://wordpress.org/plugins/ultimate-member/) plugin to be installed first.
 
 ### How to install from GitHub
 
@@ -23,17 +24,69 @@ Once the plugin is cloned, enter your site admin dashboard and go to _wp-admin >
 
 ### How to install from ZIP archive
 
-You can install this plugin from the [ZIP file](https://drive.google.com/file/d/1VBFGrOLrKmiFRCkPCeRUW6MTRjoOUA-P/view) as any other plugin. Follow [this instruction](https://wordpress.org/support/article/managing-plugins/#upload-via-wordpress-admin).
+You can install the plugin from this [ZIP file](https://drive.google.com/file/d/1DCro3M0qR4pUzx4SgHVNun0_c0V9Rq-x/view) as any other plugin. Follow [this instruction](https://wordpress.org/support/article/managing-plugins/#upload-via-wordpress-admin).
 
 ## How to use
 
-Go to *wp-admin > Ultimate Member > Settings > General > Optimize* to manage settings.
+### How to customize Ultimate Member colors
+
+Go to _wp-admin > Ultimate Member > Settings > Appearance > Colors_ and turn on the **Enable custom colors** setting then use settings below to customize Ultimate Member colors.
+
+The **Colors** tab also contains tools that may be helpful:
+
+- **Reset colors** - Restore the default color set, close to Ultimate Member's own colors. Current colors will be overridden.
+- **Export colors** - Save current color set to the _json_ file.
+- **Import colors** - Load color set from the _json_ file. Current colors will be overridden.
+
+![UM Settings, Appearance, Color v1 3 0](https://github.com/user-attachments/assets/4333ac79-e02f-48b3-91b2-4be7bcf79e15)
+
+#### Common
+
+- **Active element**
+- **Active element text**
+- **Background**
+- **Light line**
+- **Line**
+- **Text**
+
+#### Links and buttons
+
+- **Link**
+- **Link hover**
+- **Primary button**
+- **Primary button hover**
+- **Primary button text**
+- **Secondary button**
+- **Secondary button hover**
+- **Secondary button text**
+
+#### Fields and filters
+
+- **Active element**
+- **Background**
+- **Background for item**
+- **Border**
+- **Placeholder**
+- **Text**
+- **Label**
+
+#### Profile menu
+
+- **Active tab**
+- **Background**
+- **Hover**
+- **Text**
+
+### How to optimize Ultimate Member to improve performance
+
+Go to _wp-admin > Ultimate Member > Settings > General > Optimize_ to manage settings.
 
 ![UM Settings, General, Optimize (v1 2 0)](https://github.com/user-attachments/assets/4eb8dae7-ae59-49c6-8f8a-b3f0111ef601)
 
-### CSS and JS
+#### CSS and JS
 
-Ultimate Member loads various styles and scripts that are necessary for its components to work. Extensions can also load their own styles and scripts. Loading many styles and scripts can slow down page rendering.
+Ultimate Member loads various styles and scripts that are necessary for its components to work.
+Extensions can also load their own styles and scripts. Loading many styles and scripts can slow down page rendering.
 It is recommended to disable loading of Ultimate Member styles and scripts on pages that do not have its components.
 
 Loading one large style or script file has less impact on page rendering delay than loading multiple files.
@@ -44,9 +97,10 @@ It is recommended to combine multiple Ultimate Member styles and scripts into on
 - **Combine styles** - Combine CSS files queued by the Ultimate Member plugin and its extensions.
 - **Combine scripts** - Combine JS files queued by the Ultimate Member plugin and its extensions.
 
-### Images
+#### Images
 
-Ultimate Member does not allow using Cover Photo and Profile Photo images from the browser cache. This approach is safe and secure, but it slows down rendering pages with Ultimate Member components and loading the member directory.
+Ultimate Member does not allow using Cover Photo and Profile Photo images from the browser cache.
+This approach is safe and secure, but it slows down rendering pages with Ultimate Member components and loading the member directory.
 It is recommended to allow using images from the browser cache if your site is public.
 
 Ultimate Member uses the largest Cover Photo thumbnail in the member directory on the desktop. Such large images are usually not necessary.
@@ -56,9 +110,11 @@ It is recommended to use an image that is 500px wide or slightly larger.
 - **Cover Photo caching** - Allow using Cover Photo images from the browser cache.
 - **Cover Photo size in directory** - Select the size of the Cover Photo thumbnail for the member directory.
 
-### SQL queries
+#### SQL queries
 
-Ultimate Member uses the standard WP_Query and WP_User_Query classes to build database queries. Queries built this way are reliable and stable, but not optimized. This slows down retrieving users in the user directory and posts in extensions that use custom post type, which slows down page rendering.
+Ultimate Member uses the standard WP_Query and WP_User_Query classes to build database queries.
+Queries built this way are reliable and stable, but not optimized.
+This slows down retrieving users in the user directory and posts in extensions that use custom post type, which slows down page rendering.
 It is recommended to enable SQL queries optimization to get posts and users faster.
 
 - **Speed up member directories** - *(optional)* Optimize the SQL query that retrieves users for the member directory.
@@ -66,15 +122,24 @@ It is recommended to enable SQL queries optimization to get posts and users fast
 - **Speed up Groups** - *(optional)* Optimize the SQL query that retrieves posts for the [Groups](https://ultimatemember.com/extensions/groups/) extension.
 - **Speed up Notes** - *(optional)* Optimize the SQL query that retrieves notes for the [User Notes](https://ultimatemember.com/extensions/user-notes/) extension.
 - **Speed up Photos** - *(optional)* Optimize the SQL query that retrieves albums for the [User Photos](https://ultimatemember.com/extensions/user-photos/) extension.
+- **Speed up Reviews** - *(optional)* Optimize the SQL query that retrieves reviews for the [User Reviews](https://ultimatemember.com/extensions/user-reviews/) extension.
 
 ## Support
 
-This is a free extension created for the community. The Ultimate Member team does not provide support for this extension. Open new [issue](https://github.com/umdevelopera/um-optimize/issues) if you are facing a problem or have a suggestion.
+This is a free extension created for the community. The Ultimate Member team does not provide support for this extension.
+Open new [issue](https://github.com/umdevelopera/um-optimize/issues) if you are facing a problem or have a suggestion.
 
-### Related links
+**Please give a star if you think this extension is useful. I wish to know how many people use it. Thanks.**
 
-Ultimate Member home page: https://ultimatemember.com
+## Useful links
 
-Ultimate Member documentation: https://docs.ultimatemember.com
+[Ultimate Member core plugin info and download](https://wordpress.org/plugins/ultimate-member)
 
-Ultimate Member download: https://wordpress.org/plugins/ultimate-member
+[Ultimate Member documentation](https://docs.ultimatemember.com)
+
+[Official extensions for Ultimate Member](https://ultimatemember.com/extensions/)
+
+[Free extensions for Ultimate Member](https://docs.google.com/document/d/1wp5oLOyuh5OUtI9ogcPy8NL428rZ8PVTu_0R-BuKKp8/edit?usp=sharing)
+
+[Code snippets for Ultimate Member](https://docs.google.com/document/d/1_bikh4JYlSjjQa0bX1HDGznpLtI0ur_Ma3XQfld2CKk/edit?usp=sharing)
+

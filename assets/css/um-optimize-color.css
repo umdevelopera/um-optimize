@@ -1,0 +1,1459 @@
+/*
+ Plugin Name: Ultimate Member - Optimize and Color
+ Description: This styles are used to customize Ultimate Member colors.
+ Version: 1.3.0
+ Author: umdevelopera
+ Author URI: https://github.com/umdevelopera
+*/
+
+/*
+Available colors:
+var( --color-active, #3ba1da );
+var( --color-active-text, #ffffff );
+var( --color-background, #ffffff );
+var( --color-light-line, #eeeeee );
+var( --color-line, #dddddd );
+var( --color-light-text, #999999 );
+var( --color-text, #444444 );
+var( --color-link, #3ba1da );
+var( --color-link-hover, #44b0ec );
+var( --color-btn-pr, #3ba1da );
+var( --color-btn-pr-hover, #44b0ec );
+var( --color-btn-pr-text, #ffffff );
+var( --color-btn-sc, #eeeeee );
+var( --color-btn-sc-hover, #e5e5e5 );
+var( --color-btn-sc-text, #666666 );
+var( --color-field-active, #3ba1da );
+var( --color-field-background, #ffffff );
+var( --color-field-background-item, #eeeeee );
+var( --color-field-border, #dddddd );
+var( --color-field-label, #555555 );
+var( --color-field-placeholder, #999999 );
+var( --color-field-text, #666666 );
+var( --color-menu-active, #3ba1da );
+var( --color-menu-background, #444444 );
+var( --color-menu-hover, #555555 );
+var( --color-menu-text, #ffffff );
+*/
+
+/*
+ * Common
+ */
+
+div.um:not(.um-admin),
+div.um :is(h1, h2, h3, h4, h5, h6) {
+	color: var( --color-text, #444444 );
+}
+div.um hr {
+	border-top-color: var( --color-line, #dddddd );
+}
+
+/* dropdown */
+div.um .um-dropdown,
+div.um .um-dropdown li:last-child a {
+	border-color: var( --color-line, #dddddd );
+}
+div.um .um-dropdown-arr {
+	color: var( --color-line, #dddddd );
+}
+div.um .um-dropdown .um-dropdown-b li a {
+	color: var( --color-light-text, #999999 );
+}
+div.um .um-dropdown .um-dropdown-b li:hover {
+	background-color: var( --color-light-line, #eeeeee );
+}
+
+/* modal */
+div.um-modal .um-modal-header {
+	background-color: var( --color-active, #3ba1da );
+}
+div.um-modal .um-modal-body,
+div.um-notes-modal .um_notes_modal_content,
+div.um-user-photos-modal .um-user-photos-modal-body {
+	background-color: var( --color-background, #ffffff );
+	color: var( --color-text, #444444 );
+}
+div.um-modal small.um-max-filesize {
+	color: var( --color-light-text, #999999 );
+}
+div.um-modal div.ajax-upload-dragdrop {
+	border-color: var( --color-line, #dddddd );
+}
+
+/* popup */
+div.um-popup {
+	background-color: var( --color-background, #ffffff );
+	color: var( --color-text, #444444 );
+}
+div.um-popup .um-popup-header {
+	border-color: var( --color-line, #dddddd );
+}
+div.um-popup h1 {
+	color: var( --color-text, #444444 );
+	font-size: 1.6rem;
+}
+div.um-popup h2 {
+	color: var( --color-text, #444444 );
+	font-size: 1.5rem;
+}
+div.um-popup h3 {
+	color: var( --color-text, #444444 );
+	font-size: 1.4rem;
+}
+div.um-popup h4 {
+	color: var( --color-text, #444444 );
+	font-size: 1.3rem;
+}
+div.um-popup table {
+	text-align: justify;
+}
+
+/*
+ * Buttons and links
+ */
+
+/* link */
+div.um a.um-link,
+div.um a:not(.button,.um-button,.um-modal-btn),
+div.um .um-members-wrapper .um-members .um-member .um-member-card a:not(.um-button),
+div.um .um-members-wrapper .um-members .um-member .um-member-card .um-member-meta-main .um-member-more a {
+	color: var( --color-link, #3ba1da );
+}
+div.um a.um-link:hover,
+div.um a:not(.button,.um-button,.um-modal-btn):hover,
+div.um .um-members-wrapper .um-members .um-member .um-member-card a:not(.um-button):hover,
+div.um .um-members-wrapper .um-members .um-member .um-member-card .um-member-meta-main .um-member-more a:hover {
+	color: var( --color-link-hover, #44b0ec );
+}
+div.um a.um-link-alt {
+	color: var( --color-link, #3ba1da ) !important;
+}
+div.um a.um-link-alt:hover {
+	color: var( --color-link-hover, #44b0ec ) !important;
+}
+
+/* primary button */
+div.um .um-button:not(.um-alt),
+div.um input.um-button:not(.um-alt),
+div.um .um-button:not(.um-alt).um-disabled:active,
+div.um .um-button:not(.um-alt).um-disabled:focus,
+div.um-groups-single .um-groups-invites-users-wrapper .um-member-directory-header .um-member-directory-header-row .um-member-directory-search-line .um-do-search,
+div:is(.um,.um-modal) .um-modal-btn:not(.alt),
+div.um-modal .ajax-upload-dragdrop .upload {
+	background-color: var( --color-btn-pr, #3ba1da );
+	color: var( --color-btn-pr-text, #ffffff );
+	border: none;
+}
+div.um .um-button:not(.um-alt):hover,
+div.um input.um-button:not(.um-alt):hover,
+div.um .um-button:not(.um-alt).um-disabled:hover,
+div.um-groups-single .um-groups-invites-users-wrapper .um-member-directory-header .um-member-directory-header-row .um-member-directory-search-line .um-do-search:hover,
+div:is(.um,.um-modal) .um-modal-btn:not(.alt):hover,
+div.um-modal .ajax-upload-dragdrop .upload:hover {
+	background-color: var( --color-btn-pr-hover, #44b0ec );
+}
+
+/* secondary button */
+div.um a.button,
+div.um .um-button.um-alt,
+div.um .um-field.um-field-export_data a.um-request-button,
+div.um input[type=submit].um-button.um-alt,
+div:is(.um,.um-modal) .um-modal-btn.alt {
+	background-color: var( --color-btn-sc, #eeeeee );
+	color: var( --color-btn-sc-text, #666666 );
+	border: none;
+}
+div.um a.button:hover,
+div.um .um-button.um-alt:hover,
+div.um .um-field.um-field-export_data a.um-request-button:hover,
+div.um input[type=submit].um-button.um-alt:hover,
+div:is(.um,.um-modal) .um-modal-btn.alt:hover {
+	background-color: var( --color-btn-sc-hover, #e5e5e5 );
+}
+div.um .um-button.um-alt:before,
+div.um input[type=submit].um-button.um-alt:before {
+	color: inherit;
+}
+
+/*
+ * Fields and filters
+ */
+
+div.um .um-field-block {
+	color: var( --color-text, #444444 );
+}
+div.um.um-editing .um-field {
+	color: var( --color-field-text, #666666 );
+}
+
+/* label */
+div.um .um-field-label,
+div.um .um-field-label:hover .um-tip i {
+	color: var( --color-field-label, #555555 );
+}
+div.um .um-field-label .um-req,
+div.um .um-field-label .um-tip i {
+	color: var( --color-light-text, #999999 );
+}
+div.um.um-viewing .um-field-label {
+	border-color: var( --color-light-line, #eeeeee );
+}
+div.um .um-field-label .um-tip:hover i,
+div.um .um-field .um-toggle-password:hover i {
+	color: var( --color-field-active, #3ba1da );
+}
+
+/* placeholder */
+div.um :is(.um-form,.um-field) ::placeholder,
+div.um :is(.um-form,.um-field) .select2-container--default .select2-selection--single .select2-selection__placeholder,
+div.um-message-textarea textarea.um_message_text::placeholder,
+div.um-user-photos-widget textarea.um-user-photos-comment-textarea::placeholder {
+	color: var( --color-field-placeholder, #999999 );
+}
+
+/* text input */
+div.um-account .um-field input[type=email],
+div.um_bookmarks_table input[type=text] {
+	display: block;
+	border-radius: 2px;
+	font-size: 15px;
+	height: 40px;
+	box-sizing: border-box;
+	box-shadow: none;
+	margin: 0;
+	padding: 0 12px;
+	width: 100%;
+}
+
+div.um :is(.um-form,.um-field) input[type=search]:not(.select2-search__field),
+div.um :is(.um-form,.um-field) input[type=tel],
+div.um :is(.um-form,.um-field) input[type=text],
+div.um :is(.um-form,.um-field) input[type=email],
+div.um :is(.um-form,.um-field) input[type=number],
+div.um :is(.um-form,.um-field) input[type=password],
+div.um :is(.um-form,.um-field) select,
+div.um :is(.um-form,.um-field) textarea,
+div.um_bookmarks_table input[type=text],
+div.um-message-textarea textarea.um_message_text {
+	background-color: var( --color-field-background, #ffffff ) !important;
+	border-color: var( --color-field-border, #dddddd ) !important;
+	color: var( --color-field-text, #666666 ) !important;
+}
+div.um :is(.um-form,.um-field) input[type=search]:focus:not(.select2-search__field),
+div.um :is(.um-form,.um-field) input[type=tel]:focus,
+div.um :is(.um-form,.um-field) input[type=text]:focus,
+div.um :is(.um-form,.um-field) input[type=email]:focus,
+div.um :is(.um-form,.um-field) input[type=number]:focus,
+div.um :is(.um-form,.um-field) input[type=password]:focus,
+div.um :is(.um-form,.um-field) select:focus,
+div.um :is(.um-form,.um-field) textarea:focus,
+div.um_bookmarks_table input[type=text]:focus, {
+	border-color: var( --color-field-border, #dddddd ) !important;
+	outline: 1px solid  var( --color-field-border, #dddddd ) !important;
+}
+
+/* dropdown and multiselect */
+div.um :is(.um-form,.um-field) .select2.select2-container .select2-selection,
+div.um :is(.um-form,.um-field) .select2-container.select2-container--open .select2-dropdown {
+	background-color: var( --color-field-background, #ffffff ) !important;
+	border-color: var( --color-field-border, #dddddd ) !important;
+	color: var( --color-field-text, #666666 ) !important;
+}
+div.um :is(.um-form,.um-field) .select2.select2-container .select2-selection:focus,
+div.um :is(.um-form,.um-field) .select2-container.select2-container--open .select2-dropdown:focus {
+	outline: 1px solid  var( --color-field-border, #dddddd );
+}
+div.um :is(.um-form,.um-field) .select2.select2-container .select2-selection .select2-selection__arrow:before,
+div.um :is(.um-form,.um-field) .select2-container--default .select2-selection--single .select2-selection__clear,
+div.um :is(.um-form,.um-field) .select2-container--default .select2-selection--multiple .select2-selection__clear,
+div.um :is(.um-form,.um-field) a.um_current_user_location {
+	color: var( --color-field-placeholder, #999999 );
+}
+div.um :is(.um-form,.um-field) .select2-container.select2-container--open .select2-dropdown .select2-results li,
+div.um :is(.um-form,.um-field) .select2-container--default .select2-selection--single .select2-selection__rendered, {
+	color: var( --color-field-text, #666666 ) !important;
+}
+
+/* select search */
+div.um .select2-container--default .select2-search--dropdown .select2-search__field,
+div.um .select2-container--default .select2-search--dropdown .select2-search__field:focus {
+	border-color: var( --color-field-border, #dddddd ) !important;
+	outline-color: var( --color-field-active, #3ba1da );
+}
+
+/* select option */
+div.um .select2-dropdown .select2-results li.select2-results__option[aria-selected="true"],
+div.um .select2-dropdown .select2-results li.select2-results__option.select2-results__option--highlighted {
+	background-color: var( --color-field-background-item, #eeeeee );
+}
+
+/* multi-select option */
+div.um .select2-container--default .select2-selection--multiple .select2-selection__choice {
+	background-color: var( --color-field-background-item, #eeeeee );
+	border-color: var( --color-field-border, #dddddd );
+	color: var( --color-field-text, #666666 );
+}
+div.um .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+	color: var( --color-field-placeholder, #999999 );
+}
+div.um .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
+	color: var( --color-field-text, #666666 );
+}
+
+/* radio and checkbox */
+div.um .um-field :is(.um-field-radio-option, .um-field-checkbox-option) {
+	color: var( --color-field-text, #666666 ) !important;
+}
+div.um .um-field .um-field-radio-state i,
+div.um .um-field .um-field-checkbox-state i {
+	color: var( --color-field-placeholder, #999999 );
+}
+div.um .um-field .um-field-radio:hover .um-field-radio-state i,
+div.um .um-field .um-field-checkbox:hover .um-field-checkbox-state i {
+	color: var( --color-field-text, #666666 );
+}
+div.um .um-field .um-field-radio.active:not(.um-field-radio-state-disabled) i,
+div.um .um-field .um-field-checkbox.active:not(.um-field-radio-state-disabled) i {
+	color: var( --color-field-active, #3ba1da ) !important;
+}
+
+/* File Upload and Image Upload */
+div.um .um-field .um-single-fileinfo span.filename,
+div.um .um-field :is(.um-single-image-preview, .um-single-file-preview) a.cancel i {
+	color: var( --color-field-text, #666666 );
+}
+div.um .um-field :is(.um-single-image-preview, .um-single-file-preview) a.cancel:hover {
+	opacity: 1;
+}
+
+/* slider */
+div.um .um-member-directory-header .um-member-directory-header-row .um-search .um-search-filter.um-slider-filter-type .um-slider.ui-slider.ui-slider-horizontal {
+	background-color: var( --color-field-background, #ffffff );
+	border-color: var( --color-field-border, #dddddd ) !important;
+}
+div.um .um-member-directory-header .um-member-directory-header-row .um-search .um-search-filter.um-slider-filter-type .um-slider .ui-slider-range.ui-widget-header {
+	background-color: var( --color-field-active, #3ba1da );
+	border-color: var( --color-field-active, #3ba1da ) !important;
+}
+div.um .ui-state-default,
+div.um .ui-widget-content .ui-state-default,
+div.um .ui-widget-header .ui-state-default,
+div.um .ui-button,
+div.um .ui-button.ui-state-disabled:hover,
+div.um .ui-button.ui-state-disabled:active {
+	border-color: var( --color-field-border, #dddddd ) !important;
+}
+
+/*
+ * Account
+ */
+
+div.um-account.uimob800 .um-account-meta a {
+	border-color: var( --color-line, #dddddd );
+}
+div.um-account .um-account-meta .um-account-name > a {
+	color: var( --color-text, #444444 );
+}
+div.um-account.um-editing div.um-account-heading {
+	color: var( --color-text, #444444 );
+}
+
+/* menu */
+div.um-account .um-account-nav a {
+	color: var( --color-text, #444444 ) !important;
+	border-bottom: var( --color-light-line, #eeeeee ) !important;
+}
+div.um-account .um-account-nav a.current .ico {
+	color: var( --color-active, #3ba1da );
+}
+div.um-account .um-account-nav a:not(.current):not(:hover) span.arr {
+	opacity: 0.7;
+}
+
+div.um-account.uimob800 .um-account-side ul {
+	border-color: var( --color-line, #dddddd );
+}
+div.um-account.uimob800 .um-account-side ul li a {
+	color: var( --color-text, #444444 ) !important;
+}
+div.um-account.uimob800 .um-account-side ul li a.current {
+	background-color: var( --color-active, #3ba1da );
+	color: var( --color-active-text, #ffffff ) !important;
+}
+
+div.um-account:not(.uimob800) .um-account-side ul li {
+	background-color: var( --color-light-line, #eeeeee );
+}
+div.um-account .um-account-side ul li a:hover {
+	background-color: var( --color-line, #dddddd );
+}
+div.um-account .um-account-side ul li a span.um-account-icon.uimob800-hide {
+	border-color: var( --color-line, #dddddd );
+}
+div.um-account .um-account-side li a,
+div.um-account .um-account-side li a.current,
+div.um-account .um-account-side li a.current:hover,
+div.um-account .um-account-side li a span.um-account-icon,
+div.um-account .um-account-side li a span.um-account-title,
+div.um-account .um-account-side li a span.um-account-arrow {
+	color: var( --color-text, #444444 );
+}
+div.um-account .um-account-side li a.current span.um-account-icon,
+div.um-account .um-account-side li a.current:hover span.um-account-icon {
+	color: var( --color-active, #3ba1da );
+}
+div.um-account .um-account-side li a.current span.um-account-arrow,
+div.um-account .um-account-side li a:hover span.um-account-arrow {
+	opacity: 1;
+}
+
+/*
+ * Directory
+ */
+
+/* header */
+div.um-directory .um-member-directory-header .um-member-directory-header-row .um-member-directory-nav-line .um-member-directory-view-type .um-member-directory-view-type-a,
+div.um-directory .um-member-directory-header .um-member-directory-header-row .um-member-directory-nav-line .um-member-directory-view-type .um-member-directory-view-type-a:hover,
+div.um-directory .um-member-directory-header .um-member-directory-header-row .um-member-directory-nav-line .um-member-directory-view-type:not(.um-disabled) .um-member-directory-view-type-a:hover {
+	color: var( --color-field-active, #3ba1da );
+}
+div:is(.um-directory, .um-groups-single) .um-member-directory-header {
+	color: var( --color-text, #444444 );
+}
+div.um-directory .um-member-directory-header .um-member-directory-header-row .um-filtered-line .um-members-filter-tag {
+	background-color: var( --color-light-line, #eeeeee );
+}
+div:is(.um-directory, .um-groups-single) .um-member-directory-header .um-member-directory-filters-a,
+div:is(.um-directory, .um-groups-single) .um-member-directory-header .um-member-directory-sorting-a {
+	color: var( --color-link, #3ba1da );
+}
+div:is(.um-directory, .um-groups-single) .um-member-directory-header .um-member-directory-filters-a:hover,
+div:is(.um-directory, .um-groups-single) .um-member-directory-header .um-member-directory-sorting-a:hover {
+	color: var( --color-link-hover, #44b0ec );
+}
+
+/* member card */
+div.um.um-directory .um-members-wrapper .um-members .um-member {
+	background-color: var( --color-background, #ffffff );
+	border-color: var( --color-line, #dddddd );
+}
+div.um.um-directory .um-members-wrapper .um-members .um-member .um-member-card .um-member-meta-main .um-member-meta {
+	border-color: var( --color-light-line, #eeeeee );
+}
+
+div.um-directory .um-members-wrapper,
+div.um-directory .um-members-wrapper .um-members .um-member .um-member-card,
+div.um-directory .um-members-wrapper .um-members .um-member .um-member-card :is(.um-members-follow-stats, .um-members-friend-stats) span,
+div.um-directory .um-members-wrapper .um-members.um-members-grid .um-member .um-member-card .um-member-name a,
+div.um-directory .um-members-wrapper .um-members.um-members-list .um-member .um-member-card-container .um-member-card .um-member-card-content .um-member-card-header .um-member-name a {
+	color: var( --color-text, #444444 );
+}
+div.um-directory .um-members-wrapper .um-members .um-member .um-member-card :is(.um-members-follow-stats, .um-members-friend-stats),
+div.um-directory .um-members-wrapper .um-members.um-members-grid .um-member .um-member-card .um-member-tagline,
+div.um-directory .um-members-wrapper .um-members.um-members-list .um-member .um-member-card-container .um-member-card .um-member-card-content .um-member-tagline {
+	color: var( --color-light-text, #999999 );
+}
+div.um-directory .um-members-wrapper .um-members .um-member a.um-button {
+	font-size: 14px;
+	min-height: 35px;
+	padding: 10px 14px !important;
+}
+div.um-directory .um-members-wrapper .um-members .um-member .um-member-card a:not(.um-button),
+div.um-directory .um-members-wrapper .um-members .um-member .um-member-card .um-member-meta-main .um-member-more a,
+div.um-directory .um-members-wrapper .um-members.um-members-list .um-member .um-member-card-container .um-member-card .um-member-card-actions .um-member-cog .um-member-actions-a {
+	color: var( --color-link, #3ba1da );
+}
+div.um-directory .um-members-wrapper .um-members .um-member .um-member-card a:not(.um-button):hover,
+div.um-directory .um-members-wrapper .um-members .um-member .um-member-card .um-member-name a:hover,
+div.um-directory .um-members-wrapper .um-members .um-member .um-member-card .um-member-meta-main .um-member-more a:hover,
+div.um-directory .um-members-wrapper .um-members.um-members-list .um-member .um-member-card-container .um-member-card .um-member-card-actions .um-member-cog .um-member-actions-a:hover {
+	color: var( --color-link-hover, #44b0ec );
+}
+
+/* pagination */
+div.um .um-members-pagi .pagi,
+div.um-directory .um-members-pagination-box .um-members-pagi .pagi,
+div.um-groups-single .um-members-pagination-box .um-members-pagi .pagi {
+	color: var( --color-text, #444444 ) !important;
+}
+div.um .um-members-pagi span.current,
+div.um-directory .um-members-pagination-box .um-members-pagi .pagi.current,
+div.um-groups-single .um-members-pagination-box .um-members-pagi .pagi.current {
+	background-color: var( --color-active, #3ba1da );
+	color: var( --color-active-text, #ffffff ) !important;
+}
+
+/*
+ * Profile
+ */
+
+/* cover */
+div.um-profile .um-friends-coverbtn a,
+div.um-profile .um-cover .um-user-bookmarks-button.um-button.um-alt {
+	background-color: var( --color-btn-sc, #eeeeee ) !important;
+	color: var( --color-btn-sc-text, #666666 );
+	min-height: 35px;
+}
+div.um-profile .um-friends-coverbtn a:hover,
+div.um-profile .um-cover .um-user-bookmarks-button.um-button.um-alt:hover {
+	background-color: var( --color-btn-sc-hover, #e5e5e5 ) !important;
+}
+
+/* header */
+div.um-profile .um-header,
+div.um-profile .um-profile-navbar {
+	background-color: var( --color-background, #ffffff );
+	border-color: var( --color-light-line, #eeeeee );
+}
+div.um-profile .um-header .um-name a {
+	color: var( --color-text, #444444 );
+}
+div.um .um-header .um-profile-headericon a {
+	color: var( --color-link, #3ba1da );
+}
+div.um .um-header .um-profile-headericon a:hover {
+	color: var( --color-link-hover, #44b0ec );
+}
+div.um-profile .um-header .um-meta-text,
+div.um-profile .um-header .um-profile-meta,
+div.um-profile .um-header span.um-follows-you {
+	color: var( --color-light-text, #999999 );
+}
+div.um-profile .um-followers-rc a {
+	border-color: var( --color-light-line, #eeeeee );
+	color: var( --color-light-text, #999999 ) !important;
+}
+div.um-profile .um-followers-rc a span {
+	color: var( --color-active, #3ba1da );
+}
+div.um-profile .um-profile-navbar a.um-button {
+	font-size: 14px;
+	min-height: 35px;
+	padding: 10px 14px !important;
+}
+
+/* menu */
+div.um-profile .um-profile-nav {
+	background-color: var( --color-menu-background, #444444 );
+}
+div.um-profile .um-profile-nav .um-profile-nav-item:hover a {
+	background-color: var( --color-menu-hover, #555555 );
+}
+div.um-profile .um-profile-nav .um-profile-nav-item.active a {
+	background-color: var( --color-menu-active, #3ba1da );
+}
+div.um-profile .um-profile-nav .um-profile-nav-item a {
+	color: var( --color-menu-text, #ffffff ) !important;
+}
+div.um-profile .um-profile-subnav {
+	background-color: var( --color-light-line, #eeeeee );
+}
+div.um-profile .um-profile-subnav a {
+	color: var( --color-light-text, #999999 );
+}
+div.um-profile .um-profile-subnav a:hover {
+	color: var( --color-text, #444444 );
+}
+div.um-profile .um-profile-subnav a.active {
+	color: var( --color-active, #3ba1da );
+}
+div.um-profile .um-profile-subnav a span {
+	background-color: var( --color-line, #dddddd );
+	color: var( --color-light-text, #999999 ) !important;
+}
+
+/* tabs */
+div.um-profile .um-profile-note,
+div.um-profile .um-profile-note span {
+	color: var( --color-light-text, #999999 );
+}
+div.um-profile .um-item {
+	border-color: var( --color-light-line, #eeeeee );
+}
+div.um-profile .um-item .um-item-link :is(a, i) {
+	color: var( --color-text, #444444 );
+}
+div.um-profile .um-item-meta {
+	color: var( --color-light-text, #999999 );
+}
+
+/*
+ * bbPress
+ */
+
+div.um .um-remove-favorite,
+div.um .um-remove-subscription {
+	color: var( --color-light-text, #999999 );
+}
+div.um .um-remove-favorite:hover,
+div.um .um-remove-subscription:hover {
+	color: var( --color-text, #444444 );
+}
+
+/*
+ * ForumWP
+ */
+
+div.um .fmwp-user-replies .fmwp-reply-row .fmwp-reply-base .fmwp-reply-data .fmwp-reply-top .fmwp-reply-head .fmwp-reply-subdata,
+div.um .fmwp-user-replies .fmwp-reply-content,
+div.um .fmwp-user-topics .fmwp-topic-forum,
+div.um .fmwp-user-topics .fmwp-topic-forum a {
+	color: var( --color-light-text, #999999 );
+}
+div.um .fmwp-user-replies .fmwp-reply-row .fmwp-reply-base .fmwp-reply-data .fmwp-reply-top .fmwp-reply-head .fmwp-reply-head-data a,
+div.um .fmwp-user-topics .fmwp-topics-wrapper .fmwp-topic-row .fmwp-topic-row-lines .fmwp-topic-row-line.fmwp-topic-primary-data .fmwp-topic-title-line a,
+div.um .fmwp-user-topics .fmwp-topic-forum a:hover {
+	color: var( --color-text, #444444 );
+}
+div.um .fmwp-user-replies .fmwp-reply-row,
+div.um .fmwp-user-topics .fmwp-topics-wrapper-heading,
+div.um .fmwp-user-topics .fmwp-topics-wrapper .fmwp-topic-row {
+	border-color: var( --color-light-line, #eeeeee );
+}
+
+/*
+ * Followers
+ */
+
+div.um .um-followers-user {
+	border-color: var( --color-light-line, #eeeeee );
+}
+div.um .um-followers-user-name a {
+	color: var( --color-text, #444444 );
+}
+div.um .um-followers-user-span {
+	color: var( --color-light-text, #999999 );
+}
+
+/*
+ * Friends
+ */
+
+div.um .um-friends-user {
+	border-color: var( --color-light-line, #eeeeee );
+}
+div.um .um-friends-user .um-friends-user-name a {
+	color: var( --color-text, #444444 );
+}
+
+/*
+ * Groups
+ */
+
+div.um .um-groups-directory .um-group-item {
+	border-color: var( --color-line, #dddddd );
+}
+div.um .um-groups-directory .um-group-item > a {
+	color: var( --color-text, #444444 );
+}
+div.um .um-groups-directory .um-group-item .actions ul li,
+div.um .um-groups-directory .um-group-item .um-group-meta ul :is(li, a) {
+	color: var( --color-light-text, #999999 );
+}
+div.um #um-groups-filters ul.filters,
+div.um #um-groups-filters ul.filters li,
+div.um.um-groups-single div.um-group-tabs-wrap {
+	border-color: var( --color-line, #dddddd );
+}
+div.um #um-groups-filters ul.filters li.active {
+	background-color: var( --color-light-line, #eeeeee );
+}
+div.um #um-groups-filters ul.filters li a,
+div.um.um-groups-single ul.um-groups-single-tabs li a,
+div.um.um-groups-single ul.um-groups-single-subtabs li a {
+	color: var( --color-text, #444444 );
+}
+div.um #um-groups-filters ul.filters li a span {
+	background-color: var( --color-light-line, #eeeeee );
+	border-color: var( --color-line, #dddddd );
+}
+
+/* discussions */
+div.um-groups-widget .um-groups-head,
+div.um-groups-widget .um-groups-body,
+div.um-groups-widget .um-groups-foot,
+div.um-groups-widget .um-groups-disp,
+div.um-groups-widget .um-groups-comments,
+div.um-groups-widget .um-groups-dialog,
+div.um-groups-widget .um-groups-dialog span.sep,
+div.um-groups-widget .um-groups-editc-d {
+	background-color: var( --color-background, #ffffff );
+	border-color: var( --color-light-line, #eeeeee );
+	color: var( --color-text, #444444 );
+}
+div.um-groups-widget .um-groups-head,
+div.um-groups-widget .um-groups-foot {
+	box-shadow: inset 0px 0px 99px rgba(0,0,0,0.03);
+}
+div.um-groups-widget a:not(.button,.um-button,.um-modal-btn) {
+	color: var( --color-link, #3ba1da );
+}
+div.um-groups-widget a:not(.button,.um-button,.um-modal-btn):hover {
+	color: var( --color-link-hover, #44b0ec );
+}
+div.um-groups-widget .um-groups-dialog,
+div.um-groups-widget .um-groups-comment-meta .um-groups-editc-d {
+	background-color: var( --color-background, #ffffff );
+	border: 1px solid var( --color-light-line, #eeeeee );
+}
+div.um-groups-widget .um-groups-dialog a:hover,
+div.um-groups-widget .um-groups-comment-meta .um-groups-editc-d a:hover {
+	background-color: var( --color-light-line, #eeeeee );
+	color: var( --color-text, #444444 );
+}
+div.um-groups-widget .um-groups-disp span.um-groups-disp-span,
+div.um-groups-widget .um-groups-actions :is(a, i),
+div.um-groups-widget .upload,
+div.um-groups-widget .um-groups-editc a,
+div.um-groups-widget .um-groups-comment-hide,
+div.um-groups-widget .um-groups-join {
+	color: var( --color-light-text, #999999 );
+}
+div.um-groups-widget .um-groups-ticon,
+div.um-groups-widget .um-groups-actions .active a,
+div.um-groups-widget .um-groups-author-meta span.um-groups-metadata,
+div.um-groups-widget .um-groups-author-meta span.um-groups-metadata *,
+div.um-groups-widget .um-groups-comment-meta a.um-groups-comment-permalink {
+	color: var( --color-light-text, #999999 ) !important;
+}
+div.um-groups-widget .um-groups-bodyinner-txt,
+div.um-groups-widget .um-groups-comment-text,
+div.um-groups-widget .status .um-groups-actions a:hover,
+div.um-groups-widget .status .um-groups-actions a:hover i,
+div.um-groups-widget .upload:hover,
+div.um-groups-widget .um-groups-comment-hide:hover {
+	color: var( --color-text, #444444 );
+}
+div.um-groups-widget .um-groups-dialog a,
+div.um-groups-widget .um-groups-ticon:hover,
+div.um-groups-widget .um-groups-actions .active a:hover {
+	color: var( --color-text, #444444 ) !important;
+}
+
+/* modal */
+div.um-groups-modal-head {
+	background-color: var( --color-background, #ffffff );
+	color: var( --color-text, #444444 );
+}
+div.um-groups-modal-name a {
+	color: var( --color-text, #444444 );
+}
+div.um-groups-modal-pic img {
+	height: 40px;
+	width: 40px;
+}
+div.um-groups-modal-name {
+	line-height: 40px;
+}
+
+/* members and invites */
+div.um .um-group-texts ul li,
+div.um .user-details .um-member-actions a,
+div.um .um-group-buttons a.um-group-button {
+	color: var( --color-light-text, #999999 );
+}
+div.um .user-details .um-group-texts a,
+div.um .um-member-actions a:hover {
+	color: var( --color-text, #444444 );
+}
+
+/*
+ * JobBoardWP
+ */
+
+div.um .jb-job-dashboard .jb-job-dashboard-heading {
+	background-color: var( --color-light-line, #eeeeee );
+}
+div.um .jb-job-dashboard,
+div.um .jb-job-dashboard .jb-job-dashboard-rows.isset-jobs,
+div.um .jb-job-dashboard .jb-job-dashboard-rows .jb-job-dashboard-row,
+div.um .jb-jobs .jb-jobs-wrapper .jb-job-list-row,
+div.um .jb-jobs .jb-jobs-wrapper .jb-job-list-row:first-child {
+	border-color: var( --color-line, #dddddd );
+	color: var( --color-text, #444444 );
+	box-sizing: border-box;
+}
+div.um .jb-jobs .jb-jobs-wrapper .jb-job-list-row .jb-row-data {
+	flex-grow: 1;
+}
+div.um .jb-job-actions-dropdown:hover i,
+div.um .jb-jobs .jb-jobs-wrapper .jb-job-list-row .jb-row-data .jb-row-info .jb-row-left-side>div i {
+	color: var( --color-light-text, #999999 );
+}
+div.um .jb-job-title .jb-job-title-link-line a {
+	color: var( --color-text, #444444 );
+}
+
+/*
+ * myCred
+ */
+
+.um-mycred-account-col .um-field-label strong {
+	color: var( --color-field-label, #555555 ) !important;
+}
+.um-mycred-account-col .um-field-area input.um-mycred-amount {
+	display: inline-block !important;
+}
+
+/*
+ * Private messages
+ */
+div.um-profile-body.messages {
+	padding: 0 !important;
+}
+div.um-message-modal a:not(.um-button),
+div.um-message-modal a.um-link {
+	color: var( --color-link, #3ba1da );
+}
+div.um-message-modal a:not(.um-button):hover,
+div.um-message-modal a.um-link:hover {
+	color: var( --color-link-hover, #44b0ec );
+}
+div.um-message-conv,
+div.um-message-modal .um-message-header {
+	background-color: var( --color-background, #ffffff );
+}
+div.um-message-conv-view,
+div.um-message-modal .um-message-header,
+div.um-message-modal .um-message-footer {
+	border-color: var( --color-light-line, #eeeeee );
+}
+div.um a.um-message-conv-item,
+div.um-message-modal .um-message-header-left a {
+	color: var( --color-text, #444444 );
+}
+div.um-message-conv a.um-message-conv-item.active {
+	color: var( --color-active, #3ba1da );
+}
+div.um-message-modal a.um-message-item-remove,
+div.um-message-modal .um-message-header-right a,
+div.um-message-modal .um-message-item-metadata,
+div.um-message-modal .um-message-limit {
+	color: var( --color-light-text, #999999 );
+}
+div.um-message-modal .um-message-item-content {
+	background-color: var( --color-light-line, #eeeeee );
+	color: var( --color-text, #444444 );
+}
+div.um-message-modal .um-message-item.left_m .um-message-item-content {
+	background-color: var( --color-active, #3ba1da );
+	color: var( --color-active-text, #ffffff );
+}
+div.um-message-modal .um-message-item.left_m .um-message-item-content a {
+	color: var( --color-active-text, #ffffff );
+}
+div.um-message-modal .um-message-send {
+	background-color: var( --color-btn-pr, #3ba1da );
+	color: var( --color-btn-pr-text, #ffffff );
+}
+div.um-message-modal .um-message-send:hover {
+	background-color: var( --color-btn-pr-hover, #44b0ec );
+}
+
+
+/*
+ * Profile Completeness
+ */
+
+div.um-completeness-widget,
+div.um-completeness-widget a,
+div.um-completeness-widget .um-completeness-edit {
+	color: var( --color-text, #444444 );
+}
+div.um-completeness-widget .um-completeness-progress {
+	color: var( --color-active, #3ba1da ) !important;
+}
+div.um .um-completeness-bar,
+div.um-completeness-widget .um-completeness-bar {
+	background-color: var( --color-light-line, #eeeeee );
+}
+div.um .um-completeness-done,
+div.um-completeness-widget .um-completeness-done {
+	background-color: var( --color-active, #3ba1da );
+}
+div.um-completeness-widget a:hover {
+	color: var( --color-link-hover, #44b0ec );
+}
+
+/*
+ * Real-time Notifications
+ */
+
+div.um-notification-shortcode,
+div.um-notification-shortcode .um-notification-header-row h4{
+	color: var( --color-text, #444444 );
+}
+div.um-notification-shortcode a:not(.button,.um-button,.um-modal-btn) {
+	color: var( --color-link, #3ba1da );
+}
+div.um-notification-shortcode a:not(.button,.um-button,.um-modal-btn):hover {
+	color: var( --color-link-hover, #44b0ec );
+}
+div.um-notification-shortcode .um-notifications-filter {
+	border-color: var( --color-line, #dddddd );
+	color: var( --color-text, #444444 );
+}
+div.um-notification-shortcode .um-notifications-filter.active {
+	background-color: var( --color-active, #3ba1da );
+	border-color: var( --color-active, #3ba1da );
+	color: var( --color-active-text, #ffffff );
+}
+div.um-notification-shortcode .um-notification-header {
+	border-color: var( --color-line, #dddddd );
+}
+div.um-notification-shortcode a.um-notifications-options-a,
+div.um-notification-shortcode a.um-notification-actions-a,
+div.um-notification-shortcode .um-notification-i-close i,
+div.um-notification span.b2 {
+	color: var( --color-light-text, #999999 );
+}
+div.um-notification {
+	border-bottom-color: var( --color-light-line, #eeeeee );
+	color: var( --color-text, #444444 );
+}
+div.um-notification.unread {
+	border-left-color: var( --color-active, #3ba1da );
+}
+
+/*
+ * Social Activity
+ */
+
+div.um-activity-widget .um-activity-head,
+div.um-activity-widget .um-activity-body,
+div.um-activity-widget .um-activity-foot,
+div.um-activity-widget .um-activity-disp,
+div.um-activity-widget .um-activity-dialog,
+div.um-activity-widget .um-activity-dialog span.sep,
+div.um-activity-widget .um-activity-comments,
+div.um-activity-widget .um-activity-editc-d {
+	background-color: var( --color-background, #ffffff );
+	border-color: var( --color-light-line, #eeeeee );
+	color: var( --color-text, #444444 );
+}
+div.um-activity-widget .um-activity-head,
+div.um-activity-widget .um-activity-foot {
+	box-shadow: inset 0px 0px 99px rgba(0,0,0,0.03);
+}
+div.um-activity-widget .um-activity-bodyinner-txt span.post-meta {
+	background-color: var( --color-background, #ffffff );
+	border-color: var( --color-line, #dddddd );
+	box-shadow: inset 0px 0px 99px rgba(0,0,0,0.03);
+}
+div.um-activity-widget .um-activity-preview {
+	border-color: var( --color-line, #dddddd );
+}
+div.um-activity-widget .um-activity-disp {
+	margin: 0;
+	padding: 5px 15px;
+}
+div.um-activity-widget .um-activity-author-url i,
+div.um-activity-widget .um-activity-disp span.um-activity-disp-span,
+div.um-activity-widget .um-activity-actions :is(a, i),
+div.um-activity-widget .upload,
+div.um-activity-widget .um-activity-editc a,
+div.um-activity-widget .um-activity-comment-hide,
+div.um-activity-widget .um-activity-join {
+	color: var( --color-light-text, #999999 );
+}
+div.um-activity-widget .um-activity-ticon,
+div.um-activity-widget .um-activity-foot .um-activity-actions .active a,
+div.um-activity-widget .um-activity-author-meta span.um-activity-metadata a,
+div.um-activity-widget .um-activity-comment-meta a.um-activity-comment-permalink {
+	color: var( --color-light-text, #999999 ) !important;
+}
+div.um-activity-widget .um-activity-bodyinner-txt,
+div.um-activity-widget .um-activity-comment-text,
+div.um-activity-widget .um-activity-foot .um-activity-actions a:hover *,
+div.um-activity-widget .upload:hover,
+div.um-activity-widget .um-activity-comment-hide:hover {
+	color: var( --color-text, #444444 );
+}
+div.um-activity-widget .um-activity-dialog a,
+div.um-activity-widget .um-activity-ticon:hover,
+div.um-activity-widget .um-activity-bodyinner-txt .post-meta :is(a, span),
+div.um-activity-widget .um-activity-actions .active a:hover {
+	color: var( --color-text, #444444 ) !important;
+}
+
+/* dropdown-menu */
+div.um-activity-widget .um-activity-dialog,
+div.um-activity-widget .um-activity-comment-meta .um-activity-editc-d {
+	background-color: var( --color-background, #ffffff );
+	border: 1px solid var( --color-light-line, #eeeeee );
+}
+div.um-activity-widget .um-activity-dialog a:hover,
+div.um-activity-widget .um-activity-comment-meta .um-activity-editc-d a:hover {
+	background-color: var( --color-light-line, #eeeeee );
+	color: var( --color-text, #444444 );
+}
+div.um-activity-widget .um-activity-dialog span.sep:first-child {
+	display: none;
+}
+
+/* modal */
+div.um-activity-modal-head {
+	background-color: var( --color-background, #ffffff );
+	color: var( --color-text, #444444 );
+}
+div.um-activity-modal-name a {
+	color: var( --color-text, #444444 );
+}
+div.um-activity-modal-pic img {
+	height: 40px;
+	width: 40px;
+}
+div.um-activity-modal-name {
+	line-height: 40px;
+}
+
+
+/*
+ * Social Login
+ */
+
+div.um .um-provider-title {
+	color: var( --color-field-label, #555555 );
+}
+
+/*
+ * User Bookmarks
+ */
+
+div.um .bookmarks .um-user-bookmarks-folder {
+	background-color: var( --color-background, #ffffff );
+  border-color: var( --color-light-line, #eeeeee );
+}
+div.um .bookmarks .um-user-bookmarks-folder .folder-info {
+	color: var( --color-light-text, #999999 );
+}
+div.um .bookmarks header a:not(.um-link),
+div.um .bookmarks .um-bookmarks-profile a,
+div.um .bookmarks .um-user-bookmarks-folder .um-user-bookmarks-folder-name,
+div.um .um-user-bookmarked-list .um-user-bookmarks-post-content h3 a {
+	color: var( --color-text, #444444 );
+}
+div.um-user-bookmarks-profile-add-folder-holder form.show {
+  background-color: var( --color-light-line, #eeeeee );
+  border-color: var( --color-light-line, #eeeeee );
+}
+
+/* users */
+div.um .bookmarks .um-bookmarks-profile > a:not(.um-user-bookmarks-button) {
+	line-height: 40px;
+	vertical-align: top;
+}
+div.um .bookmarks .um-bookmarks-profile > a img {
+	display: block;
+}
+
+/* modal */
+div.um-user-bookmarks-modal .um-user-bookmarks-modal-content {
+	background-color: var( --color-background, #ffffff );
+	border-color: var( --color-line, #dddddd );
+	color: var( --color-text, #444444 );
+}
+div.um-user-bookmarks-modal .um-user-bookmarks-modal-content a.um-user-bookmarks-cancel-btn {
+	color: var( --color-light-text, #999999 );
+}
+div.um_bookmarks_table label.um-user-bookmarks-select-folder-label {
+	background-color: var( --color-field-background, #ffffff );
+	border-color: var( --color-light-line, #eeeeee );
+  color: var( --color-light-text, #999999 );
+}
+div.um_bookmarks_table label.um-user-bookmarks-select-folder-label:hover {
+	background-color: var( --color-light-line, #eeeeee );
+	border-color: var( --color-line, #dddddd );
+}
+div.um_bookmarks_table label[for="um_user_bookmarks_access_type_checkbox"]:before {
+	background-color: var( --color-field-background, #ffffff );
+	border-color: var( --color-field-placeholder, #999999 );
+	color: var( --color-field-text, #666666 );
+}
+div.um_bookmarks_table .um-modal-btn {
+	background-color: var( --color-btn-pr, #3ba1da );
+	color: var( --color-btn-pr-text, #ffffff );
+	border: none;
+}
+div.um_bookmarks_table .um-modal-btn:hover {
+	background-color: var( --color-btn-pr-hover, #44b0ec );
+}
+
+/*
+ * User Notes
+ */
+
+div.um-notes-holder a:not(.button,.um-button,.um-modal-btn) {
+	color: var( --color-link, #3ba1da );
+}
+div.um-notes-holder a:not(.button,.um-button,.um-modal-btn):hover {
+	color: var( --color-link-hover, #44b0ec );
+}
+div.um-notes-holder .note-block {
+	background-color: var( --color-background, #ffffff );
+	border-color: var( --color-light-line, #eeeeee );
+	color: var( --color-text, #444444 );
+}
+.um-notes-action-buttons button > i {
+	margin-right: 8px;
+}
+
+/* add-edit */
+:is(#um-user-notes-add,#um-user-notes-edit) .um_notes_image_label > span[data-add_photo] {
+	background-color: rgba(255,255,255,0.3);
+	color: var( --color-text, #444444 );
+	padding: 1em;
+}
+:is(#um-user-notes-add,#um-user-notes-edit) #note_title,
+:is(#um-user-notes-add,#um-user-notes-edit) select {
+	background-color: var( --color-field-background, #ffffff );
+	border-color: var( --color-field-border, #dddddd );
+	color: var( --color-field-text, #666666 );
+}
+:is(#um-user-notes-add,#um-user-notes-edit) #note_title:focus,
+:is(#um-user-notes-add,#um-user-notes-edit) select:focus {
+	outline: 1px solid var( --color-field-border, #dddddd );
+}
+:is(#um-user-notes-add,#um-user-notes-edit) #note_title::placeholder {
+	color: var( --color-field-placeholder, #999999 );
+}
+div.um-note-content .um_notes_author_date,
+:is(#um-user-notes-add,#um-user-notes-edit) .um_notes_author_date {
+	color: var( --color-light-text, #999999 );
+}
+div.um-note-content .um_notes_author_date a.um_notes_author_profile_link,
+:is(#um-user-notes-add,#um-user-notes-edit) .um_notes_author_date a.user_profile_link {
+	color: var( --color-text, #444444 );
+}
+:is(#um-user-notes-add,#um-user-notes-edit) .wp-editor-container {
+	border: none;
+}
+:is(#um-user-notes-add,#um-user-notes-edit) .wp-editor-container > .mce-container {
+	border: 1px solid var( --color-line, #dddddd );
+}
+:is(#um-user-notes-add,#um-user-notes-edit) .um_note_read_more {
+	color: inherit;
+}
+:is(#um-user-notes-add,#um-user-notes-edit) button.um-modal-btn,
+:is(#um-user-notes-add,#um-user-notes-edit) select.um-form-field {
+	height: 36px;
+	vertical-align: middle;
+}
+
+/*
+ * User Photos
+ */
+
+/* profile */
+div.um-user-photos-album {
+	background-color: var( --color-background, #ffffff );
+	color: var( --color-text, #444444 );
+}
+div.um-user-photos-albums .um-user-photos-album-head {
+	align-items: center;
+	border-color: var( --color-line, #dddddd );
+}
+div.um-user-photos-albums .um-user-photos-album-head a:not(.um-link) {
+	color: var( --color-text, #444444 );
+}
+div.um-user-photos-albums .um-user-photos-album-head h2 {
+	margin: 0;
+}
+div.um-user-photos-albums .um-user-photos-image-block .um-user-photos-image-block-buttons a {
+	background-color: rgba(0,0,0,0.4);
+	color: #fff;
+}
+div.um-user-photos-albums .um-user-photos-image-block .um-user-photos-image-block-buttons a:hover {
+	background-color: rgba(255,255,255,0.8);
+	color: #000;
+}
+
+/* modal */
+div.um-user-photos-modal .um-user-photos-modal-body .um-user-photos-modal-head {
+	border-bottom: 1px solid var( --color-line, #dddddd );
+}
+div.um-user-photos-modal .um-user-photos-modal-body .um-user-photos-modal-head .um-user-photos-modal-title {
+	color: var( --color-text, #444444 );
+}
+div.um-user-photos-modal .um-user-photos-modal-footer :is(select,.um-modal-btn) {
+	min-height: 35px;
+	vertical-align: middle;
+}
+.um-user-photos-like-list-item a > * {
+	line-height: 40px;
+}
+
+/* widget */
+.imgs-grid-modal .um-user-photos-modal-close ~ .modal-caption div.um-user-photos-widget :is(.um-user-photos-head, .um-user-photos-body, .um-user-photos-disp, .um-user-photos-foot, .um-user-photos-comments) {
+	background-color: var( --color-background, #ffffff );
+	border-color: var( --color-light-line, #eeeeee );
+	color: var( --color-text, #444444 );
+}
+.imgs-grid-modal .um-user-photos-modal-close ~ .modal-caption {
+	background-color: transparent;
+	padding-top: 0;
+}
+.imgs-grid-modal .um-user-photos-modal-close ~ .modal-caption .um-user-photos-widget {
+	margin-top: 0;
+}
+.imgs-grid-modal .um-user-photos-modal-close ~ .modal-caption div.um-user-photos-head {
+	box-shadow: inset 0px 0px 99px rgba(0,0,0,0.03);
+	padding: 15px;
+}
+.imgs-grid-modal .um-user-photos-modal-close ~ .modal-caption div.um-user-photos-foot {
+	box-shadow: inset 0px 0px 99px rgba(0,0,0,0.03);
+	padding: 5px 0;
+}
+div.um-user-photos-widget .um-user-photos-body .um-user-photos-bodyinner {
+	border-top: 1px solid var( --color-light-line, #eeeeee );
+	padding: 0 15px;
+}
+div.um-user-photos-widget .um-user-photos-body .um-user-photos-bodyinner .um-user-photos-bodyinner-txt > * {
+	margin: 5px 0;
+}
+div.um-user-photos-widget a:not(.button,.um-button,.um-modal-btn) {
+	color: var( --color-link, #3ba1da );
+}
+div.um-user-photos-widget a:not(.button,.um-button,.um-modal-btn):hover {
+	color: var( --color-link-hover, #44b0ec );
+}
+div.um-user-photos-widget .um-user-photos-body .um-user-photos-disp .um-user-photos-left span.um-user-photos-disp-span,
+div.um-user-photos-widget .um-user-photos-foot .um-user-photos-actions div :is(a,i),
+div.um-user-photos-widget .um-user-photos-comments .um-user-photos-comment-meta .um-user-photos-editc a {
+	color: var( --color-light-text, #999999 );
+}
+div.um-user-photos-widget .um-user-photos-head .um-user-photos-author-meta .um-user-photos-metadata a.um-user-photos-metadata-date,
+div.um-user-photos-widget .um-user-photos-comments .um-user-photos-comment-info .um-user-photos-comment-meta a.um-user-photos-comment-permalink {
+	color: var( --color-light-text, #999999 ) !important;
+}
+div.um-user-photos-widget .um-user-photos-foot .um-user-photos-actions a:hover,
+div.um-user-photos-widget .um-user-photos-foot .um-user-photos-actions a:hover i {
+	color: var( --color-text, #444444 );
+}
+div.um-user-photos-widget .um-user-photos-head .um-user-photos-author .um-user-photos-author-meta .um-user-photos-author-url a,
+div.um-user-photos-widget .um-user-photos-comments .um-user-photos-comment-author-link a {
+	color: var( --color-text, #444444 ) !important;
+}
+div.um-user-photos-widget .um-user-photos-comments .um-user-photos-comment-area .um-user-photos-comment-box .um-user-photos-comment-textarea {
+	background-color: var( --color-field-background, #ffffff );
+	border-color: var( --color-field-border, #dddddd );
+	color: var( --color-field-text, #666666 );
+}
+div.um-user-photos-widget .um-user-photos-comments .um-user-photos-comment-area .um-user-photos-comment-box .um-user-photos-comment-textarea:focus {
+	border-color: var( --color-field-border, #dddddd );
+	outline: 1px solid var( --color-field-border, #dddddd );
+}
+div.um-user-photos-widget .um-user-photos-comments .um-button:not(.um-alt) {
+	background-color: var( --color-btn-pr, #3ba1da );
+	color: var( --color-btn-pr-text, #ffffff );
+}
+div.um-user-photos-widget .um-user-photos-comments .um-button:not(.um-alt):hover {
+	background-color: var( --color-btn-pr-hover, #44b0ec );
+}
+div.um-user-photos-widget .um-user-photos-comments .um-user-photos-editc-d a:hover {
+	background-color: var( --color-light-line, #eeeeee );
+	color: var( --color-text, #444444 );
+}
+div.um-user-photos-widget .um-user-photos-bodyinner-txt:empty,
+div.um-user-photos-widget .um-user-photos-bodyinner-photo:empty,
+div.um-user-photos-widget .um-user-photos-bodyinner-video:empty,
+div.um-user-photos-widget .um-user-photos-comments .um-user-photos-comment-info .um-user-photos-comment-meta > span:last-child::after {
+	display: none;
+}
+
+/* shortcode */
+div.ultimatemember_albums .um-user-photos-album {
+	background-color: var( --color-background, #ffffff );
+	border-color: var( --color-light-line, #eeeeee );
+	color: var( --color-text, #444444 );
+}
+div.ultimatemember_albums .um-user-photos-album-link img {
+	width: 100%;
+}
+div.ultimatemember_albums .um-member-photo a img {
+	margin-bottom: -65px;
+  top: -50px;
+}
+div.ultimatemember_albums .um-pagi {
+	margin-top: 10px;
+}
+
+/*
+ * User Reviews
+ */
+
+/* profile */
+div.um .um-reviews-header,
+div.um .um-reviews-filter,
+div.um .um-reviews-avg-rating,
+div.um .um-reviews-item div.um-reviews-post .um-reviews-title,
+div.um .um-reviews-item div.um-reviews-post .um-reviews-content,
+div.um .um-reviews-item div.um-reviews-post .um-reviews-meta a,
+div.um .um-reviews-item div.um-reviews-reply-post .um-reviews-reply-content,
+div.um .um-reviews-item div.um-reviews-reply-post .um-reviews-reply-meta a {
+	color: var( --color-text, #444444 );
+}
+div.um .um-reviews-d-n,
+div.um .um-reviews-item div.um-reviews-post .um-reviews-meta,
+div.um .um-reviews-item div.um-reviews-reply-post .um-reviews-reply-meta {
+	color: var( --color-light-text, #999999 );
+}
+div.um .um-reviews-prepost {
+	background-color: var( --color-background, #ffffff );
+	border-color: var( --color-line, #dddddd );
+	color: var( --color-text, #444444 );
+}
+div.um .um-reviews-form {
+	background-color: var( --color-background, #ffffff );
+	box-shadow: 0 0 10px 10px var( --color-background, #ffffff );
+}
+div.um .um-reviews-note,
+div.um .um-reviews-flagged,
+div.um .um-reviews-pending {
+	background-color: var( --color-light-line, #eeeeee );
+	color: var( --color-light-text, #999999 );
+}
+div.um .um-reviews-d-s {
+	display: inline-block;
+	min-width: 38px;
+}
+div.um .um-reviews-d-p {
+	background-color: var( --color-light-line, #eeeeee );
+}
+div.um .um-reviews-d-p span {
+	background-color: var( --color-active, #3ba1da );
+}
+div.um .um-reviews-item,
+div.um .um-reviews-none {
+	border-color: var( --color-light-line, #eeeeee );
+}
+div.um .um-reviews-reply-item {
+	background-color: var( --color-background, #ffffff );
+	border-color: var( --color-light-line, #eeeeee );
+}
+div.um .um-reviews-item div.um-reviews-post .um-reviews-title,
+div.um .um-reviews-item div.um-reviews-post .um-reviews-title input {
+	line-height: 22px;
+}
+
+/* shortcodes */
+.um-reviews-widget {
+	background-color: var( --color-background, #ffffff );
+	padding: 0 10px;
+}
+.um-reviews-widget li {
+	border-color: var( --color-light-line, #eeeeee );
+}
+.um-reviews-widget li:last-child {
+	border-bottom: none;
+}
+.um-reviews-widget .um-reviews-widget-name a {
+	color: var( --color-text, #444444 );
+}
+.um-reviews-widget .um-reviews-widget-name a:hover {
+	color: var( --color-link-hover, #44b0ec );
+}
+.um-reviews-widget .um-reviews-widget-avg {
+	color: var( --color-light-text, #999999 );
+}
+
+/*
+ * User Tags
+ */
+
+div.um .um-user-tags .um-user-tag a,
+div.um .um-user-tags .um-user-tag a:hover,
+div.um-user-tags-wdgt .um-user-tags-wdgt-item a.tag,
+div.um-user-tags-wdgt .um-user-tags-wdgt-item a.tag:hover {
+	color: var( --color-text, #444444 );
+}
+div.um-user-tags-wdgt .um-user-tags-wdgt-item a.tag,
+div.um .um-user-tags .um-user-tag {
+	background-color: var( --color-light-line, #eeeeee );
+	border-color: var( --color-line, #dddddd );
+}
+div.um-user-tags-wdgt .um-user-tags-wdgt-item a.tag:hover,
+div.um .um-user-tags .um-user-tag:hover {
+	background-color: var( --color-line, #dddddd );
+}
+div.um-user-tags-wdgt .um-user-tags-wdgt-item span.count {
+	color: var( --color-light-text, #999999 );
+}
+
+/*
+ * WooCommerce
+ */
+
+/* profile */
+div.um-woo-grid {
+	background-color: var( --color-background, #ffffff );
+	border-color: var( --color-light-line, #eeeeee );
+}
+div.um-woo-grid .um-woo-grid-content {
+	color: var( --color-light-text, #999999 );
+}
+div.um-woo-grid .um-woo-grid-meta,
+div.um-woo-grid .um-woo-stock_state {
+	color: var( --color-light-text, #999999 );
+}
+
+/* account */
+div.um-popup-order table,
+div.um-account .um-woo-form table,
+div.um-account .um-woo-form table.shop_table {
+	border-spacing: 0;
+}
+div.um-popup-order table :is(td,th),
+div.um-account .um-woo-form table.shop_table :is(td,th) {
+  background-color: var( --color-background, #ffffff );
+	border-color: var( --color-light-line, #eeeeee );
+	color: var( --color-text, #444444 );
+}
+div.um-popup-order table thead :is(td,th),
+div.um-account .um-woo-form table.shop_table thead :is(td,th) {
+  background-color: var( --color-light-line, #eeeeee );
+}
+div.um-woo-orderid,
+div.um-woo-customer {
+	color: var( --color-text, #444444 );
+}
+div.um-account .um-woo-form table th,
+div.um-account .um-woo-form table td.order-date time {
+	color: var( --color-light-text, #999999 );
+}
+div.um-account.um-editing .um-woo-form .button {
+	background-color: var( --color-btn-pr, #3ba1da ) !important;
+	color: var( --color-btn-pr-text, #ffffff );
+}
+div.um-account.um-editing .um-woo-form .button:hover {
+	background-color: var( --color-btn-pr-hover, #44b0ec ) !important;
+}
+div.um-popup-order .button,
+div.um-account.um-editing .um-woo-form .shop_table .button,
+div.um-account.um-editing .um-woo-form .shop_table .wp-element-button {
+	background-color: var( --color-btn-sc, #eeeeee ) !important;
+	color: var( --color-btn-sc-text, #666666 ) !important;
+}
+div.um-popup-order .button:hover,
+div.um-account.um-editing .um-woo-form .shop_table .button:hover,
+div.um-account.um-editing .um-woo-form .shop_table .wp-element-button:hover {
+  background-color: var( --color-btn-sc-hover, #e5e5e5 ) !important;
+}
+div.um-popup-order .order-info mark {
+	background-color: var( --color-light-line, #eeeeee );
+	color: var( --color-text, #444444 );
+}
+#um_wishlist_tab_content ul.wishlist_table.mobile {
+	padding: 0;
+}
+#um_wishlist_tab_content .share-button a {
+	color: var( --color-share-button-color, #fff );
+}
+
+/*
+ * Verified Users
+ */
+
+div .um-verified {
+	color: var( --color-active, #3ba1da ) !important;
+}

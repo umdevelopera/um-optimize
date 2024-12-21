@@ -43,12 +43,6 @@ function um_optimize_groups__get_meta_sql( $sql, $queries, $type, $primary_table
 
 		$sql_um = UM()->Optimize()->query()->get_meta_sql( $sql, $queries, $type, $primary_table, $primary_id_column, $context );
 
-		// TESTING.
-//		error_log( 'Test groups. JOIN:     ' . $sql['join'] );
-//		error_log( 'Test groups. JOIN_UM:  ' . $sql_um['join'] );
-//		error_log( 'Test groups. WHERE:    ' . $sql['where'] );
-//		error_log( 'Test groups. WHERE_UM: ' . $sql_um['where'] );
-
 		return $sql_um;
 	}
 	return $sql;
