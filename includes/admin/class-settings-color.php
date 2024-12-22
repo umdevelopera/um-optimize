@@ -24,6 +24,9 @@ class Settings_Color {
 	 */
 	public function __construct() {
 		add_filter( 'um_settings_structure', array( $this, 'extend_settings' ) );
+		add_action( 'ultimate-member_page_um_options', array( $this, 'print_script' ) );
+
+		add_filter( 'um_settings_save', array( $this, 'on_save' ) );
 	}
 
 
@@ -50,6 +53,50 @@ class Settings_Color {
 
 
 	/**
+	 * Execute on settings save.
+	 */
+	public function on_save( $settings ) {
+		if ( isset( $_REQUEST['section'] ) && 'color' === sanitize_key( wp_unslash( $_REQUEST['section'] ) ) ) {
+			UM()->Optimize()->frontend()->color()->generate_variables_file();
+		}
+	}
+
+
+	/**
+	 * Script for the "Reset colors" button.
+	 */
+	public function print_script() {
+		?>
+<script type="text/javascript">
+	jQuery( function() {
+		jQuery( '#um_options_um_optimize_color_reset' ).on( 'click', function(e) {
+			e.preventDefault();
+
+			var $btn = jQuery( e.currentTarget ).prop( 'disabled', true );
+
+			confirm( '<?php esc_html_e( 'Confirm colors reset.', 'um-optimize' ); ?>' ) && wp.ajax.send( 'um_optimize_color_reset', {
+				data: {
+					nonce: um_admin_scripts.nonce
+				},
+				success: function( data ) {
+					$btn.prop( 'disabled', false ).siblings( '.um_setting_ajax_button_response' ).addClass( 'description complete' ).html( data.message );
+					setTimeout( function() {
+						$btn.siblings( '.um_setting_ajax_button_response' ).removeClass( 'description complete' ).html( '' );
+						window.location.reload();
+					}, 1500 );
+				},
+				error: function( data ) {
+					console.log( data );
+				}
+			});
+		});
+	});
+</script>
+		<?php
+	}
+
+
+	/**
 	 * Section "Colors".
 	 *
 	 * @return array
@@ -62,6 +109,13 @@ class Settings_Color {
 				'type'        => 'checkbox',
 				'label'       => __( 'Customize colors', 'um-optimize' ),
 				'description' => __( 'I wish to customize Ultimate Member colors.', 'um-optimize' ),
+			),
+			array(
+				'id'    => 'um_optimize_color_reset',
+				'type'  => 'ajax_button',
+				'label' => __( 'Restore default colors', 'um-optimize' ),
+				'value' => __( 'Reset colors', 'um-optimize' ),
+				'size'  => 'small',
 			),
 		);
 
@@ -85,6 +139,31 @@ class Settings_Color {
 				'id'    => 'um_optimize_color_button_primary',
 				'type'  => 'color',
 				'label' => __( 'Primary button', 'um-optimize' ),
+			),
+			array(
+				'id'    => 'um_optimize_color_button_primary_hover',
+				'type'  => 'color',
+				'label' => __( 'Primary button hover', 'um-optimize' ),
+			),
+			array(
+				'id'    => 'um_optimize_color_button_primary_text',
+				'type'  => 'color',
+				'label' => __( 'Primary button text', 'um-optimize' ),
+			),
+			array(
+				'id'    => 'um_optimize_color_button_secondary',
+				'type'  => 'color',
+				'label' => __( 'Secondary button', 'um-optimize' ),
+			),
+			array(
+				'id'    => 'um_optimize_color_button_secondary_hover',
+				'type'  => 'color',
+				'label' => __( 'Secondary button hover', 'um-optimize' ),
+			),
+			array(
+				'id'    => 'um_optimize_color_button_secondary_text',
+				'type'  => 'color',
+				'label' => __( 'Secondary button text', 'um-optimize' ),
 			),
 		);
 

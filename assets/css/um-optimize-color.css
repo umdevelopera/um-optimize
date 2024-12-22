@@ -6,12 +6,34 @@
  Author URI: https://github.com/umdevelopera
 */
 
-div .um .um-button,
-div .um a.um-button,
-div .um a.um-button.um-disabled:hover,
-div .um a.um-button.um-disabled:focus,
-div .um a.um-button.um-disabled:active,
-div .um input[type=submit].um-button,
-div .um input[type=submit].um-button:focus {
+/* Buttons */
+
+div.um .um-button,
+div.um .um-form .um-button,
+div.um .um-button.um-disabled:active,
+div.um .um-button.um-disabled:focus,
+div.um input[type=submit].um-button,
+div.um input[type=submit].um-button:focus {
 	background-color: var( --um_optimize_color_button_primary, #3ba1da );
+	color: var( --um_optimize_color_button_primary_text, #ffffff );
+}
+
+div.um .um-button:hover,
+div.um .um-form .um-button:hover,
+div.um .um-button.um-disabled:hover,
+div.um input[type=submit].um-button:hover {
+	background-color: var( --um_optimize_color_button_primary_hover, #44b0ec );
+}
+
+div.um .um-button.um-alt,
+div.um .um-form .um-button.um-alt,
+div.um input[type=submit].um-button.um-alt {
+	background-color: var( --um_optimize_color_button_secondary, #eeeeee );
+	color: var( --um_optimize_color_button_secondary_text, #666666 );
+}
+
+div.um .um-button.um-alt:hover,
+div.um .um-form .um-button.um-alt:hover,
+div.um input[type=submit].um-button.um-alt:hover {
+	background-color: var( --um_optimize_color_button_secondary_hover, #e5e5e5 );
 }

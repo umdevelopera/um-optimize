@@ -17,11 +17,8 @@ if ( class_exists( 'um_ext\um_optimize\frontend\Color' ) ) {
  */
 class Color {
 
-	const FILENAME = 'um-optimize-color-variables.css';
 
-	const OPTIONS = array(
-		'um_optimize_color_button_primary',
-	);
+	const FILENAME = 'um-optimize-color-variables.css';
 
 
 	/**
@@ -60,11 +57,17 @@ class Color {
 	}
 
 
+	/**
+	 * Generate CSS file with variables.
+	 *
+	 * @return boolean This function returns the path to the file, or FALSE on failure.
+	 */
 	public function generate_variables_file() {
-		$path = UM()->uploader()->get_upload_base_dir() . 'um_optimize/' . self::FILENAME;
+		$path   = UM()->uploader()->get_upload_base_dir() . 'um_optimize/' . self::FILENAME;
+		$colors = UM()->Optimize()->setup()->get_default_colors();
 
-		$content  = '.um {' . PHP_EOL;
-		foreach( self::OPTIONS as $option ) {
+		$content = '.um {' . PHP_EOL;
+		foreach( $colors as $option => $value ) {
 			if ( UM()->options()->get( $option ) ) {
 				$content .= '--' . $option . ':' . UM()->options()->get( $option ) . ';' . PHP_EOL;
 			}
@@ -83,6 +86,11 @@ class Color {
 	}
 
 
+	/**
+	 * Get the URL of the file with variables.
+	 *
+	 * @return string URL.
+	 */
 	public function get_variables_src() {
 		$path = UM()->uploader()->get_upload_base_dir() . 'um_optimize/' . self::FILENAME;
 		if ( ! file_exists( $path ) ) {
@@ -90,8 +98,13 @@ class Color {
 		}
 		return UM()->uploader()->get_upload_base_url() . 'um_optimize/' . self::FILENAME;
 	}
-	
 
+
+	/**
+	 * Get the modification time of the file with variables.
+	 *
+	 * @return int Timestamp.
+	 */
 	public function get_variables_time() {
 		$path = UM()->uploader()->get_upload_base_dir() . 'um_optimize/' . self::FILENAME;
 		if ( ! file_exists( $path ) ) {

@@ -40,13 +40,12 @@ class UM_Optimize {
 	public function __construct() {
 
 		if( UM()->is_ajax() ) {
+			$this->ajax();
 			$this->images();
-			$this->member_directory();
 			$this->query();
 		} elseif ( UM()->is_request( 'admin' ) ) {
 			$this->admin();
 		} elseif ( UM()->is_request( 'frontend' ) ) {
-			$this->assets();
 			$this->frontend();
 			$this->images();
 			$this->query();
@@ -86,16 +85,16 @@ class UM_Optimize {
 
 
 	/**
-	 * Optimize assets.
+	 * AJAX handlers.
 	 *
-	 * @return um_ext\um_optimize\core\Assets
+	 * @return um_ext\um_optimize\core\AJAX
 	 */
-	public function assets() {
-		if ( empty( UM()->classes['um_optimize_assets'] ) ) {
-			require_once um_optimize_path . 'includes/core/class-assets.php';
-			UM()->classes['um_optimize_assets'] = new um_ext\um_optimize\core\Assets();
+	public function ajax() {
+		if ( empty( UM()->classes['um_optimize_ajax'] ) ) {
+			require_once um_optimize_path . 'includes/core/class-ajax.php';
+			UM()->classes['um_optimize_ajax'] = new um_ext\um_optimize\core\AJAX();
 		}
-		return UM()->classes['um_optimize_assets'];
+		return UM()->classes['um_optimize_ajax'];
 	}
 
 
@@ -128,20 +127,6 @@ class UM_Optimize {
 
 
 	/**
-	 * Optimize member directories.
-	 *
-	 * @return um_ext\um_optimize\core\Member_Directory
-	 */
-	public function member_directory() {
-		if ( empty( UM()->classes['um_optimize_member_directory'] ) ) {
-			require_once um_optimize_path . 'includes/core/class-member-directory.php';
-			UM()->classes['um_optimize_member_directory'] = new um_ext\um_optimize\core\Member_Directory();
-		}
-		return UM()->classes['um_optimize_member_directory'];
-	}
-
-
-	/**
 	 * Optimize queries.
 	 *
 	 * @return um_ext\um_optimize\core\Query
@@ -152,6 +137,20 @@ class UM_Optimize {
 			UM()->classes['um_optimize_query'] = new um_ext\um_optimize\core\Query();
 		}
 		return UM()->classes['um_optimize_query'];
+	}
+
+
+	/**
+	 * Actions on installation.
+	 *
+	 * @return um_ext\um_optimize\core\Setup
+	 */
+	public function setup() {
+		if ( empty( UM()->classes['um_optimize_setup'] ) ) {
+			require_once um_optimize_path . 'includes/core/class-setup.php';
+			UM()->classes['um_optimize_setup'] = new um_ext\um_optimize\core\Setup();
+		}
+		return UM()->classes['um_optimize_setup'];
 	}
 
 

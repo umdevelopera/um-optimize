@@ -33,6 +33,19 @@ define( 'um_optimize_version', $plugin_data['Version'] );
 define( 'um_optimize_textdomain', 'um-optimize' );
 
 
+// Activation script.
+if ( ! function_exists( 'um_optimize_activation_hook' ) ) {
+	function um_optimize_activation_hook() {
+		require_once 'includes/core/class-setup.php';
+		if ( class_exists( 'um_ext\um_optimize\core\Setup' ) && function_exists( 'UM' ) ) {
+			$setup = new um_ext\um_optimize\core\Setup();
+			$setup->run();
+		}
+	}
+}
+register_activation_hook( um_optimize_plugin, 'um_optimize_activation_hook' );
+
+
 // Check dependencies.
 if ( ! function_exists( 'um_optimize_check_dependencies' ) ) {
 	function um_optimize_check_dependencies() {
