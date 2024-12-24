@@ -6,10 +6,63 @@
  Author URI: https://github.com/umdevelopera
 */
 
-/* Buttons */
+/*
+ * Common
+ */
 
+div.um {
+	background-color: var( --um_optimize_color_common_background );
+	color: var( --um_optimize_color_common_text, #444 );
+}
+div.um .um-members-wrapper .um-members .um-member {
+	border-color: var( --um_optimize_color_common_line, #ddd );
+}
+div.um .um-header,
+div.um .um-members-wrapper .um-members.um-members-grid .um-member .um-member-card .um-member-meta-main .um-member-meta {
+	border-color: var( --um_optimize_color_common_light_line, #eee );
+}
+div.um .um-members-wrapper,
+div.um .um-members-wrapper .um-members .um-member .um-member-card {
+	color: var( --um_optimize_color_common_text, #444 );
+}
+div.um .um-members-wrapper .um-members.um-members-grid .um-member .um-member-card .um-member-tagline {
+	color: var( --um_optimize_color_common_light_text, #999 );
+}
+
+div.um .um-completeness-bar {
+	background-color: var( --um_optimize_color_common_light_line, #eee );
+}
+div.um .um-completeness-done {
+	background-color: var( --um_optimize_color_common_active, #3ba1da );
+}
+div.um .um-verified {
+	color: var( --um_optimize_color_common_active, #3ba1da ) !important;
+}
+
+/*
+ * Buttons and links
+ */
+
+/* Link */
+div.um a.um-link,
+div.um .um-header .um-profile-headericon a,
+div.um .um-members-wrapper .um-members .um-member .um-member-card a:not(.um-button),
+div.um .um-members-wrapper .um-members.um-members-grid .um-member .um-member-card .um-member-name a,
+div.um .um-members-wrapper .um-members.um-members-grid .um-member .um-member-card .um-member-meta-main .um-member-more a {
+	color: var( --um_optimize_color_link, #3ba1da );
+}
+div.um a.um-link:hover,
+div.um a.um-link-hvr:hover,
+div.um .um-header .um-profile-headericon a:hover,
+div.um .um-members-wrapper .um-members .um-member .um-member-card a:not(.um-button):hover,
+div.um .um-members-wrapper .um-members.um-members-grid .um-member .um-member-card .um-member-name a:hover,
+div.um .um-members-wrapper .um-members.um-members-grid .um-member .um-member-card .um-member-meta-main .um-member-more a:hover {
+	color: var( --um_optimize_color_link_hover, #44b0ec );
+}
+
+/* Primary button */
 div.um .um-button,
-div.um .um-form .um-button,
+div.um div.um-form .um-button,
 div.um .um-button.um-disabled:active,
 div.um .um-button.um-disabled:focus,
 div.um input[type=submit].um-button,
@@ -17,23 +70,152 @@ div.um input[type=submit].um-button:focus {
 	background-color: var( --um_optimize_color_button_primary, #3ba1da );
 	color: var( --um_optimize_color_button_primary_text, #ffffff );
 }
-
 div.um .um-button:hover,
-div.um .um-form .um-button:hover,
+div.um div.um-form .um-button:hover,
 div.um .um-button.um-disabled:hover,
 div.um input[type=submit].um-button:hover {
 	background-color: var( --um_optimize_color_button_primary_hover, #44b0ec );
 }
 
+/* Secondary button */
 div.um .um-button.um-alt,
-div.um .um-form .um-button.um-alt,
+div.um div.um-form .um-button.um-alt,
 div.um input[type=submit].um-button.um-alt {
 	background-color: var( --um_optimize_color_button_secondary, #eeeeee );
 	color: var( --um_optimize_color_button_secondary_text, #666666 );
 }
-
 div.um .um-button.um-alt:hover,
-div.um .um-form .um-button.um-alt:hover,
+div.um div.um-form .um-button.um-alt:hover,
 div.um input[type=submit].um-button.um-alt:hover {
 	background-color: var( --um_optimize_color_button_secondary_hover, #e5e5e5 );
+}
+div.um .um-button.um-alt:before,
+div.um input[type=submit].um-button.um-alt:before {
+	color: inherit;
+}
+
+/*
+ * Fields and filters
+ */
+
+div.um div.um-form input[type=text],
+div.um div.um-form input[type=search]:not(.select2-search__field),
+div.um div.um-form input[type=tel],
+div.um div.um-form input[type=number],
+div.um div.um-form input[type=password],
+div.um div.um-form textarea,
+div.um .um-search-filter .select2.select2-container .select2-selection,
+div.um .um-field .select2.select2-container .select2-selection,
+div.um .um-search-filter .select2-container.select2-container--open .select2-dropdown,
+div.um .um-field .select2-container.select2-container--open .select2-dropdown {
+	background-color: var( --um_optimize_color_field_background, #ffffff ) !important;
+	border-color: var( --um_optimize_color_field_border, #d0d0d0 ) !important;
+	color: var( --um_optimize_color_field_text, #666666 ) !important;
+}
+
+div.um .select2-container--default .select2-search--dropdown .select2-search__field,
+div.um .select2-container--default .select2-search--dropdown .select2-search__field:focus,
+div.um .select2-container--default .select2-selection--multiple .select2-selection__choice {
+	border-color: var( --um_optimize_color_field_border, #d0d0d0 ) !important;
+}
+
+div.um .select2-container--default .select2-selection--single .select2-selection__rendered,
+div.um .select2-container--default .select2-selection--multiple .select2-selection__choice,
+div.um .select2-container--default .select2-selection--multiple .select2-selection__choice__remove,
+div.um .select2.select2-container .select2-selection .select2-selection__arrow:before,
+div.um .um-search-filter .select2-container--default .select2-selection--single .select2-selection__clear,
+div.um .um-search-filter .select2-container--default .select2-selection--multiple .select2-selection__clear,
+div.um .um-field .select2-container--default .select2-selection--single .select2-selection__clear,
+div.um .um-field .select2-container--default .select2-selection--multiple .select2-selection__clear,
+div.um .um-single-fileinfo span.filename {
+	color: var( --um_optimize_color_field_text, #666666 );
+}
+div.um .um-search-filter .select2-container.select2-container--open .select2-dropdown .select2-results li,
+div.um .um-field .select2-container.select2-container--open .select2-dropdown .select2-results li {
+	color: var( --um_optimize_color_field_text, #666666 ) !important;
+}
+
+/* Cancel button */
+div.um .um-field .um-single-image-preview a.cancel,
+div.um .um-field .um-single-file-preview a.cancel {
+	background-color: var( --um_optimize_color_field_background, #ffffff );
+}
+div.um .um-field .um-single-image-preview a.cancel:hover,
+div.um .um-field .um-single-file-preview a.cancel:hover {
+	opacity: 1;
+}
+div.um .um-field .um-single-image-preview a.cancel i,
+div.um .um-field .um-single-file-preview a.cancel i {
+	color: var( --um_optimize_color_field_text, #666666 );
+}
+
+/* Radio and checkbox */
+div.um .um-field .um-field-radio-option,
+div.um .um-field .um-field-checkbox-option {
+	color: var( --um_optimize_color_field_text, #666666 ) !important;
+}
+div.um .um-field .um-field-radio-state i,
+div.um .um-field .um-field-checkbox-state i {
+	color: var( --um_optimize_color_field_border, #d0d0d0 );
+}
+div.um .um-field .um-field-radio.active:not(.um-field-radio-state-disabled) i,
+div.um .um-field .um-field-checkbox.active:not(.um-field-radio-state-disabled) i {
+	color: var( --um_optimize_color_field_active, #3ba1da ) !important;
+}
+
+/* Label */
+div.um .um-field .um-field-label {
+	color: var( --um_optimize_color_field_label, #555555 );
+}
+div.um.um-viewing .um-field-label {
+	border-color: var( --um_optimize_color_common_light_line, #eee );
+}
+div.um .um-field .um-tip:hover{
+	color: var( --um_optimize_color_field_active, #3ba1da );
+}
+
+/* Placeholder */
+div.um .um-form ::placeholder,
+div.um .um-form .select2-container--default .select2-selection--single .select2-selection__placeholder {
+	color: var( --um_optimize_color_field_placeholder, #909090 );
+}
+
+/*
+ * Directory
+ */
+
+/* Sorting */
+div.um-directory .um-member-directory-header .um-member-directory-header-row .um-member-directory-nav-line .um-member-directory-view-type .um-member-directory-view-type-a {
+	color: var( --um_optimize_color_field_active, #3ba1da );
+}
+div.um-directory .um-member-directory-header {
+	color: var( --um_optimize_color_field_text, #666666 );
+}
+div.um-directory .um-member-directory-header a,
+div.um-directory .um-member-directory-header .um-member-directory-nav-line .um-member-directory-filters,
+div.um-directory .um-member-directory-header .um-member-directory-nav-line .um-member-directory-sorting-a {
+	color: var( --um_optimize_color_link, #3ba1da );
+}
+div.um-directory .um-member-directory-header a:hover,
+div.um-directory .um-member-directory-header .um-member-directory-nav-line .um-member-directory-filters:hover,
+div.um-directory .um-member-directory-header .um-member-directory-nav-line .um-member-directory-sorting-a:hover {
+	color: var( --um_optimize_color_link_hover, #44b0ec );
+}
+
+/* Slider */
+div.um-directory .um-member-directory-header .um-member-directory-header-row .um-search .um-search-filter.um-slider-filter-type .um-slider.ui-slider.ui-slider-horizontal {
+	background-color: var( --um_optimize_color_field_background, #ffffff );
+	border-color: var( --um_optimize_color_field_border, #d0d0d0 ) !important;
+}
+div.um-directory .um-member-directory-header .um-member-directory-header-row .um-search .um-search-filter.um-slider-filter-type .um-slider .ui-slider-range.ui-widget-header {
+	background-color: var( --um_optimize_color_field_active, #3ba1da );
+	border-color: var( --um_optimize_color_field_active, #3ba1da ) !important;
+}
+div.um-directory .ui-state-default,
+div.um-directory .ui-widget-content .ui-state-default,
+div.um-directory .ui-widget-header .ui-state-default,
+div.um-directory .ui-button,
+div.um-directory .ui-button.ui-state-disabled:hover,
+div.um-directory .ui-button.ui-state-disabled:active {
+	border-color: var( --um_optimize_color_field_border, #d0d0d0 ) !important;
 }

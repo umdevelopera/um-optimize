@@ -40,7 +40,9 @@ class Settings_Color {
 
 		$sections = array(
 			$this->settings_section(),
+			$this->settings_section_common(),
 			$this->settings_section_button(),
+			$this->settings_section_field(),
 		);
 
 		$settings['appearance']['sections']['color'] = array(
@@ -128,13 +130,23 @@ class Settings_Color {
 
 
 	/**
-	 * Section "Buttons".
+	 * Section "Buttons and links".
 	 *
 	 * @return array
 	 */
 	public function settings_section_button() {
 
 		$fields = array(
+			array(
+				'id'    => 'um_optimize_color_link',
+				'type'  => 'color',
+				'label' => __( 'Link', 'um-optimize' ),
+			),
+			array(
+				'id'    => 'um_optimize_color_link_hover',
+				'type'  => 'color',
+				'label' => __( 'Link hover', 'um-optimize' ),
+			),
 			array(
 				'id'    => 'um_optimize_color_button_primary',
 				'type'  => 'color',
@@ -168,7 +180,106 @@ class Settings_Color {
 		);
 
 		return array(
-			'title'  => __( 'Buttons', 'um-optimize' ),
+			'title'  => __( 'Buttons and links', 'um-optimize' ),
+			'fields' => $fields,
+		);
+	}
+
+
+	/**
+	 * Section "Common".
+	 *
+	 * @return array
+	 */
+	public function settings_section_common() {
+
+		$fields = array(
+			array(
+				'id'    => 'um_optimize_color_common_active',
+				'type'  => 'color',
+				'label' => __( 'Active', 'um-optimize' ),
+			),
+			array(
+				'id'    => 'um_optimize_color_common_active_text',
+				'type'  => 'color',
+				'label' => __( 'Active text', 'um-optimize' ),
+			),
+			array(
+				'id'    => 'um_optimize_color_common_background',
+				'type'  => 'color',
+				'label' => __( 'Background', 'um-optimize' ),
+			),
+			array(
+				'id'    => 'um_optimize_color_common_line',
+				'type'  => 'color',
+				'label' => __( 'Line', 'um-optimize' ),
+			),
+			array(
+				'id'    => 'um_optimize_color_common_light_line',
+				'type'  => 'color',
+				'label' => __( 'Light line', 'um-optimize' ),
+			),
+			array(
+				'id'    => 'um_optimize_color_common_text',
+				'type'  => 'color',
+				'label' => __( 'Text', 'um-optimize' ),
+			),
+			array(
+				'id'    => 'um_optimize_color_common_light_text',
+				'type'  => 'color',
+				'label' => __( 'Light text', 'um-optimize' ),
+			),
+		);
+
+		return array(
+			'title'  => __( 'Common', 'um-optimize' ),
+			'fields' => $fields,
+		);
+	}
+
+
+	/**
+	 * Section "Fields and filters".
+	 *
+	 * @return array
+	 */
+	public function settings_section_field() {
+
+		$fields = array(
+			array(
+				'id'    => 'um_optimize_color_field_active',
+				'type'  => 'color',
+				'label' => __( 'Active', 'um-optimize' ),
+			),
+			array(
+				'id'    => 'um_optimize_color_field_background',
+				'type'  => 'color',
+				'label' => __( 'Background', 'um-optimize' ),
+			),
+			array(
+				'id'    => 'um_optimize_color_field_border',
+				'type'  => 'color',
+				'label' => __( 'Border', 'um-optimize' ),
+			),
+			array(
+				'id'    => 'um_optimize_color_field_label',
+				'type'  => 'color',
+				'label' => __( 'Label', 'um-optimize' ),
+			),
+			array(
+				'id'    => 'um_optimize_color_field_placeholder',
+				'type'  => 'color',
+				'label' => __( 'Placeholder', 'um-optimize' ),
+			),
+			array(
+				'id'    => 'um_optimize_color_field_text',
+				'type'  => 'color',
+				'label' => __( 'Text', 'um-optimize' ),
+			),
+		);
+
+		return array(
+			'title'  => __( 'Fields and filters', 'um-optimize' ),
 			'fields' => $fields,
 		);
 	}
