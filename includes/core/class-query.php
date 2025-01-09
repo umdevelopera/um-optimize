@@ -75,8 +75,8 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Query' ) ) {
 		 *
 		 * @since 1.1.0
 		 *
-		 * @see WP_Meta_Query::get_sql()
-		 * @see WP_Meta_Query::get_sql_clauses()
+		 * @see \WP_Meta_Query::get_sql()
+		 * @see \WP_Meta_Query::get_sql_clauses()
 		 *
 		 * @param string[] $sql               Array containing the query's JOIN and WHERE clauses.
 		 * @param array    $queries           Array of meta queries.
@@ -127,7 +127,7 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Query' ) ) {
 		 *
 		 * @since 1.1.0
 		 *
-		 * @see WP_Meta_Query::get_sql_for_query()
+		 * @see \WP_Meta_Query::get_sql_for_query()
 		 *
 		 * @param array $queries Query to parse (passed by reference).
 		 *
@@ -148,7 +148,7 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Query' ) ) {
 				);
 			}
 
-			if ( array_key_exists( 'key', $queries ) ) {
+			if ( array_key_exists( 'key', $queries ) || array_key_exists( 'value', $queries ) ) {
 				// simple query.
 				$sql_chunks = $this->get_meta_sql_clause( $queries );
 
@@ -165,13 +165,9 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Query' ) ) {
 					if ( is_array( $clause ) ) {
 						$clause_sql = $this->get_meta_sql_clauses( $clause );
 
-						$sql_chunks['join_i']	 = array_merge( $sql_chunks['join_i'], $clause_sql['join_i'] );
-						$sql_chunks['join_l']	 = array_merge( $sql_chunks['join_l'], $clause_sql['join_l'] );
-						if ( is_array( $clause_sql['where'] ) ) {
-							$sql_chunks['where'] = array_merge( $sql_chunks['where'], $clause_sql['where'] );
-						} else {
-							$sql_chunks['where'][] = $clause_sql['where'];
-						}
+						$sql_chunks['join_i'] = array_merge( $sql_chunks['join_i'], (array) $clause_sql['join_i'] );
+						$sql_chunks['join_l'] = array_merge( $sql_chunks['join_l'], (array) $clause_sql['join_l'] );
+						$sql_chunks['where']  = array_merge( $sql_chunks['where'], (array) $clause_sql['where'] );
 					}
 				}
 			}
@@ -179,8 +175,11 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Query' ) ) {
 
 			$where = array_filter( $sql_chunks['where'] );
 			if ( 1 < count( $where ) ) {
-				$relation			 = empty( $queries['relation'] ) ? 'AND' : ('OR' === $queries['relation'] ? 'OR' : 'AND');
-				$sql['where']	 = '( ' . implode( " ) $relation ( ", $where ) . ' )';
+				if ( empty( $queries['relation'] ) || 'AND' === strtoupper( $queries['relation'] ) ) {
+					$sql['where'] = '( ' . implode( " ) AND ( ", $where ) . ' )';
+				} else {
+					$sql['where'] = implode( ' OR ', $where );
+				}
 			} elseif ( 1 === count( $where ) ) {
 				$sql['where'] = current( $where );
 			} else {
@@ -204,12 +203,13 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Query' ) ) {
 		 * Generates SQL JOIN and WHERE clauses for a first-order query clause.
 		 *
 		 * @since 1.1.0
+		 * @version 1.3.2 - fix for array meta key.
 		 *
-		 * @see WP_Meta_Query::get_sql_for_clause()
+		 * @see \WP_Meta_Query::get_sql_for_clause()
 		 *
 		 * @global \wpdb $wpdb
 		 *
-		 * @param array  $clause            Query clause (passed by reference).
+		 * @param array $clause Query clause (passed by reference).
 		 *
 		 * @return array {
 		 *     Array containing JOIN and WHERE SQL clauses to append to a single query array.
@@ -228,161 +228,179 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Query' ) ) {
 				'where'	 => array(),
 			);
 
-			$meta_key					 = isset( $clause['key'] ) ? $clause['key'] : '';
-			$meta_value				 = isset( $clause['value'] ) ? $clause['value'] : '';
-			$meta_compare_key	 = isset( $clause['compare_key'] ) ? strtoupper( $clause['compare_key'] ) : ( is_array( $meta_key ) ? 'IN' : '=' );
-			$meta_compare			 = isset( $clause['compare'] ) ? strtoupper( $clause['compare'] ) : ( is_array( $meta_value ) ? 'IN' : '=' );
-			$meta_type				 = isset( $clause['type'] ) ? strtoupper( $clause['type'] ) : 'CHAR';
-			$alias						 = $wpdb->prepare( '%i', 'meta_' . $meta_key );
+			$m_key      = isset( $clause['key'] ) ? $clause['key'] : '';
+			$m_key_com  = isset( $clause['compare_key'] ) ? strtoupper( $clause['compare_key'] ) : ( is_array( $m_key ) ? 'IN' : '=' );
+			$m_key_type = isset( $clause['type_key'] ) ? strtoupper( $clause['type_key'] ) : 'CHAR';
+			$m_val      = isset( $clause['value'] ) ? $clause['value'] : '';
+			$m_val_com  = isset( $clause['compare'] ) ? strtoupper( $clause['compare'] ) : ( is_array( $m_val ) ? 'IN' : '=' );
+			$m_val_type = isset( $clause['type'] ) ? strtoupper( $clause['type'] ) : 'CHAR';
+
+			$join_id = is_array( $m_key ) ? implode( '|', $m_key ) : $m_key;
+			$alias   = $wpdb->prepare( '%i', 'meta_' . $join_id );
+
 
 			// JOIN ON.
-			if ( 'NOT EXISTS' === $meta_compare ) {
+			if ( 'LIKE' === $m_key_com && $m_key ) {
+				$join_on = $wpdb->prepare(
+					"( $this->primary_table.$this->primary_id_column = $alias.$this->meta_id_column AND $alias.`meta_key` LIKE %s )",
+					'%' . $wpdb->esc_like( $m_key ) . '%'
+				);
+			} elseif ( 'IN' === $m_key_com && $m_key ) {
+				$in_string = substr( str_repeat( ',%s', count( (array) $m_key ) ), 1 );
+				$join_on   = $wpdb->prepare(
+					"( $this->primary_table.$this->primary_id_column = $alias.$this->meta_id_column AND $alias.`meta_key` IN ($in_string) )",
+					(array) $m_key
+				);
+			} elseif ( '=' === $m_key_com && $m_key ) {
+				$join_on = $wpdb->prepare(
+					"( $this->primary_table.$this->primary_id_column = $alias.$this->meta_id_column AND $alias.`meta_key` = %s )",
+					(string) $m_key
+				);
+			} else {
+				$join_on = "( $this->primary_table.$this->primary_id_column = $alias.$this->meta_id_column )";
+			}
+
+			// JOIN.
+			if ( 'NOT EXISTS' === $m_val_com ) {
 				// JOIN clauses for NOT EXISTS have their own syntax.
-				$join = "LEFT JOIN $this->meta_table AS {$alias}";
+				$sql['join_l'][ $join_id ] = "LEFT JOIN $this->meta_table AS {$alias} ON {$join_on}";
 			} else {
 				// All other JOIN clauses.
-				$join = "INNER JOIN $this->meta_table AS {$alias}";
-			}
-			if ( 'LIKE' === $meta_compare_key ) {
-				$join .= $wpdb->prepare( " ON ( $this->primary_table.$this->primary_id_column = $alias.$this->meta_id_column AND $alias.meta_key LIKE %s )", '%' . $wpdb->esc_like( $meta_key ) . '%' );
-			} elseif ( '=' === $meta_compare_key ) {
-				$join .= $wpdb->prepare( " ON ( $this->primary_table.$this->primary_id_column = $alias.$this->meta_id_column AND $alias.meta_key = %s )", $meta_key );
-			} else {
-				$join .= " ON ( $this->primary_table.$this->primary_id_column = $alias.$this->meta_id_column )";
-			}
-			if ( 'NOT EXISTS' === $meta_compare ) {
-				$sql['join_l'][$meta_key] = $join;
-			} else {
-				$sql['join_i'][$meta_key] = $join;
+				$sql['join_i'][ $join_id ] = "INNER JOIN $this->meta_table AS {$alias} ON {$join_on}";
 			}
 			$this->table_aliases[] = $alias;
 
-			// meta_key.
-			if ( 'NOT EXISTS' === $meta_compare_key ) {
-				$sql['where'][] = "$alias.$this->meta_id_column IS NULL";
-			} elseif ( '' !== $meta_key && '=' !== $meta_compare_key ) {
 
-				if ( in_array( $meta_compare_key, array( '!=', 'NOT IN', 'NOT LIKE', 'NOT EXISTS', 'NOT REGEXP' ), true ) ) {
-					$subquery_alias             = $alias . '_sub';
-					$meta_compare_string_start  = 'NOT EXISTS (';
-					$meta_compare_string_start .= "SELECT 1 FROM $this->meta_table AS $subquery_alias ";
-					$meta_compare_string_start .= "WHERE $subquery_alias.post_ID = $alias.post_ID ";
-					$meta_compare_string_end    = 'LIMIT 1';
-					$meta_compare_string_end	 .= ')';
+			// WHERE for meta_key.
+			if ( 'NOT EXISTS' === $m_key_com ) {
+				$sql['where'][] = "$alias.$this->meta_id_column IS NULL";
+			} elseif ( '' !== $m_key && '=' !== $m_key_com ) {
+
+				if ( in_array( $m_key_com, array( '!=', 'NOT IN', 'NOT LIKE', 'NOT EXISTS', 'NOT REGEXP' ), true ) ) {
+					$subquery_alias = $alias . '_sub';
+					$compare_start  = 'NOT EXISTS (';
+					$compare_start .= "SELECT 1 FROM $this->meta_table AS $subquery_alias ";
+					$compare_start .= "WHERE $subquery_alias.post_ID = $alias.post_ID ";
+					$compare_end    = 'LIMIT 1';
+					$compare_end	 .= ')';
 				}
 
-				switch ( $meta_compare_key ) {
+				switch ( $m_key_com ) {
 					case '=':
 					case 'EXISTS':
-						$where							 = $wpdb->prepare( "$alias.meta_key = %s", $meta_key ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+						$where = $wpdb->prepare( "$alias.`meta_key` = %s", $m_key ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 						break;
+
 					case 'LIKE':
-						$meta_compare_value	 = '%' . $wpdb->esc_like( $meta_key ) . '%';
-						$where							 = $wpdb->prepare( "$alias.meta_key LIKE %s", $meta_compare_value ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+						$compare_value = '%' . $wpdb->esc_like( $m_key ) . '%';
+						$where         = $wpdb->prepare( "$alias.`meta_key` LIKE %s", $compare_value ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 						break;
+
 					case 'IN':
-						$meta_compare_string = "$alias.meta_key IN (" . substr( str_repeat( ',%s', count( $meta_key ) ), 1 ) . ')';
-						$where							 = $wpdb->prepare( $meta_compare_string, $meta_key ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+						$compare_string = "$alias.`meta_key` IN (" . substr( str_repeat( ',%s', count( $m_key ) ), 1 ) . ')';
+						$where          = $wpdb->prepare( $compare_string, $m_key ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 						break;
+
 					case 'RLIKE':
 					case 'REGEXP':
-						$operator						 = $meta_compare;
-						if ( 'BINARY' === strtoupper( $meta_type ) ) {
+						if ( 'BINARY' === strtoupper( $m_key_type ) ) {
 							$cast	 = 'BINARY';
-							$almk	 = "CAST($alias.meta_key AS BINARY)";
+							$almk	 = "CAST($alias.`meta_key` AS BINARY)";
 						} else {
 							$cast	 = '';
-							$almk	 = "$alias.meta_key";
+							$almk	 = "$alias.`meta_key`";
 						}
-						$where = $wpdb->prepare( "$almk $operator $cast %s", $meta_key ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+						$where = $wpdb->prepare( "$almk $m_key_com $cast %s", $m_key ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 						break;
 
 					case '!=':
 					case 'NOT EXISTS':
-						$meta_compare_string = $meta_compare_string_start . "AND $subquery_alias.meta_key = %s " . $meta_compare_string_end;
-						$where							 = $wpdb->prepare( $meta_compare_string, $meta_key ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+						$compare_string = $compare_start . "AND $subquery_alias.`meta_key` = %s " . $compare_end;
+						$where          = $wpdb->prepare( $compare_string, $m_key ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 						break;
-					case 'NOT LIKE':
-						$meta_compare_string = $meta_compare_string_start . "AND $subquery_alias.meta_key LIKE %s " . $meta_compare_string_end;
-						$meta_compare_value	 = '%' . $wpdb->esc_like( $meta_key ) . '%';
-						$where							 = $wpdb->prepare( $meta_compare_string, $meta_compare_value ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-						break;
-					case 'NOT IN':
-						$array_subclause		 = '(' . substr( str_repeat( ',%s', count( $meta_key ) ), 1 ) . ') ';
-						$meta_compare_string = $meta_compare_string_start . "AND $subquery_alias.meta_key IN " . $array_subclause . $meta_compare_string_end;
-						$where							 = $wpdb->prepare( $meta_compare_string, $meta_key ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-						break;
-					case 'NOT REGEXP':
-						$operator						 = $meta_compare;
-						if ( 'BINARY' === strtoupper( $meta_type ) ) {
-							$cast	 = 'BINARY';
-							$almk	 = "CAST($subquery_alias.meta_key AS BINARY)";
-						} else {
-							$cast	 = '';
-							$almk	 = "$subquery_alias.meta_key";
-						}
 
-						$meta_compare_string = $meta_compare_string_start . "AND $almk REGEXP $cast %s " . $meta_compare_string_end;
-						$where							 = $wpdb->prepare( $meta_compare_string, $meta_key ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+					case 'NOT LIKE':
+						$compare_string = $compare_start . "AND $subquery_alias.`meta_key` LIKE %s " . $compare_end;
+						$compare_value  = '%' . $wpdb->esc_like( $m_key ) . '%';
+						$where          = $wpdb->prepare( $compare_string, $compare_value ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+						break;
+
+					case 'NOT IN':
+						$array_subclause = '(' . substr( str_repeat( ',%s', count( $m_key ) ), 1 ) . ') ';
+						$compare_string  = $compare_start . "AND $subquery_alias.`meta_key` IN " . $array_subclause . $compare_end;
+						$where           = $wpdb->prepare( $compare_string, $m_key ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+						break;
+
+					case 'NOT REGEXP':
+						if ( 'BINARY' === strtoupper( $m_key_type ) ) {
+							$cast = 'BINARY';
+							$almk = "CAST($subquery_alias.`meta_key` AS BINARY)";
+						} else {
+							$cast = '';
+							$almk = "$subquery_alias.`meta_key`";
+						}
+						$compare_string = $compare_start . "AND $almk REGEXP $cast %s " . $compare_end;
+						$where          = $wpdb->prepare( $compare_string, $m_key ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 						break;
 				}
 
 				$sql['where'][] = $where;
 			}
 
-			// meta_value.
-			if ( 'NOT EXISTS' === $meta_compare ) {
-				$sql['where'][] = "$alias.$this->meta_id_column IS NULL";
-			} elseif ( '' !== $meta_value && $meta_compare ) {
 
-				if ( in_array( $meta_compare, array( 'IN', 'NOT IN', 'BETWEEN', 'NOT BETWEEN' ), true ) ) {
-					if ( ! is_array( $meta_value ) ) {
-						$meta_value = preg_split( '/[,\s]+/', $meta_value );
+			// WHERE for meta_value.
+			if ( 'NOT EXISTS' === $m_val_com ) {
+				$sql['where'][] = "$alias.$this->meta_id_column IS NULL";
+			} elseif ( '' !== $m_val && $m_val_com ) {
+
+				if ( in_array( $m_val_com, array( 'IN', 'NOT IN', 'BETWEEN', 'NOT BETWEEN' ), true ) ) {
+					if ( ! is_array( $m_val ) ) {
+						$m_val = preg_split( '/[,\s]+/', $m_val );
 					}
-				} elseif ( is_string( $meta_value ) ) {
-					$meta_value = trim( $meta_value );
+				} elseif ( is_string( $m_val ) ) {
+					$m_val = trim( $m_val );
 				}
 
-				switch ( $meta_compare ) {
+				switch ( $m_val_com ) {
 					case 'IN':
 					case 'NOT IN':
-						$meta_compare_string = '(' . substr( str_repeat( ',%s', count( $meta_value ) ), 1 ) . ')';
-						$where							 = $wpdb->prepare( $meta_compare_string, $meta_value );
+						$compare_string = '(' . substr( str_repeat( ',%s', count( $m_val ) ), 1 ) . ')';
+						$where_val      = $wpdb->prepare( $compare_string, $m_val );
 						break;
 
 					case 'BETWEEN':
 					case 'NOT BETWEEN':
-						$where = $wpdb->prepare( '%s AND %s', $meta_value[0], $meta_value[1] );
+						$where_val = $wpdb->prepare( '%s AND %s', $m_val[0], $m_val[1] );
 						break;
 
 					case 'LIKE':
 					case 'NOT LIKE':
-						$meta_value	 = '%' . $wpdb->esc_like( $meta_value ) . '%';
-						$where			 = $wpdb->prepare( '%s', $meta_value );
+						$m_val     = '%' . $wpdb->esc_like( $m_val ) . '%';
+						$where_val = $wpdb->prepare( '%s', $m_val );
 						break;
 
 					// EXISTS with a value is interpreted as '='.
 					case 'EXISTS':
-						$meta_compare	 = '=';
-						$where				 = $wpdb->prepare( '%s', $meta_value );
+						$m_val_com = '=';
+						$where_val = $wpdb->prepare( '%s', $m_val );
 						break;
 
 					// 'value' is ignored for NOT EXISTS.
 					case 'NOT EXISTS':
-						$where = '';
+						$where_val = '';
 						break;
 
 					default:
-						$where = $wpdb->prepare( '%s', $meta_value );
+						$where_val = $wpdb->prepare( '%s', $m_val );
 						break;
 				}
 
-				if ( 'CHAR' === $meta_type ) {
-					$sql['where'][] = "$alias.meta_value {$meta_compare} {$where}";
-				} elseif ( 'NUMERIC' === $meta_type ) {
-					$sql['where'][] = "CAST($alias.meta_value AS UNSIGNED) {$meta_compare} {$where}";
+				if ( 'CHAR' === $m_val_type ) {
+					$sql['where'][] = "$alias.`meta_value` {$m_val_com} {$where_val}";
+				} elseif ( 'NUMERIC' === $m_val_type ) {
+					$sql['where'][] = "CAST($alias.`meta_value` AS UNSIGNED) {$m_val_com} {$where_val}";
 				} else  {
-					$sql['where'][] = "CAST($alias.meta_value AS {$meta_type}) {$meta_compare} {$where}";
+					$sql['where'][] = "CAST($alias.`meta_value` AS {$m_val_type}) {$m_val_com} {$where_val}";
 				}
 			}
 
@@ -399,7 +417,7 @@ if ( ! class_exists( 'um_ext\um_optimize\core\Query' ) ) {
 		 *
 		 * @since 1.1.0
 		 *
-		 * @see WP_Query::parse_query()
+		 * @see \WP_Query::parse_query()
 		 *
 		 * @param array  $args   Array or string of Query parameters.
 		 * @param string $return A format of return. Accepts: 'posts', 'WP_Query'. Default 'posts',

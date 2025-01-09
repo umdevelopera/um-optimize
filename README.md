@@ -20,11 +20,11 @@ Open git bash, navigate to the **plugins** folder and execute this command:
 
 `git clone --branch=main git@github.com:umdevelopera/um-optimize.git um-optimize`
 
-Once the plugin is cloned, enter your site admin dashboard and go to _wp-admin > Plugins > Installed Plugins_. Find the "Ultimate Member - Optimize" plugin and click the "Activate" link.
+Once the plugin is cloned, enter your site admin dashboard and go to _wp-admin > Plugins > Installed Plugins_. Find the "Ultimate Member - Optimize and Color" plugin and click the "Activate" link.
 
 ### How to install from ZIP archive
 
-You can install the plugin from this [ZIP file](https://drive.google.com/file/d/1DCro3M0qR4pUzx4SgHVNun0_c0V9Rq-x/view) as any other plugin. Follow [this instruction](https://wordpress.org/support/article/managing-plugins/#upload-via-wordpress-admin).
+You can install the plugin from this [ZIP file](https://drive.google.com/file/d/1psJ8dKJSY3qsFe2Limw0NNdtOw3kDq4G/view) as any other plugin. Follow [this instruction](https://wordpress.org/support/article/managing-plugins/#upload-via-wordpress-admin).
 
 ## How to use
 
@@ -47,6 +47,7 @@ The **Colors** tab also contains tools that may be helpful:
 - **Background**
 - **Light line**
 - **Line**
+- **Light text**
 - **Text**
 
 #### Links and buttons
@@ -100,11 +101,12 @@ It is recommended to combine multiple Ultimate Member styles and scripts into on
 #### Images
 
 Ultimate Member does not allow using Cover Photo and Profile Photo images from the browser cache.
-This approach is safe and secure, but it slows down rendering pages with Ultimate Member components and loading the member directory.
-It is recommended to allow using images from the browser cache if your site is public.
+This approach is safe and secure, but it slows down rendering the member directory and pages with Ultimate Member components.
+It is recommended to allow using images from the browser cache.
 
-Ultimate Member uses the largest Cover Photo thumbnail in the member directory on the desktop. Such large images are usually not necessary.
-It is recommended to use an image that is 500px wide or slightly larger.
+Ultimate Member uses the largest Cover Photo thumbnail in the member directory on the desktop.
+However, the directory does not need large images.
+It is recommended to use Cover Photo thumbnail that is about 500 pixels wide to load images faster.
 
 - **Profile Photo caching** - Allow using Profile Photo images from the browser cache.
 - **Cover Photo caching** - Allow using Cover Photo images from the browser cache.
@@ -113,9 +115,9 @@ It is recommended to use an image that is 500px wide or slightly larger.
 #### SQL queries
 
 Ultimate Member uses the standard WP_Query and WP_User_Query classes to build database queries.
-Queries built this way are reliable and stable, but not optimized.
-This slows down retrieving users in the user directory and posts in extensions that use custom post type, which slows down page rendering.
-It is recommended to enable SQL queries optimization to get posts and users faster.
+Queries created this way are reliable and stable, but are not optimized for speed.
+This slows down retrieving users in the member directory and posts in extensions that use custom post type.
+It is recommended to enable SQL queries optimization to get posts and members faster.
 
 - **Speed up member directories** - *(optional)* Optimize the SQL query that retrieves users for the member directory.
 - **Speed up Activity** - *(optional)* Optimize the SQL query that retrieves posts for the [Social Activity](https://ultimatemember.com/extensions/social-activity/) extension.

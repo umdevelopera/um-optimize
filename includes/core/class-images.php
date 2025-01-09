@@ -115,12 +115,13 @@ class Images {
 	 * @see \um\core\Member_Directory::build_user_card_data()
 	 *
 	 * @since 1.2.0
+	 * @version 1.3.1 Fix for the UM v2.9.2 - used function wp_is_mobile()
 	 *
 	 * @param int   $user_id        User ID.
 	 * @param array $directory_data Directory settings.
 	 */
 	public function cover_photo_size( $user_id, $directory_data ) {
-		if ( ! UM()->mobile()->isTablet() ) {
+		if ( ! wp_is_mobile() ) {
 			UM()->member_directory()->cover_size = UM()->options()->get( 'um_optimize_cover_photo_size' );
 		}
 	}

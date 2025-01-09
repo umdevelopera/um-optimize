@@ -52,13 +52,14 @@ class Setup {
 	 */
 	protected $scopes = array(
 		'.um',
-		'.um-is-loaded',
 		'.um-modal',
 		'.um-popup',
+		'.um-is-loaded',
+		'.um-new-dropdown',
 		'.um-activity-confirm',
 		'.um-groups-widget',
-		'.um-notification-shortcode',
 		'.um-notes-holder',
+		'.um-notification-shortcode',
 		'.um-reviews-widget',
 		'.um-user-bookmarks-modal',
 		'.um-user-photos-albums',

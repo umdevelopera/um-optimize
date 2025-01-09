@@ -86,7 +86,7 @@ class Settings_Optimize {
 
 		return array(
 			'title'       => __( 'CSS and JS', 'um-optimize' ),
-			'description' => __( 'Ultimate Member loads various styles and scripts that are necessary for its components to work. Extensions can also load their own styles and scripts. Loading many styles and scripts can slow down page rendering. It is recommended to disable loading of Ultimate Member styles and scripts on pages that do not have its components. Loading one large style or script file has less impact on page rendering delay than loading multiple files. It is recommended to combine multiple Ultimate Member styles and scripts into one style file and one script file.', 'um-optimize' ),
+			'description' => __( 'Ultimate Member loads various styles and scripts that are necessary for its components to work. Extensions can also load their own styles and scripts. Loading many styles and scripts can slow down page rendering. It is recommended to disable loading of Ultimate Member styles and scripts on pages that do not have its components.', 'um-optimize' ) . '<br>' . __( 'Loading one large style or script file has less impact on page rendering delay than loading multiple files. It is recommended to combine multiple Ultimate Member styles and scripts into one style file and one script file.', 'um-optimize' ),
 			'fields'      => $fields,
 		);
 	}
@@ -127,7 +127,7 @@ class Settings_Optimize {
 
 		return array(
 			'title'       => __( 'Images', 'um-optimize' ),
-			'description' => __( 'Ultimate Member does not allow using Cover Photo and Profile Photo images from the browser cache. This approach is safe and secure, but it slows down rendering pages with Ultimate Member components and loading the member directory. It is recommended to allow using images from the browser cache if your site is public. Ultimate Member uses the largest Cover Photo thumbnail in the member directory on the desktop. Such large images are usually not necessary. It is recommended to use an image that is 500px wide or slightly larger.', 'um-optimize' ),
+			'description' => __( 'Ultimate Member does not allow using Cover Photo and Profile Photo images from the browser cache. This approach is safe and secure, but it slows down rendering the member directory and pages with Ultimate Member components. It is recommended to allow using images from the browser cache.', 'um-optimize' ) . '<br>' . __( 'Ultimate Member uses the largest Cover Photo thumbnail in the member directory on the desktop. However, the directory does not need large images. It is recommended to use Cover Photo thumbnail that is about 500 pixels wide to load images faster.', 'um-optimize' ),
 			'fields'      => $fields,
 		);
 	}
@@ -193,7 +193,7 @@ class Settings_Optimize {
 
 		return empty( $fields ) ? null : array(
 			'title'       => __( 'SQL queries', 'um-optimize' ),
-			'description' => __( 'Ultimate Member uses the standard WP_Query and WP_User_Query classes to build database queries. Queries built this way are reliable and stable, but not optimized. This slows down retrieving users in the user directory and posts in extensions that use custom post type, which slows down page rendering. It is recommended to enable SQL queries optimization to get posts and users faster.', 'um-optimize' ),
+			'description' => __( 'Ultimate Member uses the standard WP_Query and WP_User_Query classes to build database queries. Queries created this way are reliable and stable, but are not optimized for speed. This slows down retrieving users in the member directory and posts in extensions that use custom post type. It is recommended to enable SQL queries optimization to get posts and members faster.', 'um-optimize' ),
 			'fields'      => $fields,
 		);
 	}
