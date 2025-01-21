@@ -91,11 +91,12 @@ class Assets {
 		add_action( 'um_before_form_is_loaded', array( $this, 'check_um_form' ) );
 
 		// Priority must be less than 10. Function _wp_footer_scripts() is called on 10.
-		add_action( 'wp_print_footer_scripts', array( $this, 'set_footer' ), 8 );
-		add_action( 'wp_print_footer_scripts', array( $this, 'optimize_assets' ), 9 );
+		add_action( 'wp_print_footer_scripts', array( $this, 'set_footer' ), 7 );
+		add_action( 'wp_print_footer_scripts', array( $this, 'optimize_styles' ), 8 );
+		add_action( 'wp_print_footer_scripts', array( $this, 'optimize_scripts' ), 9 );
 
-		add_action( 'wp_print_scripts', array( $this, 'optimize_assets' ), 10 );
-		add_action( 'wp_print_styles', array( $this, 'optimize_assets' ), 10 );
+		add_action( 'wp_print_styles', array( $this, 'optimize_styles' ), 10 );
+		add_action( 'wp_print_scripts', array( $this, 'optimize_scripts' ), 10 );
 	}
 
 
@@ -144,30 +145,22 @@ class Assets {
 	 * @param string $ext Files extension. Accepts 'css', 'js'.
 	 */
 	public function combine_assets( $ext ) {
-		if ( $ext && in_array( $ext, array( 'css', 'js' ), true ) ) {
+		if ( in_array( $ext, array( 'css', 'js' ), true ) ) {
 			$this->ext = $ext;
-		}
-
-		if ( 'css' === $this->ext ) {
-			$this->wp_dependencies = wp_styles();
-		} elseif ( 'js' === $this->ext ) {
-			$this->wp_dependencies = wp_scripts();
 		} else {
-			return false;
+			$ext = $this->ext;
+		}
+		if ( empty( $this->done[ $ext ] ) ) {
+			$this->done[ $ext ] = array();
+		}
+		if ( empty( $this->queue[ $ext ] ) ) {
+			$this->queue[ $ext ] = array();
 		}
 
-		$um_dependencies = $this->get_um_dependencies( $this->wp_dependencies->queue, $ext, (int) $this->footer );
+		$this->wp_dependencies = 'css' === $ext ? wp_styles() : wp_scripts();
 
-		if ( empty( $this->done[$this->ext] ) ) {
-			$this->done[$this->ext] = array();
-		}
-		if ( empty( $this->queue[$this->ext] ) ) {
-			$this->queue[$this->ext] = array();
-		}
-		$this->queue[$this->ext] = array_merge( $this->queue[$this->ext], array_keys( $um_dependencies ) );
-
-		// Exclude files that have already been combined.
-		$um_dependencies_new = array_diff_key( $um_dependencies, array_flip( $this->done[$this->ext] ) );
+		$um_dependencies     = $this->get_um_dependencies( $this->wp_dependencies->queue, $ext, (int) $this->footer );
+		$um_dependencies_new = array_diff_key( $um_dependencies, array_flip( $this->done[ $ext ] ) );
 
 		$combined = $this->get_combined_file( $um_dependencies_new, $ext );
 		if ( $combined && is_array( $combined ) ) {
@@ -175,9 +168,11 @@ class Assets {
 			$this->wp_dependencies->add_data( $combined['handle'], 'data', $combined['data'] );
 			$this->wp_dependencies->add_data( $combined['handle'], 'group', $this->footer );
 			$this->wp_dependencies->enqueue( $combined['handle'] );
-			$this->wp_dependencies->dequeue( array_keys( $um_dependencies_new ) );
-			$this->done[$this->ext] = array_merge( $this->done[$this->ext], array_keys( $um_dependencies_new ) );
 		}
+
+		$this->queue[ $ext ] = array_unique( array_merge( $this->queue[ $ext ], array_keys( $um_dependencies ) ) );
+		$this->done[ $ext ]  = array_unique( array_merge( $this->done[ $ext ], array_keys( $um_dependencies_new ) ) );
+		$this->wp_dependencies->dequeue( $this->done[ $ext ] );
 	}
 
 
@@ -187,17 +182,11 @@ class Assets {
 	 * @param string $ext Files extension. Accepts 'css', 'js'.
 	 */
 	public function dequeue_assets( $ext ) {
-		if ( $ext && in_array( $ext, array( 'css', 'js' ), true ) ) {
-			$this->ext = $ext;
+		if ( ! in_array( $ext, array( 'css', 'js' ), true ) ) {
+			$ext = $this->ext;
 		}
 
-		if ( 'css' === $this->ext ) {
-			$this->wp_dependencies = wp_styles();
-		} elseif ( 'js' === $this->ext ) {
-			$this->wp_dependencies = wp_scripts();
-		} else {
-			return false;
-		}
+		$this->wp_dependencies = 'css' === $ext ? wp_styles() : wp_scripts();
 		if ( empty( $this->wp_dependencies->queue ) ) {
 			return false;
 		}
@@ -224,7 +213,7 @@ class Assets {
 			if ( in_array( $handle, $not_dequeue, true ) ) {
 				continue;
 			}
-			if ( $this->is_ultimatemember_file( $this->wp_dependencies->registered[$handle] ) ) {
+			if ( $this->is_ultimatemember_file( $this->wp_dependencies->registered[ $handle ] ) ) {
 				$this->wp_dependencies->dequeue( $handle );
 			}
 		}
@@ -240,27 +229,29 @@ class Assets {
 	 * @return array|boolean Information about combined field.
 	 */
 	public function get_combined_file( $um_dependencies, $ext = '' ) {
-		if ( $ext && in_array( $ext, array( 'css', 'js' ), true ) ) {
+		if ( in_array( $ext, array( 'css', 'js' ), true ) ) {
 			$this->ext = $ext;
+		} else {
+			$ext = $this->ext;
 		}
 
-		// Exclude files that have already been combined.
-		if ( ! empty( $this->done[$this->ext] ) ) {
-			$um_dependencies = array_diff_key( (array) $um_dependencies, (array) $this->done[$this->ext] );
-		}
-		if ( empty( $um_dependencies ) ) {
-			return false;
-		}
-
-		if ( 'css' === $this->ext ) {
+		if ( 'css' === $ext ) {
 			$handle = 'um-combined-styles';
-		} elseif ( 'js' === $this->ext ) {
+		} elseif ( 'js' === $ext ) {
 			$handle = 'um-combined-scripts';
 		} else {
 			return false;
 		}
 		if ( $this->footer ) {
 			$handle .= '-footer';
+		}
+
+		// Exclude files that have already been combined.
+		if ( ! empty( $this->done[ $ext ] ) ) {
+			$um_dependencies = array_diff_key( (array) $um_dependencies, (array) $this->done[ $ext ] );
+		}
+		if ( empty( $um_dependencies ) ) {
+			return false;
 		}
 
 		$data	 = array();
@@ -272,14 +263,14 @@ class Assets {
 				$data[] = $dependency->extra['data'];
 			}
 			if ( ! empty( $dependency->deps ) ) {
-				$deps = array_merge( $deps, (array) $dependency->deps );
+				$deps = array_unique( array_merge( $deps, (array) $dependency->deps ) );
 			}
 			$ver_[] = $dependency->handle . $dependency->ver;
 		}
 
 		sort( $ver_ );
 		$version = md5( implode( ',', $ver_ ) );
-		$name		 = $handle . '-' . $version . '.' . $this->ext;
+		$name		 = $handle . '-' . $version . '.' . $ext;
 
 		$path	 = UM()->uploader()->get_upload_base_dir() . 'um_optimize/' . $name;
 		$src	 = UM()->uploader()->get_upload_base_url() . 'um_optimize/' . $name;
@@ -308,7 +299,7 @@ class Assets {
 		}
 
 		if ( $deps ) {
-			$deps = array_unique( array_diff( $deps, array_keys( $um_dependencies ), array_keys( $this->um_dependencies ) ) );
+			$deps = array_unique( array_diff( $deps, array_keys( $this->um_dependencies[ $ext ] ) ) );
 		}
 		if ( $data ) {
 			$data = implode( PHP_EOL, array_filter( $data ) );
@@ -330,17 +321,19 @@ class Assets {
 	 * @return array            An array of handles of queued UM dependencies.
 	 */
 	public function get_um_dependencies( $deps_list, $ext = '', $group = false ) {
-		if ( $ext && in_array( $ext, array( 'css', 'js' ), true ) ) {
+		if ( in_array( $ext, array( 'css', 'js' ), true ) ) {
 			$this->ext = $ext;
+		} else {
+			$ext = $this->ext;
 		}
 
-		if ( empty( $this->um_dependencies[$this->ext] ) ) {
-			$this->um_dependencies[$this->ext] = array();
+		if ( empty( $this->um_dependencies[ $ext ] ) ) {
+			$this->um_dependencies[ $ext ] = array();
 		}
 
 		if ( is_array( $deps_list ) ) {
 			foreach ( $deps_list as $handle ) {
-				$dependency = $this->wp_dependencies->registered[$handle];
+				$dependency = $this->wp_dependencies->registered[ $handle ];
 				if ( empty( $dependency->src ) ) {
 					continue;
 				}
@@ -348,28 +341,33 @@ class Assets {
 					if ( ! empty( $dependency->deps ) && is_array( $dependency->deps ) ) {
 						$this->get_um_dependencies( $dependency->deps, $ext );
 					}
-					if ( ! array_key_exists( $handle, $this->um_dependencies[$this->ext] ) ) {
-						$this->um_dependencies[$this->ext][$handle] = $dependency;
+					if ( ! array_key_exists( $handle, $this->um_dependencies[ $ext ] ) ) {
+						$this->um_dependencies[ $ext ][ $handle ] = $dependency;
 					}
 				}
 			}
 		}
 
 		if ( false === $group ) {
-			return $this->um_dependencies[$this->ext];
+			// All.
+			return $this->um_dependencies[ $ext ];
 		} elseif ( empty( $group ) ) {
+			// Header.
 			$um_dependencies = array();
-			foreach ( $this->um_dependencies[$this->ext] as $handle => $dependency ) {
+			foreach ( $this->um_dependencies[ $ext ] as $handle => $dependency ) {
 				if ( empty( $this->wp_dependencies->get_data( $handle, 'group' ) ) ) {
-					$um_dependencies[$handle] = $dependency;
+					$um_dependencies[ $handle ] = $dependency;
 				}
 			}
 			return $um_dependencies;
 		} else {
+			// Footer.
 			$um_dependencies = array();
-			foreach ( $this->um_dependencies[$this->ext] as $handle => $dependency ) {
+			foreach ( $this->um_dependencies[ $ext ] as $handle => $dependency ) {
 				if ( $group === $this->wp_dependencies->get_data( $handle, 'group' ) ) {
-					$um_dependencies[$handle] = $dependency;
+					$um_dependencies[ $handle ] = $dependency;
+				} elseif ( 'css' === $ext && ! in_array( $handle, $this->done[ 'css' ], true ) ) {
+					$um_dependencies[ $handle ] = $dependency;
 				}
 			}
 			return $um_dependencies;
@@ -555,18 +553,41 @@ class Assets {
 
 	/**
 	 * Optimize loading of Ultimate Member CSS and JS files
+	 *
+	 * @deprecated since version 1.3.2
 	 */
 	public function optimize_assets() {
-		if ( ! $this->is_ultimatemember() && UM()->options()->get( 'um_optimize_css_dequeue' ) ) {
-			$this->dequeue_assets( 'css' );
-		} elseif ( UM()->options()->get( 'um_optimize_css_combine' ) ) {
-			$this->combine_assets( 'css' );
-		}
+		$this->optimize_styles();
+		$this->optimize_scripts();
+	}
 
+
+	/**
+	 * Optimize JS files loading.
+	 *
+	 * @since 1.3.2
+	 */
+	public function optimize_scripts() {
+		$this->ext = 'js';
 		if ( ! $this->is_ultimatemember() && UM()->options()->get( 'um_optimize_js_dequeue' ) ) {
 			$this->dequeue_assets( 'js' );
 		} elseif ( UM()->options()->get( 'um_optimize_js_combine' ) ) {
 			$this->combine_assets( 'js' );
+		}
+	}
+
+
+	/**
+	 * Optimize CSS files loading.
+	 *
+	 * @since 1.3.2
+	 */
+	public function optimize_styles() {
+		$this->ext = 'css';
+		if ( ! $this->is_ultimatemember() && UM()->options()->get( 'um_optimize_css_dequeue' ) ) {
+			$this->dequeue_assets( 'css' );
+		} elseif ( UM()->options()->get( 'um_optimize_css_combine' ) ) {
+			$this->combine_assets( 'css' );
 		}
 	}
 

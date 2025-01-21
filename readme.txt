@@ -40,9 +40,10 @@ Download ZIP file from Google Drive. You can find download links here: https://g
 
 == Changelog ==
 
-= 1.3.2: January 20, 2025 =
+= 1.3.2: January 22, 2025 =
 
  - Improved SQL queries optimizer - added support for the array meta key and empty meta key.
+ - Improved combining assets - added support for styles loaded in the footer.
 
 = 1.3.1: January 16, 2025 =
 

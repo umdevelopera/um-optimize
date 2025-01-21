@@ -58,7 +58,7 @@ div.um .um-dropdown li:last-child a {
 div.um .um-dropdown-arr {
 	color: var( --color-line, #dddddd );
 }
-div.um-new-dropdown li a,
+div.um-new-dropdown ul li a,
 div.um .um-dropdown .um-dropdown-b li a {
 	color: var( --color-light-text, #999999 );
 }
@@ -137,7 +137,7 @@ div.um a.um-link-alt:hover {
 div.um .um-button:not(.um-alt),
 div.um .um-button:not(.um-alt).um-disabled:is(:active,:focus),
 div.um input.um-button:not(.um-alt),
-div:is(.um,.um-modal,.um-user-photos-modal) .um-modal-btn:not(.alt),
+div:is(.um,.um-modal,.um-user-photos-add,.um-user-photos-modal) .um-modal-btn:not(.alt),
 div.um-modal .ajax-upload-dragdrop .upload {
 	background-color: var( --color-btn-pr, #3ba1da );
 	color: var( --color-btn-pr-text, #ffffff );
@@ -146,7 +146,7 @@ div.um-modal .ajax-upload-dragdrop .upload {
 div.um .um-button:not(.um-alt):hover,
 div.um .um-button:not(.um-alt).um-disabled:hover,
 div.um input.um-button:not(.um-alt):hover,
-div:is(.um,.um-modal,.um-user-photos-modal) .um-modal-btn:not(.alt):hover,
+div:is(.um,.um-modal,.um-user-photos-add,.um-user-photos-modal) .um-modal-btn:not(.alt):hover,
 div.um-modal .ajax-upload-dragdrop .upload:hover {
 	background-color: var( --color-btn-pr-hover, #44b0ec );
 }
@@ -196,8 +196,13 @@ div.um .um-field-label .um-tip i {
 div.um.um-viewing .um-field-label {
 	border-color: var( --color-light-line, #eeeeee );
 }
+#um-search-button {
+	color: var( --color-field-text, #666666 );
+	text-decoration: none;
+}
 div.um .um-field-label .um-tip:hover i,
-div.um .um-field .um-toggle-password:hover i {
+div.um .um-field .um-toggle-password:hover i,
+#um-search-button:hover {
 	color: var( --color-field-active, #3ba1da );
 }
 
@@ -205,7 +210,8 @@ div.um .um-field .um-toggle-password:hover i {
 div.um :is(.um-form,.um-field) ::placeholder,
 div.um :is(.um-form,.um-field) .select2-container--default .select2-selection--single .select2-selection__placeholder,
 div.um-message-textarea textarea.um_message_text::placeholder,
-div.um-user-photos-widget textarea.um-user-photos-comment-textarea::placeholder {
+div.um-user-photos-widget textarea.um-user-photos-comment-textarea::placeholder,
+div.um-search-form .um-search-field::placeholder {
 	color: var( --color-field-placeholder, #999999 );
 }
 
@@ -222,7 +228,6 @@ div.um_bookmarks_table input[type=text] {
 	padding: 0 12px;
 	width: 100%;
 }
-
 div.um :is(.um-form,.um-field) input[type=search]:not(.select2-search__field),
 div.um :is(.um-form,.um-field) input[type=tel],
 div.um :is(.um-form,.um-field) input[type=text],
@@ -232,7 +237,8 @@ div.um :is(.um-form,.um-field) input[type=password],
 div.um :is(.um-form,.um-field) select,
 div.um :is(.um-form,.um-field) textarea,
 div.um_bookmarks_table input[type=text],
-div.um-message-textarea textarea.um_message_text {
+div.um-message-textarea textarea.um_message_text,
+div.um-search-form .um-search-field {
 	background-color: var( --color-field-background, #ffffff ) !important;
 	border-color: var( --color-field-border, #dddddd ) !important;
 	color: var( --color-field-text, #666666 ) !important;
@@ -245,7 +251,8 @@ div.um :is(.um-form,.um-field) input[type=number]:focus,
 div.um :is(.um-form,.um-field) input[type=password]:focus,
 div.um :is(.um-form,.um-field) select:focus,
 div.um :is(.um-form,.um-field) textarea:focus,
-div.um_bookmarks_table input[type=text]:focus, {
+div.um_bookmarks_table input[type=text]:focus,
+div.um-search-form .um-search-field:focus {
 	border-color: var( --color-field-border, #dddddd ) !important;
 	outline: 1px solid  var( --color-field-border, #dddddd ) !important;
 }
@@ -268,7 +275,7 @@ div.um :is(.um-form,.um-field) a.um_current_user_location {
 	color: var( --color-field-placeholder, #999999 );
 }
 div.um :is(.um-form,.um-field) .select2-container.select2-container--open .select2-dropdown .select2-results li,
-div.um :is(.um-form,.um-field) .select2-container--default .select2-selection--single .select2-selection__rendered, {
+div.um :is(.um-form,.um-field) .select2-container--default .select2-selection--single .select2-selection__rendered {
 	color: var( --color-field-text, #666666 ) !important;
 }
 
@@ -276,7 +283,7 @@ div.um :is(.um-form,.um-field) .select2-container--default .select2-selection--s
 div.um .select2-container--default .select2-search--dropdown .select2-search__field,
 div.um .select2-container--default .select2-search--dropdown .select2-search__field:focus {
 	border-color: var( --color-field-border, #dddddd ) !important;
-	outline-color: var( --color-field-active, #3ba1da );
+	outline: 1px solid  var( --color-field-border, #dddddd );
 }
 
 /* select option */
@@ -461,12 +468,14 @@ div.um-directory .um-members-wrapper .um-members .um-member a.um-button {
 }
 
 /* pagination */
+div.um .um-pagi .pagi,
 div.um .um-members-pagi .pagi,
 div.um-directory .um-members-pagination-box .um-members-pagi .pagi,
 div.um-groups-single .um-members-pagination-box .um-members-pagi .pagi {
 	color: var( --color-text, #444444 ) !important;
 }
-div.um .um-members-pagi span.current,
+div.um .um-pagi .pagi.current,
+div.um .um-members-pagi .pagi.current,
 div.um-directory .um-members-pagination-box .um-members-pagi .pagi.current,
 div.um-groups-single .um-members-pagination-box .um-members-pagi .pagi.current {
 	background-color: var( --color-active, #3ba1da );
@@ -605,6 +614,10 @@ div.um .fmwp-user-topics .fmwp-topics-wrapper .fmwp-topic-row {
 
 div.um .um-followers-user {
 	border-color: var( --color-light-line, #eeeeee );
+	min-height: 80px;
+}
+div.um .um-followers-user-photo {
+	top: 15px;
 }
 div.um .um-followers-user-name a {
 	color: var( --color-text, #444444 );
@@ -619,6 +632,10 @@ div.um .um-followers-user-span {
 
 div.um .um-friends-user {
 	border-color: var( --color-light-line, #eeeeee );
+	min-height: 80px;
+}
+div.um .um-friends-user-photo {
+	top: 15px;
 }
 div.um .um-friends-user .um-friends-user-name a {
 	color: var( --color-text, #444444 );
@@ -638,21 +655,25 @@ div.um .um-groups-directory .um-group-item .actions ul li,
 div.um .um-groups-directory .um-group-item .um-group-meta ul :is(li,a) {
 	color: var( --color-light-text, #999999 );
 }
-div.um #um-groups-filters ul.filters,
-div.um #um-groups-filters ul.filters li,
+div#um-groups-filters ul.filters {
+	display: flex;
+	padding: 0px;
+}
+div#um-groups-filters ul.filters,
+div#um-groups-filters ul.filters li:not(:last-child),
 div.um-groups-single div.um-group-tabs-wrap,
 div.um-groups-single ul.um-groups-single-subtabs li.active a {
 	border-color: var( --color-line, #dddddd );
 }
-div.um #um-groups-filters ul.filters li.active {
+div#um-groups-filters ul.filters li.active {
 	background-color: var( --color-light-line, #eeeeee );
 }
-div.um #um-groups-filters ul.filters li a,
+div#um-groups-filters ul.filters li a,
 div.um-groups-single ul.um-groups-single-tabs li a,
 div.um-groups-single ul.um-groups-single-subtabs li a {
 	color: var( --color-text, #444444 );
 }
-div.um #um-groups-filters ul.filters li a span {
+div#um-groups-filters ul.filters li a span {
 	background-color: var( --color-light-line, #eeeeee );
 	border-color: var( --color-line, #dddddd );
 }
@@ -1152,8 +1173,10 @@ div.um-note-content .um_notes_author_date a.um_notes_author_profile_link,
 }
 :is(#um-user-notes-add,#um-user-notes-edit) button.um-modal-btn,
 :is(#um-user-notes-add,#um-user-notes-edit) select.um-form-field {
+	display: inline-block;
 	height: 36px;
 	vertical-align: middle;
+	width: auto;
 }
 
 /*
@@ -1194,8 +1217,10 @@ div.um-user-photos-modal .um-user-photos-modal-body .um-user-photos-modal-head .
 	text-decoration: none;
 }
 div.um-user-photos-modal .um-user-photos-modal-footer :is(select,.um-modal-btn) {
-	min-height: 35px;
+	display: inline-block;
+	min-height: 36px;
 	vertical-align: middle;
+	width: auto;
 }
 div.um-user-photos-modal .um-user-photos-like-list-item {
 	margin: 0 0 10px;
