@@ -17,6 +17,11 @@ if ( class_exists( 'um_ext\um_optimize\frontend\Assets' ) ) {
  */
 class Assets {
 
+	const NOT_DEQUEUE = array(
+		'um_notifications',
+		'um-user-bookmarks',
+	);
+
 	/**
 	 * Files extension. Accepts 'css', 'js'.
 	 *
@@ -191,9 +196,7 @@ class Assets {
 			return false;
 		}
 
-		$not_dequeue_def = array(
-			'um_notifications',
-		);
+		$not_dequeue_def = self::NOT_DEQUEUE;
 
 		/**
 		 * Hook: um_optimize_not_dequeue

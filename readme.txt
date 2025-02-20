@@ -8,10 +8,10 @@ License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 
 Requires at least: 6.5
-Tested up to: 6.7.1
+Tested up to: 6.7.2
 Requires UM core at least: 2.6.8
-Tested UM core up to: 2.9.2
-Stable tag: 1.3.2
+Tested UM core up to: 2.10.0
+Stable tag: 1.3.3
 
 == Description ==
 
@@ -39,6 +39,10 @@ You can install this plugin from the ZIP file as any other plugin. Follow this i
 Download ZIP file from Google Drive. You can find download links here: https://github.com/umdevelopera/um-optimize?tab=readme-ov-file#installation
 
 == Changelog ==
+
+= 1.3.3: February 20, 2025 =
+
+ - Fixed: Bookmark button style and script.
 
 = 1.3.2: January 22, 2025 =
 
