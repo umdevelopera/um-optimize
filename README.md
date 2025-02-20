@@ -24,7 +24,7 @@ Once the plugin is cloned, enter your site admin dashboard and go to _wp-admin >
 
 ### How to install from ZIP archive
 
-You can install the plugin from this [ZIP file](https://drive.google.com/file/d/1cpckDSV37yKcyyw-bFR8Sjbt0Fdz6Ak1/view) as any other plugin. Follow [this instruction](https://wordpress.org/support/article/managing-plugins/#upload-via-wordpress-admin).
+You can install the plugin from this [ZIP file](https://drive.google.com/file/d/1R4eahaQi-NBRDb7ZEowHrpN6_5yudI56/view) as any other plugin. Follow [this instruction](https://wordpress.org/support/article/managing-plugins/#upload-via-wordpress-admin).
 
 ## How to use
 
@@ -131,13 +131,13 @@ It is recommended to enable SQL queries optimization to get posts and members fa
 This is a free extension created for the community. The Ultimate Member team does not provide support for this extension.
 Open new [issue](https://github.com/umdevelopera/um-optimize/issues) if you are facing a problem or have a suggestion.
 
-**Please give a star if you think this extension is useful. I wish to know how many people use it. Thanks.**
+**Give a star if you think this extension is useful. Thanks.**
 
 ## Useful links
 
 [Ultimate Member core plugin info and download](https://wordpress.org/plugins/ultimate-member)
 
-[Ultimate Member documentation](https://docs.ultimatemember.com)
+[Documentation for Ultimate Member](https://docs.ultimatemember.com)
 
 [Official extensions for Ultimate Member](https://ultimatemember.com/extensions/)
 

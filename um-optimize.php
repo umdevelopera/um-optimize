@@ -11,8 +11,8 @@
  * Requires Plugins: ultimate-member
  * Requires at least: 6.5
  * Requires PHP: 7.4
- * UM version: 2.9.2
- * Version: 1.3.2
+ * UM version: 2.10.0
+ * Version: 1.3.3
  *
  * @package um_ext\um_optimize
  */
