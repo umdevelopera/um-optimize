@@ -39,13 +39,13 @@ class UM_Optimize {
 	 */
 	public function __construct() {
 
-		if( UM()->is_ajax() ) {
+		if ( UM()->is_ajax() ) {
 			$this->ajax();
 			$this->images();
 			$this->query();
 		} elseif ( UM()->is_request( 'admin' ) ) {
 			$this->admin();
-		} elseif ( UM()->is_request( 'frontend' ) ) {
+		} elseif ( ! is_admin() && ! is_login() ) {
 			$this->frontend();
 			$this->images();
 			$this->query();

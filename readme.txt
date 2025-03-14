@@ -8,10 +8,10 @@ License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 
 Requires at least: 6.5
-Tested up to: 6.7.2
+Tested up to: 6.8.1
 Requires UM core at least: 2.6.8
-Tested UM core up to: 2.10.0
-Stable tag: 1.3.3
+Tested UM core up to: 2.10.4
+Stable tag: 1.3.4
 
 == Description ==
 
@@ -39,6 +39,11 @@ You can install this plugin from the ZIP file as any other plugin. Follow this i
 Download ZIP file from Google Drive. You can find download links here: https://github.com/umdevelopera/um-optimize?tab=readme-ov-file#installation
 
 == Changelog ==
+
+= 1.3.4: June 18, 2025 =
+
+ - Fixed: Optimization features are disabled on the wp-login.php screen.
+ - Tweak: Minor style changes.
 
 = 1.3.3: February 20, 2025 =
 

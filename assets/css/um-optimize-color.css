@@ -418,7 +418,8 @@ div.um-account .um-account-side li a:hover span.um-account-arrow {
  */
 
 /* header */
-div.um-directory .um-member-directory-search-line {
+div.um-directory .um-member-directory-search-line,
+div.um-directory .um-member-directory-map-controls-half {
 	flex-grow: 1;
 }
 div.um-directory .um-member-directory-header .um-member-directory-header-row .um-member-directory-nav-line .um-member-directory-view-type a.um-member-directory-view-type-a.um-tip-n[data-type] {
