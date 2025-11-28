@@ -36,9 +36,10 @@ if ( ! defined( 'um_reviews_version' ) ) {
  *     @type string $where SQL fragment to append to the main WHERE clause.
  * }
  */
-function um_optimize_reviews__get_meta_sql( $sql, $queries, $type, $primary_table, $primary_id_column, $context ) {
+function um_optimize_reviews__get_meta_sql( $sql, $queries, $type, $primary_table, $primary_id_column, $context = null ) {
 	if ( UM()->options()->get( 'um_optimize_reviews' )
 		&& 'post' === $type
+		&& isset( $context )
 		&& 'um_review' === $context->get( 'post_type' ) ) {
 
 		$sql_um = UM()->Optimize()->query()->get_meta_sql( $sql, $queries, $type, $primary_table, $primary_id_column, $context );

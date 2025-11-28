@@ -36,9 +36,10 @@ if ( ! defined( 'um_groups_version' ) ) {
  *     @type string $where SQL fragment to append to the main WHERE clause.
  * }
  */
-function um_optimize_groups__get_meta_sql( $sql, $queries, $type, $primary_table, $primary_id_column, $context ) {
+function um_optimize_groups__get_meta_sql( $sql, $queries, $type, $primary_table, $primary_id_column, $context = null ) {
 	if ( UM()->options()->get( 'um_optimize_groups' )
 		&& 'post' === $type
+		&& isset( $context )
 		&& 'um_groups_discussion' === $context->get( 'post_type' ) ) {
 
 		$sql_um = UM()->Optimize()->query()->get_meta_sql( $sql, $queries, $type, $primary_table, $primary_id_column, $context );
