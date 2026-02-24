@@ -198,6 +198,9 @@ class Assets {
 		}
 
 		$not_dequeue_def = self::NOT_DEQUEUE;
+		if ( is_plugin_active( 'um-notices/um-notices.php' ) ) {
+			array_push( $not_dequeue_def, 'um_styles' );
+		}
 
 		/**
 		 * Hook: um_optimize_not_dequeue
