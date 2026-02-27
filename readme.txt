@@ -4,14 +4,14 @@ Author: umdevelopera
 Author URI: https://github.com/umdevelopera
 Plugin URI: https://github.com/umdevelopera/um-optimize
 Tags: ultimate member, optimize, assets, images
-License: GNU Version 2 or Any Later Version
+License: GNU Version 3 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 
 Requires at least: 6.5
-Tested up to: 6.8.1
+Tested up to: 6.9.1
 Requires UM core at least: 2.6.8
-Tested UM core up to: 2.10.4
-Stable tag: 1.3.4
+Tested UM core up to: 2.11.2
+Stable tag: 1.3.5
 
 == Description ==
 
@@ -39,6 +39,14 @@ You can install this plugin from the ZIP file as any other plugin. Follow this i
 Download ZIP file from Google Drive. You can find download links here: https://github.com/umdevelopera/um-optimize?tab=readme-ov-file#installation
 
 == Changelog ==
+
+= 1.3.5: March 1, 2026 =
+
+* Bugfixes:
+
+ - Fixed a conflict with Rank Math SEO.
+ - Fixed styles for the notice.
+ - Fixed JS file optimization. (#10)
 
 = 1.3.4: June 18, 2025 =
 
