@@ -628,9 +628,11 @@ class Assets {
 			if ( apply_filters( 'um_optimize_minify_css', true ) ) {
 				if ( ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) || ( defined( 'UM_SCRIPT_DEBUG' ) && UM_SCRIPT_DEBUG ) ) {
 					$pattern		 = array(
-						'/^\s+|\s+$/m',
+						'/^\s+/m',
 						'/\/\*.*?\*\//',
 						'/\/\*\*.*?\*\//s',
+						'/\/\*\!.*?\*\//s',
+						'/^\R+/m',
 					);
 					$filecontent = preg_replace( $pattern, '', $filecontent );
 				}
@@ -641,9 +643,13 @@ class Assets {
 			if ( apply_filters( 'um_optimize_minify_js', true ) ) {
 				if ( ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) || ( defined( 'UM_SCRIPT_DEBUG' ) && UM_SCRIPT_DEBUG ) ) {
 					$pattern		 = array(
-						'/^\s+|\s+$/m',
+						'/^\s+/m',
 						'/^\/\/.*$/m',
+						'/ \/\/.*$/m',
+						'/\/\*.*?\*\//',
 						'/\/\*\*.*?\*\//s',
+						'/\/\*\!.*?\*\//s',
+						'/^\R+/m',
 					);
 					$filecontent = preg_replace( $pattern, '', $filecontent );
 				}
