@@ -1,10 +1,10 @@
 <?php
-namespace um_ext\um_optimize\core;
+namespace um_ext\um_optimize\common;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-if ( class_exists( 'um_ext\um_optimize\core\Member_Directory' ) ) {
+if ( class_exists( 'um_ext\um_optimize\common\Member_Directory' ) ) {
 	return;
 }
 
@@ -13,7 +13,7 @@ if ( class_exists( 'um_ext\um_optimize\core\Member_Directory' ) ) {
  *
  * Get an instance this way: UM()->Optimize()->ajax()->member_directory()
  *
- * @package um_ext\um_optimize\core
+ * @package um_ext\um_optimize\common
  */
 class Member_Directory {
 
@@ -35,7 +35,7 @@ class Member_Directory {
 	 *
 	 * @since 1.1.0
 	 *
-	 * @see \um_ext\um_optimize\core\Query::get_meta_sql()
+	 * @see \um_ext\um_optimize\common\Query::get_meta_sql()
 	 *
 	 * @param string[] $sql               Array containing the query's JOIN and WHERE clauses.
 	 * @param array    $queries           Array of meta queries.
@@ -74,10 +74,10 @@ class Member_Directory {
 	 *
 	 * @since 1.1.1
 	 *
-	 * @see \um\core\Member_Directory_Meta::handle_filter_query()
+	 * @see \um\common\Member_Directory_Meta::handle_filter_query()
 	 *
 	 * @param bool   $skip_default Skip default JOIN for this field if TRUE.
-	 * @param object $um_mdm       The \um\core\Member_Directory_Meta class.
+	 * @param object $um_mdm       The \um\common\Member_Directory_Meta class.
 	 * @param string $field        Meta Key of the field.
 	 * @param mixed  $value        Value(s) of the field.
 	 * @param string $filter_type  Filter type.

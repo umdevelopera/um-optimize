@@ -1,14 +1,14 @@
 <?php
 /*
- * Optimize the User Photos extension.
+ * Optimize the Groups extension.
  *
- * @package um_ext\um_optimize\extensions
+ * @package um_ext\um_optimize\integrations
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-if ( ! defined( 'um_user_photos_version' ) ) {
+if ( ! defined( 'UM_GROUPS_VERSION' ) ) {
 	return;
 }
 
@@ -17,7 +17,7 @@ if ( ! defined( 'um_user_photos_version' ) ) {
  *
  * @since 1.1.0
  *
- * @see \um_ext\um_optimize\core\Query::get_meta_sql()
+ * @see \um_ext\um_optimize\common\Query::get_meta_sql()
  *
  * @param string[] $sql               Array containing the query's JOIN and WHERE clauses.
  * @param array    $queries           Array of meta queries.
@@ -36,11 +36,11 @@ if ( ! defined( 'um_user_photos_version' ) ) {
  *     @type string $where SQL fragment to append to the main WHERE clause.
  * }
  */
-function um_optimize_photos__get_meta_sql( $sql, $queries, $type, $primary_table, $primary_id_column, $context = null ) {
-	if ( UM()->options()->get( 'um_optimize_photos' )
+function um_optimize_groups__get_meta_sql( $sql, $queries, $type, $primary_table, $primary_id_column, $context = null ) {
+	if ( UM()->options()->get( 'um_optimize_groups' )
 		&& 'post' === $type
 		&& isset( $context )
-		&& 'um_user_photos' === $context->get( 'post_type' ) ) {
+		&& 'um_groups_discussion' === $context->get( 'post_type' ) ) {
 
 		$sql_um = UM()->Optimize()->query()->get_meta_sql( $sql, $queries, $type, $primary_table, $primary_id_column, $context );
 
@@ -48,4 +48,4 @@ function um_optimize_photos__get_meta_sql( $sql, $queries, $type, $primary_table
 	}
 	return $sql;
 }
-add_filter( 'get_meta_sql', 'um_optimize_photos__get_meta_sql', 10, 6 );
+add_filter( 'get_meta_sql', 'um_optimize_groups__get_meta_sql', 10, 6 );

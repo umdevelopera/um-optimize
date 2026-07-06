@@ -11,8 +11,8 @@
  * Requires Plugins: ultimate-member
  * Requires at least: 6.5
  * Requires PHP: 7.4
- * UM version: 2.11.2
- * Version: 1.3.5
+ * UM version: 2.12.1
+ * Version: 1.3.6
  *
  * @package um_ext\um_optimize
  */
@@ -36,9 +36,9 @@ define( 'um_optimize_textdomain', 'um-optimize' );
 // Activation script.
 if ( ! function_exists( 'um_optimize_activation_hook' ) ) {
 	function um_optimize_activation_hook() {
-		require_once 'includes/core/class-setup.php';
-		if ( class_exists( 'um_ext\um_optimize\core\Setup' ) && function_exists( 'UM' ) ) {
-			$setup = new um_ext\um_optimize\core\Setup();
+		require_once 'includes/common/class-setup.php';
+		if ( class_exists( 'um_ext\um_optimize\common\Setup' ) && function_exists( 'UM' ) ) {
+			$setup = new um_ext\um_optimize\common\Setup();
 			$setup->run();
 		}
 	}
@@ -49,7 +49,7 @@ register_activation_hook( um_optimize_plugin, 'um_optimize_activation_hook' );
 // Check dependencies.
 if ( ! function_exists( 'um_optimize_check_dependencies' ) ) {
 	function um_optimize_check_dependencies() {
-		if ( ! defined( 'um_path' ) || ! function_exists( 'UM' ) || ! UM()->dependencies()->ultimatemember_active_check() ) {
+		if ( ! function_exists( 'UM' ) || ! UM()->dependencies()->ultimatemember_active_check() ) {
 			// UM is not active.
 			add_action(
 				'admin_notices',

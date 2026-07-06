@@ -1,10 +1,10 @@
 <?php
-namespace um_ext\um_optimize\core;
+namespace um_ext\um_optimize\common;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-if ( class_exists( 'um_ext\um_optimize\core\AJAX' ) ) {
+if ( class_exists( 'um_ext\um_optimize\common\AJAX' ) ) {
 	return;
 }
 
@@ -13,7 +13,7 @@ if ( class_exists( 'um_ext\um_optimize\core\AJAX' ) ) {
  *
  * Get an instance this way: UM()->Optimize()->ajax()
  *
- * @package um_ext\um_optimize\core
+ * @package um_ext\um_optimize\common
  */
 class AJAX {
 
@@ -29,11 +29,11 @@ class AJAX {
 	/**
 	 * Optimize member directories.
 	 *
-	 * @return \um_ext\um_optimize\core\Member_Directory
+	 * @return \um_ext\um_optimize\common\Member_Directory
 	 */
 	public function member_directory() {
 		if ( empty( UM()->classes['um_optimize_member_directory'] ) ) {
-			require_once um_optimize_path . 'includes/core/class-member-directory.php';
+			require_once um_optimize_path . 'includes/common/class-member-directory.php';
 			UM()->classes['um_optimize_member_directory'] = new Member_Directory();
 		}
 		return UM()->classes['um_optimize_member_directory'];

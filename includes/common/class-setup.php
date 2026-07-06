@@ -1,5 +1,5 @@
 <?php
-namespace um_ext\um_optimize\core;
+namespace um_ext\um_optimize\common;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Get an instance this way: UM()->Optimize()->setup()
  *
- * @package um_ext\um_optimize\core
+ * @package um_ext\um_optimize\common
  */
 class Setup {
 

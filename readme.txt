@@ -40,6 +40,20 @@ Download ZIP file from Google Drive. You can find download links here: https://g
 
 == Changelog ==
 
+= 1.3.6 July 21, 2026 =
+
+* Enhancements:
+
+ - The extension structure has been updated to match the new standard.
+ - Improved integration with other extensions.
+ - SQL queries have been made more secure.
+ - New hook `um_member_directory_cover_image_size` is used to change the cover photo size in the directory.
+
+* Bugfixes:
+
+ - Fixed sorting by name in the member directories. The `table_aliases` variable has been changed to match the native variable.
+ - Fixed the "Cover Photo size in directory" setting. The setting value can only be a number.
+
 = 1.3.5: March 1, 2026 =
 
 * Bugfixes:

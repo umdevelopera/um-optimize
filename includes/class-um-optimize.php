@@ -51,22 +51,8 @@ class UM_Optimize {
 			$this->query();
 		}
 
-		// Extensions.
-		if ( defined( 'um_activity_version' ) ) {
-			require_once um_optimize_path . 'includes/extensions/activity.php';
-		}
-		if ( defined( 'um_groups_version' ) ) {
-			require_once um_optimize_path . 'includes/extensions/groups.php';
-		}
-		if ( defined( 'um_reviews_version' ) ) {
-			require_once um_optimize_path . 'includes/extensions/reviews.php';
-		}
-		if ( defined( 'um_user_notes_version' ) ) {
-			require_once um_optimize_path . 'includes/extensions/user_notes.php';
-		}
-		if ( defined( 'um_user_photos_version' ) ) {
-			require_once um_optimize_path . 'includes/extensions/user_photos.php';
-		}
+		// integrations.
+		$this->integrations();
 
 		// Scheduled_events.
 		add_action( 'um_twicedaily_scheduled_events', array( $this, 'clear_files' ), 20 );
@@ -90,12 +76,12 @@ class UM_Optimize {
 	/**
 	 * AJAX handlers.
 	 *
-	 * @return um_ext\um_optimize\core\AJAX
+	 * @return um_ext\um_optimize\common\AJAX
 	 */
 	public function ajax() {
 		if ( empty( UM()->classes['um_optimize_ajax'] ) ) {
-			require_once um_optimize_path . 'includes/core/class-ajax.php';
-			UM()->classes['um_optimize_ajax'] = new um_ext\um_optimize\core\AJAX();
+			require_once um_optimize_path . 'includes/common/class-ajax.php';
+			UM()->classes['um_optimize_ajax'] = new um_ext\um_optimize\common\AJAX();
 		}
 		return UM()->classes['um_optimize_ajax'];
 	}
@@ -118,26 +104,40 @@ class UM_Optimize {
 	/**
 	 * Optimize images.
 	 *
-	 * @return um_ext\um_optimize\core\Images
+	 * @return um_ext\um_optimize\common\Images
 	 */
 	public function images() {
 		if ( empty( UM()->classes['um_optimize_images'] ) ) {
-			require_once um_optimize_path . 'includes/core/class-images.php';
-			UM()->classes['um_optimize_images'] = new um_ext\um_optimize\core\Images();
+			require_once um_optimize_path . 'includes/common/class-images.php';
+			UM()->classes['um_optimize_images'] = new um_ext\um_optimize\common\Images();
 		}
 		return UM()->classes['um_optimize_images'];
 	}
 
 
 	/**
+	 * Integration with other extensions.
+	 *
+	 * @return um_ext\um_optimize\integrations\Init
+	 */
+	public function integrations() {
+		if ( empty( UM()->classes['um_optimize_integrations'] ) ) {
+			require_once um_optimize_path . 'includes/integrations/class-init.php';
+			UM()->classes['um_optimize_integrations'] = new um_ext\um_optimize\integrations\Init();
+		}
+		return UM()->classes['um_optimize_integrations'];
+	}
+
+
+	/**
 	 * Optimize queries.
 	 *
-	 * @return um_ext\um_optimize\core\Query
+	 * @return um_ext\um_optimize\common\Query
 	 */
 	public function query() {
 		if ( empty( UM()->classes['um_optimize_query'] ) ) {
-			require_once um_optimize_path . 'includes/core/class-query.php';
-			UM()->classes['um_optimize_query'] = new um_ext\um_optimize\core\Query();
+			require_once um_optimize_path . 'includes/common/class-query.php';
+			UM()->classes['um_optimize_query'] = new um_ext\um_optimize\common\Query();
 		}
 		return UM()->classes['um_optimize_query'];
 	}
@@ -146,12 +146,12 @@ class UM_Optimize {
 	/**
 	 * Actions on installation.
 	 *
-	 * @return um_ext\um_optimize\core\Setup
+	 * @return um_ext\um_optimize\common\Setup
 	 */
 	public function setup() {
 		if ( empty( UM()->classes['um_optimize_setup'] ) ) {
-			require_once um_optimize_path . 'includes/core/class-setup.php';
-			UM()->classes['um_optimize_setup'] = new um_ext\um_optimize\core\Setup();
+			require_once um_optimize_path . 'includes/common/class-setup.php';
+			UM()->classes['um_optimize_setup'] = new um_ext\um_optimize\common\Setup();
 		}
 		return UM()->classes['um_optimize_setup'];
 	}
