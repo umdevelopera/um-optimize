@@ -5,9 +5,7 @@
  * @package um_ext\um_optimize\integrations
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 if ( ! defined( 'UM_USER_NOTES_VERSION' ) ) {
 	return;
 }

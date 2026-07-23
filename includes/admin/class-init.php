@@ -1,9 +1,7 @@
 <?php
 namespace um_ext\um_optimize\admin;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 if ( class_exists( 'um_ext\um_optimize\admin\Init' ) ) {
 	return;
 }
@@ -35,7 +33,7 @@ class Init {
 	 */
 	public function settings_color() {
 		if ( empty( UM()->classes['um_optimize_settings_color'] ) ) {
-			require_once um_optimize_path . 'includes/admin/class-settings-color.php';
+			require_once UM_OPTIMIZE_PATH . 'includes/admin/class-settings-color.php';
 			UM()->classes['um_optimize_settings_color'] = new Settings_Color();
 		}
 		return UM()->classes['um_optimize_settings_color'];
@@ -50,7 +48,7 @@ class Init {
 	 */
 	public function settings_optimize() {
 		if ( empty( UM()->classes['um_optimize_settings_optimize'] ) ) {
-			require_once um_optimize_path . 'includes/admin/class-settings-optimize.php';
+			require_once UM_OPTIMIZE_PATH . 'includes/admin/class-settings-optimize.php';
 			UM()->classes['um_optimize_settings_optimize'] = new Settings_Optimize();
 		}
 		return UM()->classes['um_optimize_settings_optimize'];

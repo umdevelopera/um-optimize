@@ -1,8 +1,9 @@
 <?php
 namespace um_ext\um_optimize\common;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+defined( 'ABSPATH' ) || exit;
+if ( class_exists( 'um_ext\um_optimize\common\Setup' ) ) {
+	return;
 }
 
 /**
@@ -90,6 +91,8 @@ class Setup {
 		'um_optimize_notes'            => 0,
 		'um_optimize_photos'           => 0,
 		'um_optimize_reviews'          => 0,
+		'um_optimize_profile_tabs'     => 0,
+		'um_optimize_profile_ajax'     => 0,
 		'um_optimize_color'            => 0,
 	);
 

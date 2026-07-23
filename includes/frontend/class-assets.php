@@ -1,9 +1,15 @@
 <?php
+/**
+ * Optimize assets.
+ *  - Dequeue Ultimate Member CSS and JS files on pages without UM components.
+ *  - Combine Ultimate Member CSS and JS files on pages with UM components.
+ *
+ * @package um_ext\um_optimize\frontend
+ */
+
 namespace um_ext\um_optimize\frontend;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 if ( class_exists( 'um_ext\um_optimize\frontend\Assets' ) ) {
 	return;
 }
@@ -17,9 +23,11 @@ if ( class_exists( 'um_ext\um_optimize\frontend\Assets' ) ) {
  */
 class Assets {
 
-	const NOT_DEQUEUE = array(
-		'um_notifications',
-	);
+	/**
+	 * An array of assets that should not be dequeued.
+	 * Use the `um_optimize_not_dequeue` filter to extend this array.
+	 */
+	const NOT_DEQUEUE = array();
 
 	/**
 	 * Files extension. Accepts 'css', 'js'.
@@ -134,7 +142,7 @@ class Assets {
 	/**
 	 * Check whether the page has Ultimate Member widget.
 	 *
-	 * @param array $widget
+	 * @param array $widget Widget data.
 	 */
 	public function check_widgets( $widget ) {
 		if ( 0 === strpos( $widget['id'], 'um_' ) || 0 === strpos( $widget['id'], 'um-' ) ) {
@@ -256,9 +264,9 @@ class Assets {
 			return false;
 		}
 
-		$data	 = array();
-		$deps	 = array();
-		$ver_	 = array();
+		$data = array();
+		$deps = array();
+		$ver_ = array();
 
 		foreach ( $um_dependencies as $dependency ) {
 			if ( ! empty( $dependency->extra['data'] ) ) {
@@ -272,20 +280,20 @@ class Assets {
 
 		sort( $ver_ );
 		$version = md5( implode( ',', $ver_ ) );
-		$name		 = $handle . '-' . $version . '.' . $ext;
+		$name    = $handle . '-' . $version . '.' . $ext;
 
-		$path	 = UM()->uploader()->get_upload_base_dir() . 'um_optimize/' . $name;
-		$src	 = UM()->uploader()->get_upload_base_url() . 'um_optimize/' . $name;
+		$path = UM()->uploader()->get_upload_base_dir() . 'um_optimize/' . $name;
+		$src  = UM()->uploader()->get_upload_base_url() . 'um_optimize/' . $name;
 
 		if ( ! file_exists( $path ) ) {
-			$baseurl	 = trailingslashit( site_url() );
-			$basepath	 = wp_normalize_path( ABSPATH );
+			$baseurl  = trailingslashit( site_url() );
+			$basepath = wp_normalize_path( ABSPATH );
 
 			$content = array();
 			foreach ( $um_dependencies as $dependency ) {
-				$filename		 = str_replace( $baseurl, $basepath, $dependency->src );
+				$filename    = str_replace( $baseurl, $basepath, $dependency->src );
 				$filecontent = file_get_contents( $filename );
-				if ( FALSE !== $filecontent ) {
+				if ( false !== $filecontent ) {
 					$content[] = '/* File: ' . basename( $filename ) . ' */';
 					$content[] = $this->optimize_file_content( $filecontent, $dependency );
 				}
@@ -316,11 +324,11 @@ class Assets {
 	 *
 	 * @since 1.1.1
 	 *
-	 * @param array  $deps_list An array of handles of queued dependencies.
-	 * @param string $ext       Files extension. Accepts 'css', 'js'.
-	 * @param int|false $group  Optional. Group level: level (int), no groups (false). Default false.
+	 * @param array     $deps_list An array of handles of queued dependencies.
+	 * @param string    $ext       Files extension. Accepts 'css', 'js'.
+	 * @param int|false $group     Optional. Group level: level (int), no groups (false). Default false.
 	 *
-	 * @return array            An array of handles of queued UM dependencies.
+	 * @return array An array of handles of queued UM dependencies.
 	 */
 	public function get_um_dependencies( $deps_list, $ext = '', $group = false ) {
 		if ( in_array( $ext, array( 'css', 'js' ), true ) ) {
@@ -368,7 +376,7 @@ class Assets {
 			foreach ( $this->um_dependencies[ $ext ] as $handle => $dependency ) {
 				if ( $group === $this->wp_dependencies->get_data( $handle, 'group' ) ) {
 					$um_dependencies[ $handle ] = $dependency;
-				} elseif ( 'css' === $ext && ! in_array( $handle, $this->done[ 'css' ], true ) ) {
+				} elseif ( 'css' === $ext && ! in_array( $handle, $this->done['css'], true ) ) {
 					$um_dependencies[ $handle ] = $dependency;
 				}
 			}
@@ -494,7 +502,7 @@ class Assets {
 			return true;
 		}
 
-		$um_pages			 = UM()->config()->permalinks;
+		$um_pages      = UM()->config()->permalinks;
 		$um_post_types = $this->get_um_post_types();
 
 		if ( is_singular() ) {
@@ -506,7 +514,7 @@ class Assets {
 				return true;
 			}
 			foreach ( $this->get_um_shortcodes() as $shortcode ) {
-				if ( strpos( $post->post_content, '[' . $shortcode ) !== FALSE ) {
+				if ( strpos( $post->post_content, '[' . $shortcode ) !== false ) {
 					$this->has_um_shortcode = true;
 					return true;
 				}
@@ -597,32 +605,32 @@ class Assets {
 	/**
 	 * Modify file content before combining
 	 *
-	 * @param string         $filecontent File content.
-	 * @param _WP_Dependency $dependency
+	 * @param string        $filecontent File content.
+	 * @param WP_Dependency $dependency  Dependency object.
 	 *
 	 * @return string File content.
 	 */
 	public function optimize_file_content( $filecontent, $dependency ) {
 
 		if ( 'css' === $this->ext ) {
-			$dir				 = dirname( $dependency->src );
-			$parent_dir	 = dirname( $dir );
+			$dir        = dirname( $dependency->src );
+			$parent_dir = dirname( $dir );
 
 			$replace_pairs = array(
-				'url("./'			 => 'url("' . $dir . '/',
-				'url("../'		 => 'url("' . $parent_dir . '/',
-				'url("font'		 => 'url("' . $dir . '/font',
-				'url("images'	 => 'url("' . $dir . '/images',
-				'url(./'			 => 'url(' . $dir . '/',
-				'url(../'			 => 'url(' . $parent_dir . '/',
-				'url(font'		 => 'url(' . $dir . '/font',
-				'url(images'	 => 'url(' . $dir . '/images',
+				'url("./'     => 'url("' . $dir . '/',
+				'url("../'    => 'url("' . $parent_dir . '/',
+				'url("font'   => 'url("' . $dir . '/font',
+				'url("images' => 'url("' . $dir . '/images',
+				'url(./'      => 'url(' . $dir . '/',
+				'url(../'     => 'url(' . $parent_dir . '/',
+				'url(font'    => 'url(' . $dir . '/font',
+				'url(images'  => 'url(' . $dir . '/images',
 			);
-			$filecontent	 = strtr( $filecontent, $replace_pairs );
+			$filecontent   = strtr( $filecontent, $replace_pairs );
 
 			if ( apply_filters( 'um_optimize_minify_css', true ) ) {
 				if ( ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) || ( defined( 'UM_SCRIPT_DEBUG' ) && UM_SCRIPT_DEBUG ) ) {
-					$pattern		 = array(
+					$pattern     = array(
 						'/^\s+/m',
 						'/\/\*.*?\*\//',
 						'/\/\*\*.*?\*\//s',
@@ -637,7 +645,7 @@ class Assets {
 		if ( 'js' === $this->ext ) {
 			if ( apply_filters( 'um_optimize_minify_js', true ) ) {
 				if ( ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) || ( defined( 'UM_SCRIPT_DEBUG' ) && UM_SCRIPT_DEBUG ) ) {
-					$pattern		 = array(
+					$pattern     = array(
 						'/^\s+/m',
 						'/^\/\/.*$/m',
 						'/ \/\/.*$/m',
@@ -661,5 +669,4 @@ class Assets {
 	public function set_footer() {
 		$this->footer = true;
 	}
-
 }

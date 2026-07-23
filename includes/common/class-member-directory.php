@@ -1,9 +1,7 @@
 <?php
 namespace um_ext\um_optimize\common;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 if ( class_exists( 'um_ext\um_optimize\common\Member_Directory' ) ) {
 	return;
 }

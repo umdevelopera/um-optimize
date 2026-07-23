@@ -1,9 +1,13 @@
 <?php
+/**
+ * Front-end features.
+ *
+ * @package um_ext\um_optimize\frontend
+ */
+
 namespace um_ext\um_optimize\frontend;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 if ( class_exists( 'um_ext\um_optimize\frontend\Init' ) ) {
 	return;
 }
@@ -24,6 +28,7 @@ class Init {
 	public function __construct() {
 		$this->assets();
 		$this->color();
+		$this->profile();
 	}
 
 
@@ -34,7 +39,7 @@ class Init {
 	 */
 	public function assets() {
 		if ( empty( UM()->classes['um_optimize_assets'] ) ) {
-			require_once um_optimize_path . 'includes/frontend/class-assets.php';
+			require_once UM_OPTIMIZE_PATH . 'includes/frontend/class-assets.php';
 			UM()->classes['um_optimize_assets'] = new Assets();
 		}
 		return UM()->classes['um_optimize_assets'];
@@ -48,10 +53,23 @@ class Init {
 	 */
 	public function color() {
 		if ( empty( UM()->classes['um_optimize_frontend_color'] ) ) {
-			require_once um_optimize_path . 'includes/frontend/class-color.php';
+			require_once UM_OPTIMIZE_PATH . 'includes/frontend/class-color.php';
 			UM()->classes['um_optimize_frontend_color'] = new Color();
 		}
 		return UM()->classes['um_optimize_frontend_color'];
 	}
 
+
+	/**
+	 * Speed up profiles.
+	 *
+	 * @return \um_ext\um_optimize\frontend\Profile
+	 */
+	public function profile() {
+		if ( empty( UM()->classes['um_optimize_frontend_profile'] ) ) {
+			require_once UM_OPTIMIZE_PATH . 'includes/frontend/class-profile.php';
+			UM()->classes['um_optimize_frontend_profile'] = new Profile();
+		}
+		return UM()->classes['um_optimize_frontend_profile'];
+	}
 }

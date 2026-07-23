@@ -1,9 +1,13 @@
 <?php
+/**
+ * Customize Ultimate Member colors.
+ *
+ * @package um_ext\um_optimize\frontend
+ */
+
 namespace um_ext\um_optimize\frontend;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 if ( class_exists( 'um_ext\um_optimize\frontend\Color' ) ) {
 	return;
 }
@@ -37,9 +41,9 @@ class Color {
 		}
 
 		// TESTING.
-		if ( defined( 'UM_SCRIPT_DEBUG') && UM_SCRIPT_DEBUG && WP_DEBUG && 29 === get_current_user_id() ) {
-			return;
-		}
+//		if ( defined( 'UM_SCRIPT_DEBUG') && UM_SCRIPT_DEBUG && WP_DEBUG && 29 === get_current_user_id() ) {
+//			return;
+//		}
 
 		$enqueue = UM()->frontend()->enqueue();
 		$suffix  = $enqueue::get_suffix();
@@ -51,17 +55,16 @@ class Color {
 			'um-optimize-color-variables',
 			$src,
 			array(),
-			um_optimize_version . '.' . filemtime( $path )
+			UM_OPTIMIZE_VERSION . '.' . filemtime( $path )
 		);
 
 		wp_register_style(
 			'um-optimize-color',
-			um_optimize_url . 'assets/css/um-optimize-color' . $suffix . '.css',
+			UM_OPTIMIZE_URL . 'assets/css/um-optimize-color' . $suffix . '.css',
 			array( 'um-optimize-color-variables' ),
-			um_optimize_version
+			UM_OPTIMIZE_VERSION
 		);
 
 		wp_enqueue_style( 'um-optimize-color' );
 	}
-
 }

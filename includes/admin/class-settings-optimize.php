@@ -1,9 +1,7 @@
 <?php
 namespace um_ext\um_optimize\admin;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 if ( class_exists( 'um_ext\um_optimize\admin\Settings_Optimize' ) ) {
 	return;
 }
@@ -30,7 +28,7 @@ class Settings_Optimize {
 	/**
 	 * Add fields to the page
 	 *
-	 * @param  array $settings
+	 * @param  array $settings Ultimate Member settings.
 	 * @return array
 	 */
 	public function extend_settings( $settings ) {
@@ -40,6 +38,11 @@ class Settings_Optimize {
 			$this->settings_section_images(),
 			$this->settings_section_queries(),
 		);
+
+		// if the "Profile menu" setting is checked.
+		if ( UM()->options()->get( 'profile_menu' ) ) {
+			$sections[] = $this->settings_section_profile();
+		}
 
 		$settings['']['sections']['optimize'] = array(
 			'title'         => __( 'Optimize', 'um-optimize' ),
@@ -86,7 +89,9 @@ class Settings_Optimize {
 
 		return array(
 			'title'       => __( 'CSS and JS', 'um-optimize' ),
-			'description' => __( 'Ultimate Member loads various styles and scripts that are necessary for its components to work. Extensions can also load their own styles and scripts. Loading many styles and scripts can slow down page rendering. It is recommended to disable loading of Ultimate Member styles and scripts on pages that do not have its components.', 'um-optimize' ) . '<br>' . __( 'Loading one large style or script file has less impact on page rendering delay than loading multiple files. It is recommended to combine multiple Ultimate Member styles and scripts into one style file and one script file.', 'um-optimize' ),
+			'description' => __( 'Ultimate Member loads various styles and scripts that are necessary for its components to work. Extensions can also load their own styles and scripts. Loading many styles and scripts can slow down page rendering. It is recommended to disable loading of Ultimate Member styles and scripts on pages that do not have its components.', 'um-optimize' )
+			. '<br>'
+			. __( 'Loading one large style or script file has less impact on page rendering delay than loading multiple files. It is recommended to combine multiple Ultimate Member styles and scripts into one style file and one script file.', 'um-optimize' ),
 			'fields'      => $fields,
 		);
 	}
@@ -97,7 +102,7 @@ class Settings_Optimize {
 	 *
 	 * @return array
 	 */
-	public function settings_section_images(){
+	public function settings_section_images() {
 		$sizes     = UM()->files()->get_profile_photo_size( 'cover_thumb_sizes' );
 		$sizes[''] = __( 'Default', 'um-optimize' );
 
@@ -127,7 +132,43 @@ class Settings_Optimize {
 
 		return array(
 			'title'       => __( 'Images', 'um-optimize' ),
-			'description' => __( 'Ultimate Member does not allow using Cover Photo and Profile Photo images from the browser cache. This approach is safe and secure, but it slows down rendering the member directory and pages with Ultimate Member components. It is recommended to allow using images from the browser cache.', 'um-optimize' ) . '<br>' . __( 'Ultimate Member uses the largest Cover Photo thumbnail in the member directory on the desktop. However, the directory does not need large images. It is recommended to use Cover Photo thumbnail that is about 500 pixels wide to load images faster.', 'um-optimize' ),
+			'description' => __( 'Ultimate Member does not allow using Cover Photo and Profile Photo images from the browser cache. This approach is safe and secure, but it slows down rendering the member directory and pages with the cover and profile photos. It is recommended to allow using images from the browser cache.', 'um-optimize' )
+			. '<br>'
+			. __( 'Ultimate Member uses the largest Cover Photo thumbnail in the member directory on the desktop. However, the directory does not need large images. It is recommended to use Cover Photo thumbnail that is about 500 pixels wide to load images faster.', 'um-optimize' ),
+			'fields'      => $fields,
+		);
+	}
+
+
+	/**
+	 * Section "Profile".
+	 *
+	 * @return array
+	 */
+	public function settings_section_profile() {
+
+		$fields = array(
+			array(
+				'id'          => 'um_optimize_profile_tabs',
+				'type'        => 'checkbox',
+				'label'       => __( 'Profile Menu caching', 'um-optimize' ),
+				'description' => __( 'Enable profile menu data caching.', 'um-optimize' ),
+			),
+			array(
+				'id'          => 'um_optimize_profile_ajax',
+				'type'        => 'checkbox',
+				'label'       => __( 'Profile tab AJAX loading', 'um-optimize' ),
+				'description' => __( 'Enable loading profile tabs via AJAX.', 'um-optimize' ),
+			),
+		);
+
+		return array(
+			'title'       => __( 'Profile', 'um-optimize' ),
+			'description' => __( 'Ultimate Member triggers the `um_profile_tabs` and `um_user_profile_tabs` filters to build the profile menu. These filters may be triggered multiple times, slowing down the profile display.', 'um-optimize' )
+			. '<br>'
+			. __( 'The data returned by these filters can be cached to avoid repeating resource-intensive database queries.', 'um-optimize' )
+			. '<br>'
+			. __( 'Switching profile tabs reloads the entire page. Tab content can be loaded via AJAX to avoid reloading the entire page.', 'um-optimize' ),
 			'fields'      => $fields,
 		);
 	}
@@ -138,7 +179,7 @@ class Settings_Optimize {
 	 *
 	 * @return array
 	 */
-	public function settings_section_queries(){
+	public function settings_section_queries() {
 
 		$fields = array();
 

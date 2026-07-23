@@ -17,20 +17,17 @@
  * @package um_ext\um_optimize
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
 $plugin_data = get_plugin_data( __FILE__, true, false );
 
-define( 'um_optimize_url', plugin_dir_url( __FILE__ ) );
-define( 'um_optimize_path', plugin_dir_path( __FILE__ ) );
-define( 'um_optimize_plugin', plugin_basename( __FILE__ ) );
-define( 'um_optimize_extension', $plugin_data['Name'] );
-define( 'um_optimize_version', $plugin_data['Version'] );
-define( 'um_optimize_textdomain', 'um-optimize' );
+define( 'UM_OPTIMIZE_URL', plugin_dir_url( __FILE__ ) );
+define( 'UM_OPTIMIZE_PATH', plugin_dir_path( __FILE__ ) );
+define( 'UM_OPTIMIZE_PLUGIN', plugin_basename( __FILE__ ) );
+define( 'UM_OPTIMIZE_EXTENSION', $plugin_data['Name'] );
+define( 'UM_OPTIMIZE_VERSION', $plugin_data['Version'] );
 
 
 // Activation script.
@@ -43,7 +40,7 @@ if ( ! function_exists( 'um_optimize_activation_hook' ) ) {
 		}
 	}
 }
-register_activation_hook( um_optimize_plugin, 'um_optimize_activation_hook' );
+register_activation_hook( UM_OPTIMIZE_PLUGIN, 'um_optimize_activation_hook' );
 
 
 // Check dependencies.
@@ -55,7 +52,7 @@ if ( ! function_exists( 'um_optimize_check_dependencies' ) ) {
 				'admin_notices',
 				function () {
 					// translators: %s - plugin name.
-					echo '<div class="error"><p>' . wp_kses_post( sprintf( __( 'The <strong>%s</strong> extension requires the Ultimate Member plugin to be activated to work properly. You can download it <a href="https://wordpress.org/plugins/ultimate-member">here</a>', 'um-optimize' ), um_optimize_extension ) ) . '</p></div>';
+					echo '<div class="error"><p>' . wp_kses_post( sprintf( __( 'The <strong>%s</strong> extension requires the Ultimate Member plugin to be activated to work properly. You can download it <a href="https://wordpress.org/plugins/ultimate-member">here</a>', 'um-optimize' ), UM_OPTIMIZE_EXTENSION ) ) . '</p></div>';
 				}
 			);
 		} else {

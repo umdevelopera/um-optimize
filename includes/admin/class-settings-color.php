@@ -1,9 +1,7 @@
 <?php
 namespace um_ext\um_optimize\admin;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 if ( class_exists( 'um_ext\um_optimize\admin\Settings_Color' ) ) {
 	return;
 }

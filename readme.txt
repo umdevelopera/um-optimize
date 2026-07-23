@@ -40,6 +40,13 @@ Download ZIP file from Google Drive. You can find download links here: https://g
 
 == Changelog ==
 
+= 1.4.0 =
+
+* Enhancements:
+
+  - Improved integration with the "Real-time Notifications" extension.
+
+
 = 1.3.6 July 21, 2026 =
 
 * Enhancements:

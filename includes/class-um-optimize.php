@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Class UM_Optimize inits the extension.
@@ -66,7 +64,7 @@ class UM_Optimize {
 	 */
 	public function admin() {
 		if ( empty( UM()->classes['um_optimize_admin'] ) ) {
-			require_once um_optimize_path . 'includes/admin/class-init.php';
+			require_once UM_OPTIMIZE_PATH . 'includes/admin/class-init.php';
 			UM()->classes['um_optimize_admin'] = new um_ext\um_optimize\admin\Init();
 		}
 		return UM()->classes['um_optimize_admin'];
@@ -80,7 +78,7 @@ class UM_Optimize {
 	 */
 	public function ajax() {
 		if ( empty( UM()->classes['um_optimize_ajax'] ) ) {
-			require_once um_optimize_path . 'includes/common/class-ajax.php';
+			require_once UM_OPTIMIZE_PATH . 'includes/common/class-ajax.php';
 			UM()->classes['um_optimize_ajax'] = new um_ext\um_optimize\common\AJAX();
 		}
 		return UM()->classes['um_optimize_ajax'];
@@ -94,7 +92,7 @@ class UM_Optimize {
 	 */
 	public function frontend() {
 		if ( empty( UM()->classes['um_optimize_frontend'] ) ) {
-			require_once um_optimize_path . 'includes/frontend/class-init.php';
+			require_once UM_OPTIMIZE_PATH . 'includes/frontend/class-init.php';
 			UM()->classes['um_optimize_frontend'] = new um_ext\um_optimize\frontend\Init();
 		}
 		return UM()->classes['um_optimize_frontend'];
@@ -108,7 +106,7 @@ class UM_Optimize {
 	 */
 	public function images() {
 		if ( empty( UM()->classes['um_optimize_images'] ) ) {
-			require_once um_optimize_path . 'includes/common/class-images.php';
+			require_once UM_OPTIMIZE_PATH . 'includes/common/class-images.php';
 			UM()->classes['um_optimize_images'] = new um_ext\um_optimize\common\Images();
 		}
 		return UM()->classes['um_optimize_images'];
@@ -122,7 +120,7 @@ class UM_Optimize {
 	 */
 	public function integrations() {
 		if ( empty( UM()->classes['um_optimize_integrations'] ) ) {
-			require_once um_optimize_path . 'includes/integrations/class-init.php';
+			require_once UM_OPTIMIZE_PATH . 'includes/integrations/class-init.php';
 			UM()->classes['um_optimize_integrations'] = new um_ext\um_optimize\integrations\Init();
 		}
 		return UM()->classes['um_optimize_integrations'];
@@ -136,7 +134,7 @@ class UM_Optimize {
 	 */
 	public function query() {
 		if ( empty( UM()->classes['um_optimize_query'] ) ) {
-			require_once um_optimize_path . 'includes/common/class-query.php';
+			require_once UM_OPTIMIZE_PATH . 'includes/common/class-query.php';
 			UM()->classes['um_optimize_query'] = new um_ext\um_optimize\common\Query();
 		}
 		return UM()->classes['um_optimize_query'];
@@ -150,7 +148,7 @@ class UM_Optimize {
 	 */
 	public function setup() {
 		if ( empty( UM()->classes['um_optimize_setup'] ) ) {
-			require_once um_optimize_path . 'includes/common/class-setup.php';
+			require_once UM_OPTIMIZE_PATH . 'includes/common/class-setup.php';
 			UM()->classes['um_optimize_setup'] = new um_ext\um_optimize\common\Setup();
 		}
 		return UM()->classes['um_optimize_setup'];
